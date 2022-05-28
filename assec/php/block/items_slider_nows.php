@@ -20,29 +20,31 @@ $price_roz_product;
 ?>
 <div class="__element" onclick="locations('product&article=<? echo $article_product; ?>')">
     <span title="Добавить в избранное"></span>
-    <div class="element__img">
-        <img src="assec/images/product/<? echo $img ?> " alt="">
-    </div>
+    <div class="element_containers">
+        <div class="element__img">
+            <img src="assec/images/product/<? echo $img ?> " alt="">
+        </div>
 
-    <div class="bode__element">
+        <div class="bode__element">
 
-        <h3> <a href="product&article=<? echo $article_product; ?>"><? echo str_replace("PL", "+", $titles_product) ?> </a></h3>
+            <h3> <a href="product&article=<? echo $article_product; ?>"><? echo str_replace("PL", "+", $titles_product) ?> </a></h3>
 
-        <p>Артикуль: <? echo $article_product ?> </p>
-        <p>Ткань: <? for ($i = 0; $i < count($tkan); $i++) {
-                        if ($textile_product == $i) {
-                            echo $tkan[$i];
-                        }
-                    } ?></p>
-        <p>Размер: <? echo $size_product  ?></p>
-        <? if ($type == 'opt') { ?>
-            <p>В упаковке: <? echo $count_product; ?> шт. — 1 размер</p>
-        <? } ?>
+            <p>Артикуль: <? echo $article_product ?> </p>
+            <p>Ткань: <? for ($i = 0; $i < count($tkan); $i++) {
+                            if ($textile_product == $i) {
+                                echo $tkan[$i];
+                            }
+                        } ?></p>
+            <p>Размер: <? echo $size_product  ?></p>
+            <? if ($type == 'opt') { ?>
+                <p>В упаковке: <? echo $count_product; ?> шт. — 1 размер</p>
+            <? } ?>
+
+        </div>
 
     </div>
     <p class="href">
         <span>
             <a href='product&article=<? echo $article_product; ?>' title='Переход на страницу товара'>Перейти к товару</a> </span>
     </p>
-
 </div>

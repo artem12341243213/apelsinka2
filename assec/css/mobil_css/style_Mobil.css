@@ -949,7 +949,7 @@ div.button {
   background-size: 5vw;
   background-position: center;
 }
-.__element > div > p {
+.__element > div > div > p {
   display: block;
   padding: 2vw;
   padding-left: 0;
@@ -3206,4 +3206,9 @@ button.li_product_img.cheked_img {
 .box_pri a {
   color: blue;
   text-decoration: underline;
+}
+.conten {
+  height: 30vw;
+  display: flex;
+  align-items: center;
 }
