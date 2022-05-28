@@ -1,0 +1,2 @@
+@import "mobil_css/admin_css_m.css" screen and (max-width: 600px);
+@import "pc_css/admin_css.css" screen and (min-width: 600px);
