@@ -294,8 +294,32 @@ function hedeer($title, $css = [], $href = "")
                 right: 120px;
             }
         </style>
-
+        <meta name="yandex-verification" content="eb2808bf41f96492">
+        <meta name="google-site-verification" content="onmBUOCCyHPnLfSkDq5w6sVCY0FOGhy1MtaQwv4kVEc" />
         <title><? print($title) ?></title>
+
+        <!-- Yandex.Metrika counter -->
+        <script type="text/javascript">
+            (function(m, e, t, r, i, k, a) {
+                m[i] = m[i] || function() {
+                    (m[i].a = m[i].a || []).push(arguments)
+                };
+                m[i].l = 1 * new Date();
+                k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
+            })
+            (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+            ym(88782445, "init", {
+                clickmap: true,
+                trackLinks: true,
+                accurateTrackBounce: true,
+                webvisor: true
+            });
+        </script>
+        <noscript>
+            <div><img src="https://mc.yandex.ru/watch/88782445" style="position:absolute; left:-9999px;" alt="" /></div>
+        </noscript>
+        <!-- /Yandex.Metrika counter -->
 
     </head>
 

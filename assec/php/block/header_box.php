@@ -25,35 +25,39 @@
             <div class="header_box--box--rightPanel">
 
                 <div class="header_box--box--rightPanel_users">
-                    <? if (!isset($_SESSION['id'])) {
-                        if (array_key_first($_GET) != 'authorization') {
-                            if ($_GET == null) $lo = 'home';
-                            else $lo = substr(array_key_first($_GET), 1);
-                            if (array_key_exists("article", $_GET)) $lo .= "&article=" . $_GET['article'];
-                            if (array_key_exists("items", $_GET)) $lo .= "&items=" . $_GET['items'];
-                    ?>
-                            <a href="authorization&lye=<? echo $lo ?>" class="header_box-rightPanel_href" title="Переход на страницу авторизации">
-                            <? } else { ?>
-                                <a href="authorization" class="header_box-rightPanel_href" title="Переход на страницу авторизации">
-                                <? } ?>
-                                <p class="header_box-rightPanel_logoUser svg "></p> <!-- img-user -->
-                                <p class="header_box-rightPanel_auth">Вход/Регистрация</p>
-                                </a>
-                            <? } else { ?>
-                                <a href="profil" class="header_box-rightPanel_href" title="Переход на страницу профилья">
-                                    <p class="header_box_logoUser">
-                                        <img src="assec/images/users/<? echo $_SESSION['img'] ?>" alt=""> <!-- img-user -->
-                                    </p>
-                                    <p class="header_box-rightPanel_auth">Профиль</p>
-                                </a>
-                            <? } ?>
-                            <a href="profil&favorites">
-                                <p class="header_box-rightPanel_favorites svg" title="Избранное"> <span class="text-g">0</span></p>
-                            </a>
 
-                            <div class="header_box-rightPanel_cart svg" title="Корзина">
-                                <span class="text-g">0</span>
-                            </div>
+                    <?
+                    $url = ltrim(array_key_first($_GET), "/");
+                    if (!isset($_SESSION['id'])) {
+
+                        if ($_GET == null) $lo = 'home';
+                        else if ($url == 'authorization' || $url == 'registers') $lo = 'home';
+                        else {
+                            $lo = ltrim(array_key_first($_GET), "/");
+                        }
+                        if (array_key_exists("article", $_GET)) $lo .= "&article=" . $_GET['article'];
+                        if (array_key_exists("items", $_GET)) $lo .= "&items=" . $_GET['items'];
+                    ?>
+                        <a href="authorization&lye=<? echo $lo ?>" class="header_box-rightPanel_href" title="Переход на страницу авторизации">
+
+                            <p class="header_box-rightPanel_logoUser svg "></p> <!-- img-user -->
+                            <p class="header_box-rightPanel_auth">Вход/Регистрация</p>
+                        </a>
+                    <? } else { ?>
+                        <a href="profil" class="header_box-rightPanel_href" title="Переход на страницу профилья">
+                            <p class="header_box_logoUser">
+                                <img src="assec/images/users/<? echo $_SESSION['img'] ?>" alt=""> <!-- img-user -->
+                            </p>
+                            <p class="header_box-rightPanel_auth">Профиль</p>
+                        </a>
+                    <? } ?>
+                    <a href="profil&favorites">
+                        <p class="header_box-rightPanel_favorites svg" title="Избранное"> <span class="text-g">0</span></p>
+                    </a>
+
+                    <div class="header_box-rightPanel_cart svg" title="Корзина">
+                        <span class="text-g">0</span>
+                    </div>
                 </div>
 
                 <div class="backet_box hidden_items">

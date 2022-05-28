@@ -938,7 +938,7 @@ body::-webkit-scrollbar-thumb {
   color: white;
   margin: 30px;
 }
-div.input input[type="text"] {
+div.input input[type="text"], div.input input[type="email"]{
   outline: none;
   font-size: 18px;
   padding: 0.625em;
@@ -5570,10 +5570,15 @@ span.Mobil_s {
   font-size: 18px;
 }
 
-input:valid {
+.registers_content_box input:valid {
   outline: 1px solid green !important;
 }
 
-input:invalid {
+.registers_content_box input:invalid {
+  outline: 1px solid red !important;
+}
+
+
+div.input input:invalid {
   outline: 1px solid red !important;
 }

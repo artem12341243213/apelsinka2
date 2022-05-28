@@ -9,19 +9,19 @@ if (isset($_POST['auth_f']) && $_POST['auth_f'] == 1) {
   $pass = code($_POST['password']);
   $chek_auto = $_POST["auth_auto"];
 
-  if ($email == '' or $pass == '') message('Ошбика входа', 2, 'Заполните поля для входа');
-  if (!isset($_POST['password'])) message('Ошбика входа', 2, 'Пароль не указан');
+  if ($email == '' or $pass == '') message('Ошибка входа', 2, 'Заполните поля для входа');
+  if (!isset($_POST['password'])) message('Ошибка входа', 2, 'Пароль не указан');
 
   if (isset($_POST['get']))  $GET = code($_POST['get']);
   if (isset($_POST['article']))  $GET .= "&article=" . code($_POST['article']);
   if (isset($_POST['items']))  $GET .= "&items=" . code($_POST['items']);
 
   $riv = mysqli_query($CONNECT, "select `id`,`password` from `user` where `email` = '" . $email . "'");
-  if (($riv->num_rows) == 0) message('Ошбика входа', 2, 'Указаная почта не найдена');
+  if (($riv->num_rows) == 0) message('Ошибка входа', 2, 'Указаная почта не найдена');
   $riv = mysqli_fetch_assoc($riv);
 
   if (decode($riv['password']) != $pass) {
-    message('Ошбика входа', 2, 'Почта или пароль указаны неверно');
+    message('Ошибка входа', 2, 'Почта или пароль указаны неверно');
   }
 
   // Проверяем пользователя 
@@ -145,26 +145,29 @@ if (isset($_POST['auth_f']) && $_POST['auth_f'] == 1) {
 } else if (isset($_POST['registers_f']) && $_POST['registers_f'] == 1) {
   $mas_ses = [];
 
-  if (isset($_POST['email'])) {
-    $email = code($_POST['email']);
-    $row2 = mysqli_query($CONNECT, "Select * From `user` WHERE `email`='" . $email . "'");
-    if (($row2->num_rows) != 0) {
-      message('Ошбика данных', 2, 'Данная почта уже зарегистрирована');
-    }
-    $mas_ses['email'] = $email;
-  }
-  if (isset($_POST['password'])) {
-    $password = code($_POST['password']);
-  }
 
-  if (isset($_POST['password_dubl'])) $password_dubl = code($_POST['password_dubl']);
+  $email = code($_POST['email']);
+  if (!isset($_POST['email'])) message('Хакерс', 3, 'И как же ты это сделал ?');
+
+  $row2 = mysqli_query($CONNECT, "Select * From `user` WHERE `email`='" . $email . "'");
+  if (($row2->num_rows) != 0) {
+    message('Ошибка данных', 2, 'Почта уже зарегистрирована');
+  }
+  if (!filter_var($email, FILTER_VALIDATE_EMAIL))
+    message('Ошибка данных', 2, 'Почта указана неправильно');
+
+  $mas_ses['email'] = $email;
+
+  $password = code($_POST['password']);
+
+  $password_dubl = code($_POST['password_dubl']);
 
   if ($password  == $password_dubl)
     $mas_ses['password'] = code($password, 's');
   else
-    message('Ошбика данных', 2, 'Пароли не одинаковые');
+    message('Ошибка данных', 2, 'Пароли не одинаковые');
 
-    
+
   if (isset($_POST['name'])) {
     $name = code($_POST['name']);
     $mas_ses['name'] = $name;
@@ -181,15 +184,15 @@ if (isset($_POST['auth_f']) && $_POST['auth_f'] == 1) {
     $phone1 = code($_POST['Phone']);
     $phone = explode('+', $phone1);
     $phone = (int) $phone[0];
-    if (!preg_match('/^[0-9]{3,15}$/', $phone)) message('Ошбика данных', 2, 'Телефон должен содержать только цифры');
-    else if (strlen($phone) != 11) message('Ошбика данных', 2, 'Телефон не соответсвует стандартам');
+    if (!preg_match('/^[0-9]{3,15}$/', $phone)) message('Ошибка данных', 2, 'Телефон должен содержать только цифры');
+    else if (strlen($phone) != 11) message('Ошибка данных', 2, 'Телефон не соответствует стандартам');
     else
       $mas_ses['phone'] = code($phone1, 's');
   }
   if (isset($_POST['Address_ZipPostalCode'])) {
     $index = code($_POST['Address_ZipPostalCode']);
 
-    if (!ctype_digit($index)) message('Ошбика данных', 2, 'Индекс должен состоять из цифр');
+    if (!ctype_digit($index)) message('Ошибка данных', 2, 'Индекс должен состоять из цифр');
     else
       $mas_ses['index'] = code($index, 's');
   }
@@ -222,7 +225,7 @@ if (isset($_POST['auth_f']) && $_POST['auth_f'] == 1) {
     $mas_ses['home_s'] = $kvart;
   }
 
-  if ($password !==  $password_dubl)  message("Ошбика данных", 2, "Пароли не совпадают");
+  if ($password !==  $password_dubl)  message("Ошибка данных", 2, "Пароли не совпадают");
 
 
   $code = random_str(6);
@@ -244,7 +247,7 @@ if (isset($_POST['auth_f']) && $_POST['auth_f'] == 1) {
 
 
   if (mail_l($email, "Апельсинка регистрация", 'Код регистрации', $mi_code))
-    message("Регистрация", 1, "Письмо с кодом подтверждения было отправленно вам на почту", false, 'confirm');
+    message("Регистрация", 1, "Письмо с кодом подтверждения было отправлено вам на почту", false, 'confirm');
   else message("Ошибка отправки", 3, "Неудалось отправить сообщение на почту");
 } else if (isset($_POST['confirm_f']) && $_POST['confirm_f'] == 1) {
 

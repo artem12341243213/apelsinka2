@@ -18,9 +18,9 @@ $lands = mysqli_fetch_all(mysqli_query($CONNECT, "SELECT * FROM `land` ORDER BY 
                         <span id="email1" class="error_podpis">Проверте правильность ввода данных</span>
                         <input type="email" placeholder="E-mail" id="email" onclick="not_red('email')" oninput="validateEmail()" value="" patern="([A-z0-9_.-]{1,})@([A-z0-9_.-]{1,}).([A-z]{2,8})" required>
                         <span id="passNone1" class="error_podpis">Пароль должен быть от 6 до 10 символов</span>
-                        <input type="password" placeholder="Пароль" id="password" title="Пароль должен быть от 6 до 20 символов и состоять из цифр" onclick="not_red('password')" oninput="passchek()" value="" required>
+                        <input type="text" placeholder="Пароль" id="password" title="Пароль должен быть от 6 до 20 символов и состоять из цифр" onclick="not_red('password')" oninput="passchek()" value="" required  pattern="[\x1F-\xBF]{6,9}">
                         <span id="passNone" class="error_podpis">Пароли не совпадают</span>
-                        <input type="password" placeholder="Повторите пароль" id="password_dubl" onclick="not_red('password_dubl')" oninput="passchek()" value="" required>
+                        <input type="text" placeholder="Повторите пароль" id="password_dubl" onclick="not_red('password_dubl')" oninput="passchek()" value="" required pattern="[\x1F-\xBF]{6,9}">
                     </fieldset>
                 </div>
                 <div class="register_neob_pole">
@@ -41,7 +41,7 @@ $lands = mysqli_fetch_all(mysqli_query($CONNECT, "SELECT * FROM `land` ORDER BY 
                             <? } ?>
                         </select>
 
-                        <input type="text" placeholder="Город" id="sity" onclick="not_red('sity')" value="">
+                        <input type="text" placeholder="Город" id="sity" onclick="not_red('sity')" value="" pattern="[А-Яа-яA-Za-z]{2,}">
                         <input type="text" placeholder="Улица" id="strasse" onclick="not_red('strasse')" value="">
                         <div class="mex_tions_w">
                             <input type="text" placeholder="Дом" id="home" onclick="not_red('home')" value="">
