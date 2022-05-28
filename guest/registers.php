@@ -16,40 +16,38 @@ $lands = mysqli_fetch_all(mysqli_query($CONNECT, "SELECT * FROM `land` ORDER BY 
                     <fieldset class="register_obz_polefieldset">
                         <legend>Обязаельные поля</legend>
                         <span id="email1" class="error_podpis">Проверте правильность ввода данных</span>
-                        <input type="text" placeholder="E-mail" id="email" onclick="not_red('email')" oninput="validateEmail()" value="">
+                        <input type="email" placeholder="E-mail" id="email" onclick="not_red('email')" oninput="validateEmail()" value="" patern="([A-z0-9_.-]{1,})@([A-z0-9_.-]{1,}).([A-z]{2,8})" required>
                         <span id="passNone1" class="error_podpis">Пароль должен быть от 6 до 10 символов</span>
-                        <input type="password" placeholder="Пароль" id="password" title="Пароль должен быть от 6 до 20 символов и состоять из цифр" onclick="not_red('password')" oninput="passchek()" value="">
+                        <input type="password" placeholder="Пароль" id="password" title="Пароль должен быть от 6 до 20 символов и состоять из цифр" onclick="not_red('password')" oninput="passchek()" value="" required>
                         <span id="passNone" class="error_podpis">Пароли не совпадают</span>
-                        <input type="password" placeholder="Повторите пароль" id="password_dubl" onclick="not_red('password_dubl')" oninput="passchek()" value="">
+                        <input type="password" placeholder="Повторите пароль" id="password_dubl" onclick="not_red('password_dubl')" oninput="passchek()" value="" required>
                     </fieldset>
                 </div>
                 <div class="register_neob_pole">
                     <fieldset class="register_neob_polefieldset">
                         <legend>Поля которые вы можете заполнить позже</legend>
-                        <input type="text" placeholder="Фамилия" id="last_name" onclick="not_red('last_name')" value="">
-                        <input type="text" placeholder="Имя" id="name" onclick="not_red('name')" value="">
-                        <input type="text" placeholder="Отчество" id="first_name" onclick="not_red('first_name')" value="">
-                        <input type="text" placeholder="Номер телефона" id="Phone" onclick="not_red('Phone')" value="">
+                        <input type="text" placeholder="Фамилия" id="last_name" onclick="not_red('last_name')" value="" pattern="[А-Яа-я]{0,25}">
+                        <input type="text" placeholder="Имя" id="name" onclick="not_red('name')" value="" pattern="[А-Яа-я]{0,25}">
+                        <input type="text" placeholder="Отчество" id="first_name" onclick="not_red('first_name')" value="" pattern="[А-Яа-я]{0,25}">
+                        <input type="text" placeholder="+7 ___ ___ __ __" id="Phone" onclick="not_red('Phone')" value="" pattern="\+7 | \8\s?[ ]{0,1}9[0-9]{2}[ ]{0,1}\s?\d{3}[ ]{0,1}\d{2}[ ]{0,1}\d{2}">
 
                         <select name="obl" id="obl" onclick="not_red('obl')">
+                            <option value="s"> Выберите край/область</option>
                             <?
                             include "assec/php/block/obl.php";
                             foreach ($obl_list as $key => $item) {
                             ?>
                                 <option value="<? echo $key ?>"> <? echo $item ?></option>
-                            <?
-                            }
-
-                            ?>
+                            <? } ?>
                         </select>
 
                         <input type="text" placeholder="Город" id="sity" onclick="not_red('sity')" value="">
                         <input type="text" placeholder="Улица" id="strasse" onclick="not_red('strasse')" value="">
                         <div class="mex_tions_w">
                             <input type="text" placeholder="Дом" id="home" onclick="not_red('home')" value="">
-                            <input type="text" placeholder="Кватира" id="home_s" onclick="not_red('home_s')" value="">
+                            <input type="text" placeholder="Кватира" id="home_s" onclick="not_red('home_s')" value="" pattern="[0-9]{0,5}">
                         </div>
-                        <input type="text" placeholder="Индекс" id="Address_ZipPostalCode" onclick="not_red('index')" value="">
+                        <input type="text" placeholder="Индекс" id="Address_ZipPostalCode" onclick="not_red('index')" value="" pattern="[0-9]{6}">
                     </fieldset>
                 </div>
             </div>

@@ -144,6 +144,7 @@ if (isset($_POST['auth_f']) && $_POST['auth_f'] == 1) {
   }
 } else if (isset($_POST['registers_f']) && $_POST['registers_f'] == 1) {
   $mas_ses = [];
+
   if (isset($_POST['email'])) {
     $email = code($_POST['email']);
     $row2 = mysqli_query($CONNECT, "Select * From `user` WHERE `email`='" . $email . "'");
@@ -154,10 +155,16 @@ if (isset($_POST['auth_f']) && $_POST['auth_f'] == 1) {
   }
   if (isset($_POST['password'])) {
     $password = code($_POST['password']);
-    $mas_ses['password'] = code($password, 's');
   }
+
   if (isset($_POST['password_dubl'])) $password_dubl = code($_POST['password_dubl']);
 
+  if ($password  == $password_dubl)
+    $mas_ses['password'] = code($password, 's');
+  else
+    message('Ошбика данных', 2, 'Пароли не одинаковые');
+
+    
   if (isset($_POST['name'])) {
     $name = code($_POST['name']);
     $mas_ses['name'] = $name;
@@ -187,7 +194,7 @@ if (isset($_POST['auth_f']) && $_POST['auth_f'] == 1) {
       $mas_ses['index'] = code($index, 's');
   }
   if (isset($_POST['obl'])) {
-    $obl = code($_POST['obl'],'s');
+    $obl = code($_POST['obl'], 's');
     if ($obl == 0) message('Область/Край', 2, "Выберите область или край");
     include "assec/php/block/obl.php";
     for ($i = 0; $i < count($obl_list); $i++) {
