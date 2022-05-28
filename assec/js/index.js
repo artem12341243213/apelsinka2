@@ -419,7 +419,7 @@ function check_box(id_box, func) {
     if (phone != "" && FIO != "" && emailvar != "") {
       var funct = func.split(',')[0] + "('" + func.split(',')[1] + "','" + func.split(',')[2] + "','" + func.split(',')[3] + "')"
       eval(funct)
-    
+
     }
   }
 }
@@ -429,6 +429,23 @@ function closse(id, clase = "hidden_items") {
 }
 function opens(id, clase = "hidden_items") {
   $("." + id).removeClass(clase);
+}
+
+function menu_box_mobil(item_menu) {
+
+  if ($(".modal_catalog_b")[0].classList.length == 1) {
+    $(".modal_catalog_b").addClass('hidden_items')
+  }
+
+  switch (item_menu) {
+    case 'cart': locations('cart'); break;
+    case 'help': locations('help'); break;
+    case 'home': locations('home'); break;
+    case 'modal_catalog_b': opens('modal_catalog_b'); break;
+    case 'modal_shearch_b': opens('modal_shearch_b'); break;
+    case 'size': $('.razmers_block_modal_element').removeClass('hidden_items'); break;
+  }
+
 }
 
 
@@ -456,7 +473,7 @@ function list_open(id, type = "") {
     }
     else { $("." + id).toggleClass('bottom_minus') }
   }
-  /*  */
+
 }
 $(".li_product_img").on("mouseenter", (e) => {
 

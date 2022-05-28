@@ -35,13 +35,13 @@
                                     echo 'bottom_minus2';
                                 } else {
                                     echo 'bottom_minus';
-                                } ?> " onclick="list_open('menu_header_box', 'closse')">
+                                } ?> " onclick="   list_open('menu_header_box', 'closse')">
     <div class="menu_header_box_row">
         <div class="list_menu_header">
             <div>
-                <p><span class="svg" onclick="opens('modal_catalog_b')"></span>Каталог</p>
+                <p><span class="svg" onclick="  menu_box_mobil('modal_catalog_b')"></span>Каталог</p>
 
-                <p><span class="svg" onclick="opens('modal_shearch_b')"></span>Поиск</p>
+                <p><span class="svg" onclick="   menu_box_mobil('modal_shearch_b')"></span>Поиск</p>
 
                 <? if (isset($_SESSION['id'])) { ?>
                     <p onclick="locations('profil')"> <span class="svg"></span>Профиль</p>
@@ -51,19 +51,20 @@
 
             </div>
             <div>
-                <p><span class="svg" onclick="$('.razmers_block_modal_element').removeClass('hidden_items');"></span>Размеры</p>
-                <p onclick="locations('home')"><span class="svg"></span>Главная</p>
+                <p><span class="svg" onclick="menu_box_mobil('size')"></span>Размеры</p>
+
+                <p onclick="   menu_box_mobil('home')"><span class="svg"></span>Главная</p>
 
 
                 <p><span class="svg"></span>что-то</p>
 
             </div>
             <div>
-                <p onclick="locations('help')"><span class="svg"></span>Помощь </p>
+                <p onclick="  menu_box_mobil('help')"><span class="svg"></span>Помощь </p> <!--  -->
 
-                <p onclick="list_open('menu_header_box', 'closse')"><span class="svg"></span> Закрыть</p>
+                <p onclick=" list_open('menu_header_box', 'closse')"><span class="svg"></span> Закрыть</p><!--  -->
 
-                <p onclick="locations('cart')"><span class="svg"></span>Корзина</p>
+                <p onclick=" menu_box_mobil('cart')"><span class="svg"></span>Корзина</p><!--  -->
             </div>
 
             <? if (isset($_SESSION['ADMIN_LOGIN_IN'])) { ?>
