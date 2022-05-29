@@ -155,8 +155,10 @@ hedeer("Главная", ['chief-slider']);
                 <form>
                     <div class="input">
 
-                        <input type="text" placeholder="ФИО" require id="FIO" pattern="[А-Яа-я]{0,150}">
-                        <input type="text" placeholder="Телефон" require id="phone" pattern="\+7 | \8\s?[ ]{0,1}9[0-9]{2}[ ]{0,1}\s?\d{3}[ ]{0,1}\d{2}[ ]{0,1}\d{2}">
+                        <input type="text" placeholder="ФИО" require id="FIO" oninput="fio_valid('no_block')">
+
+                        <input type="nubmer" placeholder="Телефон" require id="phone" oninput="phone_valid()">
+
                         <input type="email" placeholder="Ваш e-mail" require id="email" patern="([A-z0-9_.-]{1,})@([A-z0-9_.-]{1,}).([A-z]{2,8})">
 
                         <input type="button" value="Отправить" onclick="check_box('readm_prise','formes,GLA1,prise_block,FIO.phone.email');">

@@ -299,13 +299,33 @@ function validateEmail(email) {
 }
 
 function phone_valid() {
-  let tel1 = $("input#phone").val();
-  let tel = String(tel1);
-  if (tel.length < 11 && tel.length != 0) {
-    document.getElementById("phone").style.outline = "2px solid red";
-  } else {
-    document.getElementById("phone").style.outline = "2px solid red";
+  let tel_input = $("input#phone");
+
+  let tel_values = $(tel_input).val();
+  let tel_str = String(tel_values);
+  let tel_array = tel_str.split("+");
+
+  if (tel_array.length > 1) {
+    tel_str = tel_str.slice(1)
   }
+
+  $(tel_input).removeClass('no_valid');
+
+  if (tel_str.length == 11) {
+    tel_values = Number(tel_values);
+    tel_str = Number(tel_str);
+
+    if (tel_values === tel_str) {
+      $(tel_input).addClass('valid');
+    }
+    else {
+      $(tel_input).addClass('no_valid');
+    }
+  } else if (tel_str.length == 0)
+    $(tel_input).removeClass('no_valid');
+  else
+    $(tel_input).addClass('no_valid');
+
 }
 
 function passchek() { passchek1() }
@@ -354,16 +374,58 @@ function passchek1() {
 
 }
 
-function fio_valid() {
-  let tel1 = $("input#FIO").val();
-  let tel = String(tel1);
-  if (tel.length < 3 && tel.length != 0) {
-    document.getElementById("fio").style.display = "block";
-    document.getElementById("FIO").style.borderColor = "red";
-  } else {
-    document.getElementById("fio").style.display = "none";
-    document.getElementById("FIO").style.borderColor = "#c1c1c1";
+function fio_valid(type = 'block') {
+
+  switch (type) {
+    case 'block':
+      let names = $("input#FIO").val();
+      let name = String(names);
+      if (name.length < 3 && name.length != 0) {
+        document.getElementById("fio").style.display = "block";
+        document.getElementById("FIO").style.borderColor = "red";
+      } else {
+        document.getElementById("fio").style.display = "none";
+        document.getElementById("FIO").style.borderColor = "#c1c1c1";
+      }
+      ; break;
+
+    case "no_block":
+      let name_id = $("input#FIO");
+      let name_val = $(name_id).val()
+      let name_ar = name_val.split(/\s/);
+
+      let re = /[А-Яа-я]/;
+      $(name_id).removeClass("no_valid")
+      if (name_ar.length == 2) {
+        if (re.test(name_ar[0]))
+          if (re.test(name_ar[1]))
+            $(name_id).addClass('valid');
+          else
+            $(name_id).addClass('no_valid');
+        else
+          $(name_id).addClass('no_valid');
+      }
+      else if (name_ar.length == 3) {
+        if (re.test(name_ar[0]))
+          if (re.test(name_ar[1]))
+            if (re.test(name_ar[2]))
+              $(name_id).addClass('valid');
+            else
+              $(name_id).addClass('no_valid');
+          else
+            $(name_id).addClass('no_valid');
+        else
+          $(name_id).addClass('no_valid');
+      }
+      else if (name_val.length == 0) {
+        $(name_id).removeClass('no_valid');
+        $(name_id).removeClass('valid');
+      }
+      else
+        $(name_id).addClass('no_valid');
+      ; break
   }
+
 }
 
 function sity_valid() {
@@ -416,11 +478,16 @@ function check_box(id_box, func) {
   var FIO = $("#FIO").val();
   var emailvar = $("#email").val();
   if (box == true) {
+    if ($("input#FIO")[0].classList.contains('valid')) { error_mesages('Не правильно указанно ФИО', 2, 'Прайс'); return; }
+    if ($("input#phone")[0].classList.contains('valid')) { error_mesages('Не правильно указан телефон', 2, 'Прайс'); return; }
+    if ($("input#email")[0].classList.contains('valid')) { error_mesages('Не правильно указанна почта', 2, 'Прайс'); return; }
     if (phone != "" && FIO != "" && emailvar != "") {
       var funct = func.split(',')[0] + "('" + func.split(',')[1] + "','" + func.split(',')[2] + "','" + func.split(',')[3] + "')"
       eval(funct)
-
     }
+  }
+  else {
+    error_mesages('Нет согласие на обработку данных', 2, 'Прайс')
   }
 }
 
@@ -777,7 +844,7 @@ function list_catalog_modals(type) {
   <p onclick="list_catalog_modals('girl')" class="active">
      <span class="UPPERCASE">Девочки</span>
   </p>
-
+ 
   ''
   'girl'
   'baby'

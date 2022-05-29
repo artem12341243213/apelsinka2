@@ -938,7 +938,8 @@ body::-webkit-scrollbar-thumb {
   color: white;
   margin: 30px;
 }
-div.input input[type="text"], div.input input[type="email"]{
+div.input input[type="text"],
+div.input input[type="email"] {
   outline: none;
   font-size: 18px;
   padding: 0.625em;
@@ -2642,7 +2643,9 @@ fieldset.register_neob_polefieldset {
   margin-left: 80px;
 }
 
-.register_neob_polefieldset input, .register_obz_polefieldset input, select {
+.register_neob_polefieldset input,
+.register_obz_polefieldset input,
+select {
   font-size: 16px;
   padding: 8px 16px;
   overflow: hidden;
@@ -5577,7 +5580,6 @@ span.Mobil_s {
 .registers_content_box input:invalid {
   outline: 1px solid red !important;
 }
-
 
 div.input input:invalid {
   outline: 1px solid red !important;
