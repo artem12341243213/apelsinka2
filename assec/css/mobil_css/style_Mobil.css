@@ -3331,7 +3331,7 @@ div.input input:invalid {
   outline: 1vw solid red !important;
 }
 
-.valid {
+.valid { 
   outline: 1vw solid green !important;
 }
 
