@@ -162,8 +162,8 @@ if (isset($_POST['user_send_email_f']) && $_POST['user_send_email_f'] == 1) {
     mysqli_query($CONNECT, "INSERT INTO `email_send_user` (`id_user`, `email`) VALUES ('-1', '$user_emeil')");
 
     $text = '
-        <p>Здраствуйте, ваша подчта успешно добавленна в базу, теперь вы будете получать новости и информацию о наших новинках на почту. </p>   
-        <p> Для отписки от расский перейдите по <a href = "https://apelsinka.tech/delit_user_mail?email=' . $user_emeil . '"> Данной ссылке</a> </p>    
+        <p>Здраствуйте, ваша почта успешно добавленна в базу, теперь вы будете получать новости и информацию о наших новинках на почту. </p>   
+        <p> Для отписки от расский перейдите по <a href = "https://apelsinka.tech/delit_user_mail&email=' . $user_emeil . '"> Данной ссылке</a> </p>    
     ';
     if (mail_l($user_emeil, "Подписка на рассылку", "", $text))
         message("Подписка на рассылку", 1, "Вы успешно подписались на рассылку");
