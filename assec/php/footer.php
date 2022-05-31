@@ -46,15 +46,15 @@
                 <h4>ПОДПИСАТЬСЯ НА Е-MAIL РАССЫЛКУ</h4>
                 <div class="footer-box__rov">
                     <div class="footer_inputs">
-                        <input type="text" placeholder="Ваш e-mail">
-                        <div class="buttonBlock_footers" onclick="formis('GLA','admins')">
+                        <input type="text" placeholder="Ваш e-mail" id="input_email_send" oninput="email_valid('input_email_send')">
+                        <div class="buttonBlock_footers" onclick="send_email()">
                             <input type="button" value="">
                         </div>
                     </div>
                 </div>
                 <div class="footer-box__rov"><input type="checkbox" name="" id="sogl">
                     <label for="sogl">
-                        Подтверждаю согласие с <a href="politconf">Политикой конфиденциальности</a> и принимаю условия <a href="polzowSogls">Пользовательского соглашения</a>  
+                        Подтверждаю согласие с <a href="politconf">Политикой конфиденциальности</a> и принимаю условия <a href="polzowSogls">Пользовательского соглашения</a>
                     </label>
                 </div>
 

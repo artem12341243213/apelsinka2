@@ -159,7 +159,7 @@ hedeer("Главная", ['chief-slider']);
 
                         <input type="nubmer" placeholder="Телефон" require id="phone" oninput="phone_valid()">
 
-                        <input type="email" placeholder="Ваш e-mail" require id="email" oninput="email_valid()" patern="([A-z0-9_.-]{1,})@([A-z0-9_.-]{1,}).([A-z]{2,8})">
+                        <input type="email" placeholder="Ваш e-mail" require id="email" oninput="email_valid('email')" patern="([A-z0-9_.-]{1,})@([A-z0-9_.-]{1,}).([A-z]{2,8})">
 
                         <button type="button" id="button_input" onclick="check_box('readm_prise','formes,GLA1,prise_block,FIO.phone.email');">
                             Заказать <span id="timeout" class="hidden_items">5</span>

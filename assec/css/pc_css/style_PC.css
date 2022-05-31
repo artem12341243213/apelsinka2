@@ -933,7 +933,11 @@ body::-webkit-scrollbar-thumb {
   border: 1px solid white;
   border-radius: 2px;
 }
-.cheked-sog input[type="checkbox"].no_valid {border: 1px solid red;outline: 1px solid red;border-radius: 0;}
+.cheked-sog input[type="checkbox"].no_valid {
+  border: 1px solid red;
+  outline: 1px solid red;
+  border-radius: 0;
+}
 .prise-block-content div:nth-child(1) {
   font-size: 26px;
   color: white;
@@ -5597,10 +5601,10 @@ span.Mobil_s {
   outline: 1px solid red !important;
 }
 
-div.input input.no_valid {
+.no_valid {
   outline: 2px solid red !important;
 }
 
-div.input input.valid {
+.valid {
   outline: 2px solid green !important;
 }

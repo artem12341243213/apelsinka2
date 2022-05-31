@@ -45,7 +45,7 @@ $comments = mysqli_fetch_all(mysqli_query($CONNECT, "SELECT `user`.`name`,`user`
                         <? if (count($comments) >= 1) {
                             for ($i = 0; $i < count($comments); $i++) {
                                 $data = $comments[$i];
-                           
+
                                 $id_comments = $data[3];
                                 $name = "";
                                 if ($data[2] != '-' && $data[2] != "NULL") {
@@ -117,13 +117,13 @@ $comments = mysqli_fetch_all(mysqli_query($CONNECT, "SELECT `user`.`name`,`user`
 
                                     <div class="comment-items">
                                         <div class="header"><? echo $name ?></div>
-                                        <div class="contents"><? echo $data[5] ?></div>
+                                        <div class="contents <? if (isset($_GET['id']) && $_GET['id'] == $id_comments) echo "active" ?>"><? echo $data[5] ?></div>
                                         <div class="times_coments">
                                             <span><? echo $time[2] . " " . $time[1] . " " . $time[0] . " " ?></span>
                                         </div>
                                     </div>
 
-                                    <? if (isset($_SESSION['ADMIN_LOGIN_IN']) || $data[6]==$_SESSION['id']) { ?><div class="close_modal" onclick="remove_coments(<? echo $id_comments ?>)"></div><? } ?>
+                                    <? if (isset($_SESSION['ADMIN_LOGIN_IN']) || (isset($_SESSION['id']) &&  $data[6] == $_SESSION['id'])) { ?><div class="close_modal" onclick="remove_coments(<? echo $id_comments ?>)"></div><? } ?>
                                 </div>
                         <? }
                         } ?>

@@ -297,8 +297,8 @@ function validateEmail(email) {
     document.getElementById("email1").style.display = "none";
   }
 }
-function email_valid() {
-  let email = $("#email");
+function email_valid(id) {
+  let email = $("#" + id);
   let email_value = $(email).val();
   let re = /\S+@\S+\.\S+/;
   let mail_length = String(email_value);
@@ -313,8 +313,8 @@ function email_valid() {
     $(email).removeClass('no_valid');
   else
     $(email).addClass('no_valid');
-
 }
+
 function phone_valid() {
   let tel_input = $("input#phone");
 
@@ -583,6 +583,7 @@ function menu_box_mobil(item_menu) {
     case 'cart': locations('cart'); break;
     case 'help': locations('help'); break;
     case 'home': locations('home'); break;
+    case 'comments': locations('comments'); break;
     case 'modal_catalog_b': opens('modal_catalog_b'); break;
     case 'modal_shearch_b': opens('modal_shearch_b'); break;
     case 'size': $('.razmers_block_modal_element').removeClass('hidden_items'); break;
@@ -590,6 +591,30 @@ function menu_box_mobil(item_menu) {
 
 }
 
+
+
+function send_email() { //#тут
+  let email = $('#input_email_send');
+  let input_email = email.val();
+  if (input_email == '') {
+    error_mesages("Для подписки на рассылку нужно ввести email", 1, 'Подписка на рассылку')
+    email.addClass('no_valid')
+    return;
+  } else if (email[0].classList.contains('no_valid')) {
+    error_mesages("Email не соостветствует требованиям", 2, 'Подписка на рассылку')
+    return;
+  }
+  let box_chek = $('#sogl');
+  let box_i = box_chek[0].checked;
+  if (box_i == false) {
+    error_mesages("Не забудте подтвердить согласие с Политикой конфиденциальности и принимять условия Пользовательского соглашения"
+      , 2, "Соглашение")
+    box_chek.addClass("no_valid")
+    return;
+  }
+
+  formes('GLA1', 'user_send_email', "input_email_send")
+}
 
 function list_open(id, type = "") {
 

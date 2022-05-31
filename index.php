@@ -63,7 +63,7 @@ if (!$is_mobile) {
 
 /* #Регистрация страницы */
 $page_list = [
-    'product', 'profil', "table_r", "help", "yesorder", "mi_s", "polzowSogls", "politconf", "payment", "delivery", "heplorder",
+    'product', 'profil', "table_r", 'delit_user_mail', "help", "yesorder", "mi_s", "polzowSogls", "politconf", "payment", "delivery", "heplorder",
     "returnsorder", "contacts", "cooperation", "orderchek", "comments", "store", 'rewritePaswords',
     'registers', 'store', 'authorization', 'GLA', 'GLA1', 'GLA_a', 'confirm',
     'userform', 'home', 'cart', 'adminPanels'
@@ -263,7 +263,9 @@ function hedeer($title, $css = [], $href = "")
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="icon" href="favicon.ico">
+
+        <link rel="icon" href="favicon.ico" type="image/x-icon">
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
         <link rel="stylesheet" href="assec/css/index.css">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
 

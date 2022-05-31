@@ -108,7 +108,7 @@ if (isset($_POST['com_input'])) {
 
     $data = date('Y-m-d');
 
-        mysqli_query($CONNECT, "INSERT INTO `comments` (`id_comments`, `id_product`, `text`, `id_users`, `name_users`,`data_comments`) 
+    mysqli_query($CONNECT, "INSERT INTO `comments` (`id_comments`, `id_product`, `text`, `id_users`, `name_users`,`data_comments`) 
     VALUES (NULL, '$id_product', '$text', '" . $_SESSION['id'] . "', '$bin','$data')");
 
     if (isset($_SESSION['type']) && $_SESSION['type']  == 1) {
@@ -154,15 +154,29 @@ if (isset($_POST['prise_block_f']) && $_POST['prise_block_f'] == 1) {
 
 
 
+if (isset($_POST['user_send_email_f']) && $_POST['user_send_email_f'] == 1) {
+    $user_emeil = code($_POST['input_email_send']);
+
+    if (!isset($_SESSION['id']))
+        mysqli_query($CONNECT, "INSERT INTO `email_send_user` (`id_user`, `email`) VALUES ('" . $_SESSION['id'] . "', '$user_emeil')");
+    mysqli_query($CONNECT, "INSERT INTO `email_send_user` (`id_user`, `email`) VALUES ('-1', '$user_emeil')");
+
+    $text = '
+        <p>Здраствуйте, ваша подчта успешно добавленна в базу, теперь вы будете получать новости и информацию о наших новинках на почту. </p>   
+        <p> Для отписки от расский перейдите по <a href = "https://apelsinka.tech/delit_user_mail?email=' . $user_emeil . '"> Данной ссылке</a> </p>    
+    ';
+    if (mail_l($user_emeil, "Подписка на рассылку", "", $text))
+        message("Подписка на рассылку", 1, "Вы успешно подписались на рассылку");
+}
 
 
 
 
+//
 
 
 
-
-function mail_l($user_meil, $hea, $h1, $text, $dop, $name)
+function mail_l($user_meil, $hea, $h1, $text, $dop = '', $name = '')
 {
 
     $email = $user_meil; // почта получателя
@@ -193,7 +207,8 @@ function mail_l($user_meil, $hea, $h1, $text, $dop, $name)
     $mail->addAddress($email);
     $mail->Subject = $subject;
     $mail->Body = $html;
-    $mail->addAttachment("$dop", "$name"); // приложить файл, если нужно (можешь даже несколько)
+    if (!!$dop)
+        $mail->addAttachment("$dop", "$name"); // приложить файл, если нужно (можешь даже несколько)
     if ($mail->send()) {
         return true;
     } else {

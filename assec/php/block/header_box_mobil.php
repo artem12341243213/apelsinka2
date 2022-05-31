@@ -52,12 +52,8 @@
             </div>
             <div>
                 <p><span class="svg" onclick="menu_box_mobil('size')"></span>Размеры</p>
-
-                <p onclick="   menu_box_mobil('home')"><span class="svg"></span>Главная</p>
-
-
-                <p><span class="svg"></span>что-то</p>
-
+                <p onclick="menu_box_mobil('home')"><span class="svg"></span>Главная</p>
+                <p onclick="menu_box_mobil('comments')"><span class="svg"></span>Отзывы</p>
             </div>
             <div>
                 <p onclick="  menu_box_mobil('help')"><span class="svg"></span>Помощь </p> <!--  -->
