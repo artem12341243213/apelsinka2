@@ -810,7 +810,7 @@ div.button {
   -ms-flex-pack: center;
   justify-content: center;
 }
-.__element>span::after {
+.__element > span::after {
   content: "";
   display: block;
   height: 100%;
@@ -829,7 +829,7 @@ div.button {
 .bode__element {
   margin: 10px 0;
 }
-.__element>span {
+.__element > span {
   position: absolute;
   background: rgb(226 226 226);
   width: 30px;
@@ -839,7 +839,7 @@ div.button {
   border-radius: 50%;
   cursor: pointer;
 }
-.__element>span:hover::after {
+.__element > span:hover::after {
   background: url("../svg/Love-Hover.svg") no-repeat;
   display: block;
   height: 100%;
@@ -941,15 +941,15 @@ body::-webkit-scrollbar-thumb {
 div.input input {
   outline: none;
   font-size: 18px;
-  padding: 0.625em;
-  border: 1px solid white;
+  padding: 10px;
+  border: 2px solid white;
   border-radius: 5px;
   width: 100%;
   margin-right: 15px;
   max-width: 270px;
 }
-div.input input[type="button"] {
-  padding: 0.625em;
+div.input button {
+  padding: 10px;
   font-size: 20px;
   width: 100%;
   background: #ee9d08;
@@ -4511,7 +4511,23 @@ span.non_chek {
   top: 7px;
 }
 button:disabled {
+  background: #d5d5d5 !important;
+  color: #212529 !important;
+  border: 2px solid gray !important;
 }
+#button_input span#timeout {
+  margin-left: 10px;
+}
+#button_input span#timeout::after {
+  content: "";
+  background: url("../svg/loock_button.svg") no-repeat;
+  width: 22px;
+  height: 22px;
+  display: inline-block;
+  margin-left: 1px;
+  background-position: center;
+}
+
 span.yes_chek:before {
   content: "";
   width: 9px;

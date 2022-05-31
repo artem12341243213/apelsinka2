@@ -161,7 +161,9 @@ hedeer("Главная", ['chief-slider']);
 
                         <input type="email" placeholder="Ваш e-mail" require id="email" patern="([A-z0-9_.-]{1,})@([A-z0-9_.-]{1,}).([A-z]{2,8})">
 
-                        <input type="button" value="Отправить" onclick="check_box('readm_prise','formes,GLA1,prise_block,FIO.phone.email');">
+                        <button type="button" id="button_input" onclick="check_box('readm_prise','formes,GLA1,prise_block,FIO.phone.email');">
+                            Заказать <span id="timeout" class="hidden_items">5</span>
+                        </button>
 
                     </div>
                     <div class="cheked-sog"><input type="checkbox" id="readm_prise"> <label for="readm_prise" style="font-family: Sans-Serif;">Даю согласие на
