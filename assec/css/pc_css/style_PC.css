@@ -810,7 +810,7 @@ div.button {
   -ms-flex-pack: center;
   justify-content: center;
 }
-.element__img span::after {
+.__element>span::after {
   content: "";
   display: block;
   height: 100%;
@@ -829,7 +829,7 @@ div.button {
 .bode__element {
   margin: 10px 0;
 }
-.element__img span {
+.__element>span {
   position: absolute;
   background: rgb(226 226 226);
   width: 30px;
@@ -839,7 +839,7 @@ div.button {
   border-radius: 50%;
   cursor: pointer;
 }
-.element__img span:hover::after {
+.__element>span:hover::after {
   background: url("../svg/Love-Hover.svg") no-repeat;
   display: block;
   height: 100%;
@@ -938,8 +938,7 @@ body::-webkit-scrollbar-thumb {
   color: white;
   margin: 30px;
 }
-div.input input[type="text"],
-div.input input[type="email"] {
+div.input input {
   outline: none;
   font-size: 18px;
   padding: 0.625em;

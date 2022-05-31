@@ -478,9 +478,9 @@ function check_box(id_box, func) {
   var FIO = $("#FIO").val();
   var emailvar = $("#email").val();
   if (box == true) {
-    if ($("input#FIO")[0].classList.contains('valid')) { error_mesages('Не правильно указанно ФИО', 2, 'Прайс'); return; }
-    if ($("input#phone")[0].classList.contains('valid')) { error_mesages('Не правильно указан телефон', 2, 'Прайс'); return; }
-    if ($("input#email")[0].classList.contains('valid')) { error_mesages('Не правильно указанна почта', 2, 'Прайс'); return; }
+    if (!$("input#FIO")[0].classList.contains('valid')) { error_mesages('Не правильно указанно ФИО', 2, 'Прайс'); return; }
+    if (!$("input#phone")[0].classList.contains('valid')) { error_mesages('Не правильно указан телефон', 2, 'Прайс'); return; }
+    if (!$("input#email")[0].classList.contains('valid')) { error_mesages('Не правильно указанна почта', 2, 'Прайс'); return; }
     if (phone != "" && FIO != "" && emailvar != "") {
       var funct = func.split(',')[0] + "('" + func.split(',')[1] + "','" + func.split(',')[2] + "','" + func.split(',')[3] + "')"
       eval(funct)
