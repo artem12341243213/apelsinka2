@@ -107,8 +107,9 @@ if (isset($_POST['com_input'])) {
     }
 
     $data = date('Y-m-d');
-    mysqli_query($CONNECT, "INSERT INTO `comments` (`id_comments`, `id_product`, `text`, `id_users`, `name_users`,`	data_comments`) 
-    VALUES (NULL, '$id_product', '$text', '" . $_SESSION['id'] . "', '$bin',$data)");
+
+        mysqli_query($CONNECT, "INSERT INTO `comments` (`id_comments`, `id_product`, `text`, `id_users`, `name_users`,`data_comments`) 
+    VALUES (NULL, '$id_product', '$text', '" . $_SESSION['id'] . "', '$bin','$data')");
 
     if (isset($_SESSION['type']) && $_SESSION['type']  == 1) {
         $type_m_name = "opt";

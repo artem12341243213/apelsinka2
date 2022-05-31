@@ -1,6 +1,10 @@
 <? hedeer("Отзывы");
-$comments = mysqli_fetch_all(mysqli_query($CONNECT, "SELECT * FROM `comments` WHERE `id_product` = '-1' "));
+$comments = mysqli_fetch_all(mysqli_query($CONNECT, "SELECT `user`.`name`,`user`.`first_name`,`user`.
+`last_name`,`id_comments`,`id_product`,`text`,`id_users`,`data_comments`  FROM `comments`,`user`
+ WHERE `comments`.`id_product` = '-1' AND `comments`.`id_users` = `user`.`id`"));
+
 ?>
+
 <div class="comments_box">
     <div class="global">
         <div class="h1 text-g">
@@ -41,7 +45,23 @@ $comments = mysqli_fetch_all(mysqli_query($CONNECT, "SELECT * FROM `comments` WH
                         <? if (count($comments) >= 1) {
                             for ($i = 0; $i < count($comments); $i++) {
                                 $data = $comments[$i];
-                                $time =  explode('-', $data[5]);
+                           
+                                $id_comments = $data[3];
+                                $name = "";
+                                if ($data[2] != '-' && $data[2] != "NULL") {
+                                    $name .= $data[2] . " ";
+                                }
+                                if ($data[0] != "-" && $data[0] != "NULL") {
+                                    $name .= $data[0] . " ";
+                                }
+                                if ($data[1] != "-" && $data[1] != "NULL") {
+                                    $name .= $data[1];
+                                }
+                                if ($name == "") {
+                                    $name = "Анонимный пользователь";
+                                }
+
+                                $time =  explode('-', $data[7]);
                                 switch ($time[1]) {
                                     case "01": {
                                             $time[1] = 'Января';
@@ -93,17 +113,17 @@ $comments = mysqli_fetch_all(mysqli_query($CONNECT, "SELECT * FROM `comments` WH
                                         }
                                 }
 
-                        ?> <div class="comment_contenst" id="comments_id_<? echo $data[0] ?>" onclick="comments_opens(<? echo $data[0] ?>)">
+                        ?> <div class="comment_contenst" id="comments_id_<? echo $id_comments ?>" onclick="comments_opens(<? echo $id_comments ?>)">
 
                                     <div class="comment-items">
-                                        <div class="header"><? echo $data[4] ?></div>
-                                        <div class="contents"><? echo $data[2] ?></div>
+                                        <div class="header"><? echo $name ?></div>
+                                        <div class="contents"><? echo $data[5] ?></div>
                                         <div class="times_coments">
                                             <span><? echo $time[2] . " " . $time[1] . " " . $time[0] . " " ?></span>
                                         </div>
                                     </div>
 
-                                    <? if (isset($_SESSION['ADMIN_LOGIN_IN'])) { ?><div class="close_modal" onclick="remove_coments('<? echo $data[0] ?>')"></div><? } ?>
+                                    <? if (isset($_SESSION['ADMIN_LOGIN_IN']) || $data[6]==$_SESSION['id']) { ?><div class="close_modal" onclick="remove_coments(<? echo $id_comments ?>)"></div><? } ?>
                                 </div>
                         <? }
                         } ?>

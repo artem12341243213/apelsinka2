@@ -105,7 +105,7 @@ function comments_say(type) {
   var lost = '';
   if (data == "") { error_mesages("Пустой коммментарий нельзя оставить", 2, "Комментарий"); return }
   var id_product = $("#article_product").html();
-
+  if (id_product == "") id_product = -1
   $.ajax({
     type: "POST",
     url: "GLA1",
@@ -297,7 +297,24 @@ function validateEmail(email) {
     document.getElementById("email1").style.display = "none";
   }
 }
+function email_valid() {
+  let email = $("#email");
+  let email_value = $(email).val();
+  let re = /\S+@\S+\.\S+/;
+  let mail_length = String(email_value);
+  $(email).removeClass('no_valid');
+  if (mail_length.length > 0) {
+    if (re.test(email_value))
+      $(email).addClass('valid');
+    else
+      $(email).addClass('no_valid');
+  }
+  else if (mail_length.length == 0)
+    $(email).removeClass('no_valid');
+  else
+    $(email).addClass('no_valid');
 
+}
 function phone_valid() {
   let tel_input = $("input#phone");
 
@@ -480,31 +497,50 @@ function check_box(id_box, func) {
   var m = 0;
   var phone_value = phone_input.val()
   if (phone_value == "") {
-    error_mesages('Поле должны быть заполнены', 2, "Прайс"); $(phone_input).css('border-color', 'red');
-
+    error_mesages('Поле должны быть заполнено', 2, "Прайс"); $(phone_input).addClass("no_valid");
     m++
-
+  } else {
+    if (!$("input#phone")[0].classList.contains('valid')) { error_mesages('Не правильно указан телефон', 2, 'Прайс'); button_dis(); }
   }
 
 
   var FIO_input = $("#FIO");
   var FIO_value = FIO_input.val()
   if (FIO_value == "") {
-    error_mesages('Поле должны быть заполнены', 2, "Прайс"); $(FIO_input).css('border-color', 'red');
+    error_mesages('Поле должны быть заполнено', 2, "Прайс"); $(FIO_input).addClass("no_valid");
     m++
+  } else {
+    if (!$("input#FIO")[0].classList.contains('valid')) { error_mesages('Не правильно указанно ФИО', 2, 'Прайс'); button_dis(); }
   }
 
 
   var email_input = $("#email");
   var email_value = email_input.val()
   if (email_value == "") {
-    error_mesages('Поле должны быть заполнены', 2, "Прайс"); $(email_input).css('border-color', 'red');
+    error_mesages('Поле должны быть заполнено', 2, "Прайс"); $(email_input).addClass("no_valid");
     m++
+  } else {
+    if (!$("input#email")[0].classList.contains('valid')) { error_mesages('Не правильно указанна почта', 3, 'Прайс'); button_dis(); }
   }
 
-
-
   if (m >= 1) {
+    button_dis();
+  }
+
+  if (box == true) {
+
+    if (phone_value != "" && FIO_value != "" && email_value != "") {
+      var funct = func.split(',')[0] + "('" + func.split(',')[1] + "','" + func.split(',')[2] + "','" + func.split(',')[3] + "')"
+      eval(funct)
+    }
+  }
+  else {
+    error_mesages('Нет согласие на обработку данных', 2, 'Прайс');
+    $("#" + id_box).addClass('no_valid')
+    button_dis();
+  }
+
+  function button_dis() {
     button.attr("disabled", "")
     but_span.removeClass("hidden_items")
     var i = 4
@@ -514,23 +550,11 @@ function check_box(id_box, func) {
     }, 1000)
     setTimeout(() => {
       button.removeAttr("disabled")
+      but_span.html('5')
       but_span.addClass("hidden_items")
       clearInterval(mons);
     }, 5000)
     return
-  }
-
-  if (box == true) {
-    if (!$("input#phone")[0].classList.contains('valid')) { error_mesages('Не правильно указан телефон', 2, 'Прайс'); return }
-    if (!$("input#FIO")[0].classList.contains('valid')) { error_mesages('Не правильно указанно ФИО', 2, 'Прайс'); return }
-    if (!$("input#email")[0].classList.contains('valid')) { error_mesages('Не правильно указанна почта', 2, 'Прайс'); return }
-    if (phone_value != "" && FIO_value != "" && email_value != "") {
-      var funct = func.split(',')[0] + "('" + func.split(',')[1] + "','" + func.split(',')[2] + "','" + func.split(',')[3] + "')"
-      eval(funct)
-    }
-  }
-  else {
-    error_mesages('Нет согласие на обработку данных', 2, 'Прайс')
   }
 }
 
@@ -546,6 +570,14 @@ function menu_box_mobil(item_menu) {
   if ($(".modal_catalog_b")[0].classList.length == 1) {
     $(".modal_catalog_b").addClass('hidden_items')
   }
+
+  if ($(".razmers_block_modal_element")[0].classList.length == 1) {
+    $(".razmers_block_modal_element").addClass('hidden_items')
+  }
+  if ($(".modal_shearch_b")[0].classList.length == 1) {
+    $(".modal_shearch_b").addClass('hidden_items')
+  }
+
 
   switch (item_menu) {
     case 'cart': locations('cart'); break;

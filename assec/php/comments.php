@@ -9,7 +9,7 @@
                 else $div = 'Оптовик';
                 echo $div ?>
             </span>
-            <?php if (isset($_SESSION['ADMIN_LOGIN_IN'])) { ?>
+            <?php if (isset($_SESSION['ADMIN_LOGIN_IN']) || $id_user ==$_SESSION['id']) { ?>
                 <div class=" panel_admins">
                     <span class="delet_coment">
                         <p onclick="remove_coments(<? print_r($id) ?>)">Удалить</p>

@@ -190,7 +190,7 @@ $arrays_img = explode('|', $img_product);
                 <?
                 $comments_block_product = mysqli_fetch_all(mysqli_query(
                     $connect,
-                    "SELECT `user`.`type`, `user`.`img` ,`id_comments`,`id_product`,`text`,`name_users` 
+                    "SELECT `user`.`type`, `user`.`img` ,`id_comments`,`id_product`,`text`,`name_users`,`user`.`id` 
                     FROM `user`,`comments` WHERE  `comments`.`id_product` = $article and  `user`.`id` = `id_users` GROUP by `comments`.`id_comments`"
                 ));
 
@@ -204,6 +204,7 @@ $arrays_img = explode('|', $img_product);
                     $name = $data[5]; // name
                     $text = $data[4];
                     $id = $data[2];
+                    $id_user = $data[6];
                     include("assec/php/comments.php");
                 }
                 ?>

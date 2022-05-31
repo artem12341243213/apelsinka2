@@ -526,7 +526,77 @@ h4 {
   width: fit-content;
   margin-bottom: 4vw;
 }
+.modal_box_coments {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #80808085;
+  z-index: 5;
+}
 
+.modal_box_coments .box_d {
+  background: white;
+  width: 100%;
+  height: fit-content;
+  top: 50%;
+  position: absolute;
+  transform: translateY(-50%);
+  padding: 0 3vw;
+  padding-bottom: 4vw;
+}
+
+.box_d .close_modalI {
+  width: 100%;
+  height: 10vw;
+  padding: 2vw 0;
+  border-bottom: 1px solid gray;
+  margin-bottom: 3vw;
+}
+
+.box_d .headers {
+  font-size: 5vw;
+  margin-bottom: 5vw;
+}
+
+.box_d .box_body {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.box_body .block_auth {
+  margin-bottom: 5vw;
+  width: auto;
+  height: auto;
+}
+.block_auth textarea#com_input_s {
+  width: 93vw;
+  height: 30vw;
+  padding: 2vw;
+  resize: none;
+}
+
+.box_body input[type="button"] {
+  width: 40vw;
+  height: 10vw;
+  font-size: 5vw;
+  border-radius: 2vw;
+  border: 0.5vw solid gray;
+}
+
+.lest {
+  line-height: 7vw;
+}
+
+.lest a {
+  color: blue;
+  text-decoration: underline;
+}
 .vert_sort_emen > button {
   padding: 3vw;
   border-radius: 2vw;
@@ -892,7 +962,8 @@ div.button {
   -o-transition: 0.4s;
   transition: 0.4s;
   overflow: scroll hidden;
--webkit-overflow-scrolling: touch;}
+  -webkit-overflow-scrolling: touch;
+}
 .nowinki_list-button-slider {
   display: block;
   top: 49%;
@@ -1017,11 +1088,13 @@ body::-webkit-scrollbar-thumb {
   margin-bottom: 6vw;
   height: auto;
   padding: 2vw 0;
-padding-bottom: 5vw;}
+  padding-bottom: 5vw;
+}
 .prise-block-content {
   padding: 0 3vw;
   width: 100%;
-margin: auto;}
+  margin: auto;
+}
 .prise-block-content h3 {
   font-size: 26px;
   font-weight: 600;
@@ -1053,14 +1126,20 @@ margin: auto;}
   border-radius: 5px;
 }
 .cheked-sog input[type="checkbox"] {
-  
   border-radius: 5px;
-background: white;width: 4vw;height: 4vw;}
+  background: white;
+  width: 4vw;
+  height: 4vw;
+}
 .cheked-sog input[type="checkbox"]:checked {
-  
   border-radius: 5px;
 
   z-index: 2;
+}
+.cheked-sog input[type="checkbox"].no_valid {
+  border: 1px solid red;
+  outline: 1px solid red;
+  border-radius: 0;
 }
 .cheked-sog input[type="checkbox"]:checked:before {
   content: "";
@@ -1068,7 +1147,9 @@ background: white;width: 4vw;height: 4vw;}
   display: inline-block;
   width: 100%;
   height: 100%;
-background-position: center;background-size: 100%;}
+  background-position: center;
+  background-size: 100%;
+}
 .prise-block-content div:nth-child(1) {
   color: white;
   margin: 5vw 0;
@@ -1083,7 +1164,7 @@ div.input input {
   width: 80vw;
   margin-bottom: 11px;
 }
-div.input input[type="button"] {
+div.input button {
   padding: 13px;
   font-size: 21px;
   width: 57vw;
@@ -1095,11 +1176,29 @@ div.input input[type="button"] {
   -webkit-box-shadow: inset 0px 0px 16px 13px #ff9900;
   box-shadow: inset 0px 0px 16px 13px #ff9900;
 }
-div.input input[type="button"]:hover {
+div.input button:hover {
   outline: 0.1vw solid #ffffff;
   background: #ffb937;
   -webkit-box-shadow: none;
   box-shadow: none;
+}
+button:disabled {
+  background: #d5d5d5 !important;
+  color: #212529 !important;
+  border: 2px solid gray !important;
+  box-shadow: none !important;
+}
+#button_input span#timeout {
+  margin-left: 10px;
+}
+#button_input span#timeout::after {
+  content: "";
+  background: url("../svg/loock_button.svg") no-repeat;
+  width: 22px;
+  height: 22px;
+  display: inline-block;
+  margin-left: 1px;
+  background-position: center;
 }
 .footer-box {
   display: -webkit-box;
@@ -1342,6 +1441,7 @@ div.footer-box__rov label p {
   align-content: center;
   line-height: 4vw;
   padding-right: 2vw;
+  text-align: start;
 }
 .comment-items .contents::after {
   content: "";
@@ -3046,6 +3146,9 @@ div.cart_items {
   padding: 2vw;
 }
 
+.conten {position: relative;width: 85vw;}
+
+span#numbers_textare {position: absolute;top: 1vw;right: 1vw;font-size: 4vw;}
 .box_coments input.box_coment_button {
   width: 31vw;
   padding: 2vw;
@@ -3331,7 +3434,7 @@ div.input input:invalid {
   outline: 1vw solid red !important;
 }
 
-.valid { 
+.valid {
   outline: 1vw solid green !important;
 }
 
