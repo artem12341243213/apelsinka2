@@ -170,7 +170,16 @@ if (isset($_POST['user_send_email_f']) && $_POST['user_send_email_f'] == 1) {
 }
 
 
+if (isset($_POST['addFav_f']) && $_POST['addFav_f'] == 1) {
+    $article_ = code($_POST['articl']);
+    $id_users = $_SESSION['id'];
 
+    $sql = "INSERT INTO `favoritesu` (`id_user`, `product`) VALUES ( $id_users , $article_)";
+
+    if (mysqli_query($CONNECT, $sql))
+        message("Избранное", 1, "Товар успехно добавлен в избранное, посмотреть свое избранное сможете в личном кабинете");
+    else message("Избранное", 2,  "Упс ... Что-то пошло не так, пожалуйста повторите попытку позже");
+}
 
 //
 

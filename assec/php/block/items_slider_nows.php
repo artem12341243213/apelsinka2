@@ -18,9 +18,9 @@ $disables_product;
 $price_opt_product;
 $price_roz_product;
 ?>
-<div class="__element" onclick="locations('product&article=<? echo $article_product; ?>')">
-    <span title="Добавить в избранное"></span>
-    <div class="element_containers">
+<div class="__element">
+    <span title="Добавить в избранное" onclick="addFavoritesUser(<? echo $article_product; ?>)"></span>
+    <div class="element_containers" onclick="locations('product&article=<? echo $article_product; ?>')">
         <div class="element__img">
             <img src="assec/images/product/<? echo $img ?> " alt="">
         </div>

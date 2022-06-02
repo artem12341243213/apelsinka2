@@ -970,4 +970,28 @@ function comments_opens(id) {
 
 
 
+/* -------------------------- Начало блока "Уголок авторизованного пользователя #auth"  ---------------------------- */
+function addFavoritesUser(id) {
+  var id_product = (id);
+  if (typeof id == "number" && /[0-9]{4,10}/.test(id) && user_after == true) {
+    $.ajax({
+      type: "POST",
+      url: "GLA1",
+      data: "addFav_f=1&articl=" + id,
+      dataType: "dataType",
+      success: function (rees) {
+        console.log(rees);
+      }
+    });
+  }
+  else if (user_after == false && typeof id == "number" && /[0-9]{4,10}/.test(id)) {
+    error_mesages("Для добавление товара в избранное требуется авторизация", 2, "Избранное");
+    return;
+  }
+  else {
+    error_mesages("Что-то пошло не так....", 3, "Error");
+    return;
+  }
+}
 
+/* -------------------------- Конец  блока "Уголок авторизованного пользователя"  ---------------------------- */

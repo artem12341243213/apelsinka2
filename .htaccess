@@ -1,23 +1,14 @@
 AddDefaultCharset utf8
+
 RewriteEngine on
 RewriteCond %{REQUEST_FILENAME} !-f 
 RewriteCond %{REQUEST_FILENAME} !-d 
 RewriteRule ^(.*)$ index.php?/$1 [L]
 
-<IfModule mod_php5.c>
-  php_value session.cookie_lifetime 0
-  php_value session.use_cookies 1
-  php_value session.use_only_cookies 1
-  php_value session.use_strict_mode 1
-  php_value session.cookie_httponly 1
-  php_value session.cookie_secure 0
-  php_value session.use_trans_sid 0
-  php_value session.cache_limiter 'private_no_expire'
-  php_value session.hash_function 'sha256'
-</IfModule>
-
-
-
-
-
+# BEGIN SpaceWeb HTTPS
+SetEnvIf X-Forwarded-Proto https SERVER_PORT=443
+SetEnvIf X-Forwarded-Proto https HTTPS=on
+RewriteCond %{HTTP:HTTPS} !=on [NC]
+RewriteRule ^(.*)$ https://%{SERVER_NAME}%{REQUEST_URI} [R=301,L]
+# END SpaceWeb HTTPS
 

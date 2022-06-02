@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: 
+Disallow: http://apelsinka.tech/adminPanels.php
+Disallow: http://apelsinka.tech/GLA_a.php
+Disallow: http://apelsinka.tech/userform.php
+Disallow: http://apelsinka.tech/GLA1.php
+Sitemap: http://apelsinka.tech/sitemap.xml
