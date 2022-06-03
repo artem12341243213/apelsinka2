@@ -3810,7 +3810,7 @@ span.non_chek {
   font-size: 4vw;
 }
 
-span.mobil_element {
+.cart_items span.mobil_element {
   display: inline-block;
   font-size: 4vw;
 }
