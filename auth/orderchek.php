@@ -15,7 +15,7 @@ if (!isset($_SESSION['id'])) {
 
 <div class="headers_cart">
     <ul>
-        <li class="header_li active"><a href="cart">
+        <li class="header_li active none_items_mobil"><a href="cart">
                 <div class="list_cart active">
                     <div class="cvg cart_svg_n1"></div>
                     <div class="box_n">
@@ -30,12 +30,12 @@ if (!isset($_SESSION['id'])) {
             <div class="list_cart active">
                 <div class="cvg cart_svg_n2"></div>
                 <div class="box_n">
-                    <div class="headers">2. Оформление заказа</div>
+                    <div class="headers none_items_mobil">2. Оформление заказа</div>
                     <div class="opisanie">Заполните данные, необходимые для оформления заказа</div>
                 </div>
             </div>
         </li>
-        <li class="header_li ">
+        <li class="header_li none_items_mobil">
             <div class="list_cart">
                 <div class="cvg cart_svg_n3"></div>
                 <div class="box_n">
@@ -60,6 +60,7 @@ if (!isset($_SESSION['id'])) {
             <div class="data_user">
                 <!--  -->
                 <div class="users_name">
+                    <span class="mobil_element">Отредактировать данные можно в <a href="profil">личном кабинете</a></span>
                     <p>
                         <label for="">ФИО: </label><input type="text" placeholder="ФИО" disabled value="<? print($name) ?>">
                     </p>
@@ -90,7 +91,7 @@ if (!isset($_SESSION['id'])) {
                         <input type="text" placeholder="ФИО" oninput="fio_valid()" id="fionns"><span class="" id="fios"></span>
                     </p>
                     <p><input type="emai" placeholder="Email" id="email" oninput="valids_mail_page()"><span class=""></span></p>
-                    <button onclick="code_meil()" disabled id="button_mail_p_d"> Отправить код</button>
+                    <button onclick="code_meil()" disabled id="button_mail_p_d" class="hidden_items"> Отправить код</button>
 
                     <div class="chek_mail_cart hidden_items">
                         <p>
