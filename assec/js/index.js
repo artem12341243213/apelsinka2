@@ -981,9 +981,12 @@ function addFavoritesUser(id) {
       success: function (rees) {
         let obj = jQuery.parseJSON(rees);
         if (obj.items == "yes")
-          $("#id_product_i" + id+" span").addClass("add_favor")
+          $("#id_product_i" + id + " span").addClass("add_favor")
         else if (obj.items == "no") {
-          $("#id_product_i" + id+" span").removeClass("add_favor")
+          $("#id_product_i" + id + " span").removeClass("add_favor")
+          if ($("#box_item_id" + id)) {
+            $("#box_item_id" + id).remove()
+          }
         }
         error_mesages(obj.titel, obj.tip, obj.headers)
       }

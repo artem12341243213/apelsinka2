@@ -189,6 +189,7 @@ if (isset($_POST['addFav_f']) && $_POST['addFav_f'] == 1) {
             $num = array_search($article_, $_SESSION['favorits']);
             if ($num != false) {
                 unset($_SESSION['favorits'][$num]);
+                sort($_SESSION['favorits']);
             }
             print_r('{"titel":"Товар удален из избранного",
                 "tip": 1,

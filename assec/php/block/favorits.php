@@ -1,9 +1,10 @@
 <?
 $text = "SELECT * FROM `product` WHERE";
 for ($i = 0; $i < count($_SESSION['favorits']); $i++) {
-    $text .= "`articl` = " . $_SESSION['favorits'][$i];
+    $text .= " `articl` = " . $_SESSION['favorits'][$i];
     if (isset($_SESSION['favorits'][$i + 1]))  $text .= " or ";
 }
+
 $mase = mysqli_query($CONNECT, $text);
 
 
@@ -11,10 +12,6 @@ $tkan = json_decode($GLOBALS['sorters'], true)[0];
 
 
 ?>
-<pre>
-        <? //print_r(mysqli_fetch_all($mase)) 
-        ?>
-</pre>
 <div class="box_favorits">
     <div class="h2 text-g">
         <h2>Избранное</h2>
@@ -30,7 +27,7 @@ $tkan = json_decode($GLOBALS['sorters'], true)[0];
             for ($j = 0; $j < count($data); $j++) {
                 $item = $data[$j];
         ?>
-                <div class="box_items" onclick="ocations('product&article=<? echo $item[0] ?>')">
+                <div class="box_items" id="box_item_id<? echo $item[0] ?>">
                     <?
                     // print_r($item);
 
@@ -69,8 +66,8 @@ $tkan = json_decode($GLOBALS['sorters'], true)[0];
                         </div>
                     </div>
                     <div class="button_menu">
-                        <button>Перейти к товару</button>
-                        <button>Удалить товар</button>
+                        <button onclick="locations('product&article=<? echo $item[0] ?>')">Перейти к товару</button>
+                        <button onclick="addFavoritesUser(<? echo $item[0]; ?>)">Удалить товар</button>
                     </div>
                 </div>
             <?
