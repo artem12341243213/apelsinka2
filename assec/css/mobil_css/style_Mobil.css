@@ -2788,17 +2788,18 @@ div.cart_items {
 .cart_items > div {
   display: -webkit-box;
   display: -ms-flexbox;
-  display: flex;
+
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -ms-flex-direction: column;
-  flex-direction: column;
+
   -webkit-box-align: center;
   -ms-flex-align: center;
-  align-items: center;
+
   -webkit-box-pack: center;
   -ms-flex-pack: center;
-  justify-content: center;
+
+  font-size: 4vw;
 }
 .delete_product > span {
   border: 1px solid gray;
@@ -3745,4 +3746,81 @@ span.non_chek {
 .elements {
   height: 487px;
   overflow: auto;
+}
+
+.items_count > span {
+  margin-bottom: 2vw;
+}
+
+.items_count > div {
+  display: flex;
+}
+
+.items_count > div > button {
+  width: 13vw;
+  border: 0.4vw solid var(--bg-color-grey_Whei);
+  border-radius: 1vw;
+}
+
+.items_count > div > button:nth-child(1):before {
+  content: "+";
+}
+
+.items_count > div > button:nth-child(3):before {
+  content: "-";
+}
+
+.items_count > div > p > input {
+  width: 23vw;
+  padding: 1vw;
+  font-size: 4vw;
+  border: 0px solid var(--bg-color-grey_Whei);
+  border-bottom-width: 0.4vw;
+  margin: 0 4vw;
+  text-align: center;
+}
+
+.items_count {
+  margin: 2vw 0;
+}
+
+.items_count > div > button:before {
+  font-size: 4vw;
+}
+
+.heders_item_n2 .titles_header {
+  font-size: 5vw;
+}
+
+.heders_item_n2 {
+  margin: 2vw 0;
+}
+
+.remove_header {
+  color: red;
+  text-decoration: underline;
+  text-align: center;
+  margin-top: 2vw;
+  font-size: 4vw;
+}
+
+.article_header {
+  text-align: center;
+  color: var(--text-color);
+  font-size: 4vw;
+}
+
+span.mobil_element {
+  display: inline-block;
+  font-size: 4vw;
+}
+
+.items_allPrise {
+  border-bottom: 1px solid black;
+  width: fit-content;
+  margin: 0 auto;
+  margin-top: 2vw;
+}
+.items_count_orig {
+  margin: 2vw 0;
 }

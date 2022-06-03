@@ -64,9 +64,9 @@ function tables_ris() {
                 <button class="button_backet_down" onclick="button_backet_down(${item["article"]},${item["id_cartItems"]})"></button>
                 </div>
             </div>
-            <div class="items_prise_orig"><span class="mobil_element"> цена за 1 шт</span> ${item['prise']}</div>
-            <div class="items_count_orig"><span class="mobil_element"> Колличество в упаковке</span> ${item['count_f']}</div>
-            <div class="items_allPrise"><span class="mobil_element"> итог</span>${item['price_all']}</div>
+            <div class="items_prise_orig"><span class="mobil_element"> Цена за 1 шт: </span> ${item['prise']}</div>
+            <div class="items_count_orig"><span class="mobil_element"> Колличество в упаковке: </span> ${item['count_f']}</div>
+            <div class="items_allPrise"><span class="mobil_element"> Итог: </span>${item['price_all']}</div>
         </div>`
             $(tbody).append(itemd);
             sll_prise += pris_s;
