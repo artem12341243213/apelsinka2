@@ -854,6 +854,21 @@ div.button {
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }
+.__element > span.add_favor::after {
+  background: url("../svg/Love-Hover.svg") no-repeat;
+  display: block;
+  height: 100%;
+  width: 100%;
+  z-index: 5;
+  background-size: 1em;
+  background-position: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
 .__element p {
   display: block;
   padding: 5px 5px 0.625em 5px;
@@ -5607,4 +5622,84 @@ span.Mobil_s {
 
 .valid {
   outline: 2px solid green !important;
+}
+
+
+.box_favorits>div.h2 {padding: 5px 0;}
+
+.box_items .img {
+  width: 250px;
+  height: 227px;
+  overflow: hidden scroll;
+  margin-right: 24px;
+}
+
+.box_items .img > img {
+  width: 100%;
+}
+
+.box_items {
+  display: flex;
+  margin-bottom: 30px;
+  padding: 0 10px;
+  border: 1px solid gray;
+  border-left: 0;
+  border-right: 0;
+}
+
+.text_item > div {
+  margin-bottom: 15px;
+}
+.text_item {
+  padding-top: 10px;
+  width: 280px;
+}
+
+.title:before {
+  content: "Название: ";
+}
+
+.size_item:before {
+  content: "Размер: ";
+}
+
+.textile_item:before {
+  content: "Ткань: ";
+}
+
+.sostav_item:before {
+  content: "Состав: ";
+}
+
+.prise_item:before {
+  content: "Цена: ";
+}
+
+.box_items:last-child {
+  border-bottom: 0;
+  margin-bottom: 0;
+}
+.button_menu {
+  width: 120px;
+  margin-left: 30px;
+}
+
+.button_menu > button {
+  margin: 10px auto;
+  width: 120px;
+  height: auto;
+  padding: 10px 0;
+  border-radius: 7px;
+  border: 1px solid gray;
+  cursor: pointer;
+}
+
+.button_menu > button:active {
+  background: orange;
+  color: white;
+}
+
+.elements {
+  height: 487px;
+  overflow: auto;
 }

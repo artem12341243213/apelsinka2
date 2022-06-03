@@ -266,6 +266,11 @@ function hedeer($title, $css = [], $href = "")
         <link rel="icon" href="favicon.png" type="image/x-icon">
         <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
         <link rel="stylesheet" href="assec/css/index.css">
+        <meta property="og:title" content="Детская одежда от производителя" />
+        <meta property="og:description" content="Детская одежда от производителя. Опт и рознциа по низким ценам." />
+        <meta property="og:locale" content="RU-ru" />
+        <meta property="og:url" content="https://apelsinka.tech/authorization" />
+        <meta property="og:url" content="https://apelsinka.tech/profil" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
         <? print($css_incl) ?>

@@ -972,15 +972,20 @@ function comments_opens(id) {
 
 /* -------------------------- Начало блока "Уголок авторизованного пользователя #auth"  ---------------------------- */
 function addFavoritesUser(id) {
-  var id_product = (id);
   if (typeof id == "number" && /[0-9]{4,10}/.test(id) && user_after == true) {
     $.ajax({
       type: "POST",
       url: "GLA1",
       data: "addFav_f=1&articl=" + id,
-      dataType: "dataType",
+      caches: false,
       success: function (rees) {
-        console.log(rees);
+        let obj = jQuery.parseJSON(rees);
+        if (obj.items == "yes")
+          $("#id_product_i" + id+" span").addClass("add_favor")
+        else if (obj.items == "no") {
+          $("#id_product_i" + id+" span").removeClass("add_favor")
+        }
+        error_mesages(obj.titel, obj.tip, obj.headers)
       }
     });
   }

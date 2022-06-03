@@ -1,6 +1,12 @@
-<? hedeer("Профиль");?>
+<? hedeer("Профиль");
+
+if($_GET)
+?>
 <div class="users_profil_section">
     <div class="global">
+        <pre>
+    <? print_r($_SESSION['favorits']) ?>
+        </pre>
         <div class="h1 text-g">
             <h1>Профиль</h1>
         </div>
@@ -17,7 +23,7 @@
                     </div>
                     <div class="Users_leftSection_content">
                         <p class="name"><?
-                                        if ((($_SESSION['last_name'] != '-' &&  $_SESSION['name'] != '-') || ($_SESSION['name'] != '-' && $_SESSION['first_name'] != '-')) && $_SESSION['name'] != "NULL")  {
+                                        if ((($_SESSION['last_name'] != '-' &&  $_SESSION['name'] != '-') || ($_SESSION['name'] != '-' && $_SESSION['first_name'] != '-')) && $_SESSION['name'] != "NULL") {
                                             if ($_SESSION['last_name'] != '-')  echo $_SESSION['last_name'] . " ";
                                             if ($_SESSION['name'] != '-')  echo $_SESSION['name'] . " ";
                                             if ($_SESSION['first_name'] != '-')  echo $_SESSION['first_name'];
@@ -98,7 +104,7 @@
         <?
                 } else { ?>
             <div class=" box_include hidden_items" id="include_box">
-            <!--     <div class="moi_z">
+                <!--     <div class="moi_z">
                     <div class="heder_d">
                         <div class="h2">
                             <h2>Мои заказы</h2>
@@ -117,8 +123,9 @@
         <ul class="users_profil_right_top">
             <!--  <li class="url_link_item"><a data-src="user_data">Данные пользователя</a></li> -->
             <li class="url_link_item"><a data-src="table_razmers">Таблица размеров</a></li>
-            <li class="url_link_item"><a data-src="beak_backet">Мои заказы</a></li>
             <li class="url_link_item"><a data-src="prise">Прайс - лист</a></li>
+            <li class="url_link_item"><a data-src="beak_backet">Мои заказы</a></li>
+            <li class="url_link_item"><a data-src="favorits">Избранное</a></li>
         </ul>
         <div class="lein"></div>
         <ul class="users_profil_right_bottom">

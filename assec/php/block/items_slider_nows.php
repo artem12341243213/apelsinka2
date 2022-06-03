@@ -17,9 +17,15 @@ $tkan = json_decode($GLOBALS['sorters'], true)[0];
 $disables_product;
 $price_opt_product;
 $price_roz_product;
+$favoris_user = "";
+foreach ($_SESSION['favorits'] as $item) {
+    if ($item == $article_product)
+        $favoris_user = "add_favor";
+}
+
 ?>
-<div class="__element">
-    <span title="Добавить в избранное" onclick="addFavoritesUser(<? echo $article_product; ?>)"></span>
+<div class="__element" id="id_product_i<? echo $article_product; ?>">
+    <span title="Добавить в избранное" onclick="addFavoritesUser(<? echo $article_product; ?>)" class="<? echo $favoris_user ?>"></span>
     <div class="element_containers" onclick="locations('product&article=<? echo $article_product; ?>')">
         <div class="element__img">
             <img src="assec/images/product/<? echo $img ?> " alt="">

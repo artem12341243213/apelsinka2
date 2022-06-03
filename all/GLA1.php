@@ -18,7 +18,12 @@ if (isset($_POST['bonus_activ_f']) && $_POST['bonus_activ_f'] == 1) {
         print('{"masive":[' . json_encode($tiv) . ']}');
     }
 }
+/*
+таблица 6
+рисунок 18
 
+
+*/
 
 if (isset($_POST['data_code_pl_chek'])) {
 
@@ -174,11 +179,41 @@ if (isset($_POST['addFav_f']) && $_POST['addFav_f'] == 1) {
     $article_ = code($_POST['articl']);
     $id_users = $_SESSION['id'];
 
-    $sql = "INSERT INTO `favoritesu` (`id_user`, `product`) VALUES ( $id_users , $article_)";
+    $los = mysqli_query($CONNECT, "SELECT * From `favoritesu`WHERE `id_user` = $id_users and `product` = $article_");
+    if (($los->num_rows) == 1) {
+        $sql =  "DELETE FROM `favoritesu` WHERE `id_user` = $id_users and `product` = $article_";
 
-    if (mysqli_query($CONNECT, $sql))
-        message("Избранное", 1, "Товар успехно добавлен в избранное, посмотреть свое избранное сможете в личном кабинете");
-    else message("Избранное", 2,  "Упс ... Что-то пошло не так, пожалуйста повторите попытку позже");
+        if (mysqli_query($CONNECT, $sql)) {
+
+
+            $num = array_search($article_, $_SESSION['favorits']);
+            if ($num != false) {
+                unset($_SESSION['favorits'][$num]);
+            }
+            print_r('{"titel":"Товар удален из избранного",
+                "tip": 1,
+                "headers"   : "Избранное",
+                "items" : "no"}');
+        } else message("Избранное", 2,  "Упс ... Что-то пошло не так, пожалуйста повторите попытку позже");
+    } else if (($los->num_rows) == 0) {
+        $sql = "INSERT INTO `favoritesu` (`id_user`, `product`) VALUES ( $id_users , $article_)";
+
+        if (mysqli_query($CONNECT, $sql)) {
+
+            if (isset($_SESSION['favorits'])) {
+                array_push($_SESSION['favorits'], $article_);
+            } else {
+                $mi = [];
+                array_push($mi, $article_);
+                $_SESSION['favorits'] = $mi;
+            }
+            print_r('{ "titel":"Товар успешно добавлен в избранное, посмотреть избранные товары можно в личном кабинете",
+            "tip": 1,
+            "headers"   : "Избранное",
+            "items" : "yes"
+        }');
+        }
+    } else message("Избранное", 2,  "Упс ... Что-то пошло не так, пожалуйста повторите попытку позже");
 }
 
 //

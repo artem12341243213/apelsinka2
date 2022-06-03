@@ -43,14 +43,14 @@
                         <div>
                             <span class="cont_svg" id="phone"></span>
                             <span>
-                                <p><a href="tel:<? print $GLOBALS['kontakts']['phone_one'] ?>"><? print $GLOBALS['kontakts']['phone_two'] ?></a></p>
+                                <p><a href="tel:<? print $GLOBALS['kontakts']['phone_two'] ?>"><? print $GLOBALS['kontakts']['phone_two'] ?></a></p>
                                 <p>Светлана - менеджер</p>
                             </span>
                         </div>
                         <div>
                             <span class="cont_svg" id="phone"></span>
                             <span>
-                                <p><a href="tel:<? print $GLOBALS['kontakts']['phone_one'] ?>"><? print $GLOBALS['kontakts']['phone_three'] ?></a></p>
+                                <p><a href="tel:<? print $GLOBALS['kontakts']['phone_three'] ?>"><? print $GLOBALS['kontakts']['phone_three'] ?></a></p>
                                 <p>Александр - менеджер</p>
                             </span>
                         </div>

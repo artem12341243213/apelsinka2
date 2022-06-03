@@ -3490,7 +3490,9 @@ div.input input:invalid {
 .users_status.opt {
   background: rgb(195, 234, 251);
 }
-.users_status.roz {background: #ffea4a;}
+.users_status.roz {
+  background: #ffea4a;
+}
 .users_status {
   width: 35vw;
   padding: 1px;
@@ -3662,4 +3664,85 @@ span.non_chek {
 
 .body_user p#opis {
   margin-bottom: 3vw;
+}
+
+.box_favorits > div.h2 {
+  padding: 5px 0;
+}
+.box_items .img {
+  width: 250px;
+  height: 227px;
+  overflow: hidden scroll;
+  margin-right: 24px;
+}
+
+.box_items .img > img {
+  width: 100%;
+}
+
+.box_items {
+  display: flex;
+  margin-bottom: 30px;
+  padding: 0 10px;
+  border: 1px solid gray;
+  border-left: 0;
+  border-right: 0;
+  flex-direction: column;
+}
+
+.text_item > div {
+  margin-bottom: 15px;
+}
+.text_item {
+  padding-top: 10px;
+  width: 280px;
+}
+
+.title:before {
+  content: "Название: ";
+}
+
+.size_item:before {
+  content: "Размер: ";
+}
+
+.textile_item:before {
+  content: "Ткань: ";
+}
+
+.sostav_item:before {
+  content: "Состав: ";
+}
+
+.prise_item:before {
+  content: "Цена: ";
+}
+
+.box_items:last-child {
+  border-bottom: 0;
+  margin-bottom: 0;
+}
+.button_menu {
+  width: 56vw;
+  margin: auto;
+}
+
+.button_menu > button {
+  margin: 2vw 5vw;
+  width: 45vw;
+  height: auto;
+  padding: 2vw 0;
+  border-radius: 2vw;
+  border: 1px solid gray;
+  cursor: pointer;
+}
+
+.button_menu > button:active {
+  background: orange;
+  color: white;
+}
+
+.elements {
+  height: 487px;
+  overflow: auto;
 }

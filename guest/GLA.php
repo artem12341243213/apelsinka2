@@ -52,8 +52,74 @@ if (isset($_POST['auth_f']) && $_POST['auth_f'] == 1) {
     }
   }
 
+  $cart_item_user = mysqli_query($CONNECT, "Select * From `cart_users` WHERE `id_user`='" . $row['id'] . "'");
 
+  if (($cart_item_user->num_rows) > 0) {
+    $cart_item_user = mysqli_fetch_assoc($cart_item_user)['item'];
+    $cart_item_user = json_decode($cart_item_user, true);
 
+    $articles = "SELECT `articl`,`disable` from `product` WHERE ";
+
+    $length =  count($cart_item_user);
+
+    $sv = 1;
+
+    for ($i = 0; $i < $length; $i++) {
+      if ($sv == 0) {
+        $articles .= " or ";
+      }
+      $sv = 1;
+      foreach ($cart_item_user[$i] as $key => $data) {
+        if ($key == 'article' && $sv == 1) {
+          $articles .= "`articl` =" . $data;
+          $sv = 0;
+        }
+      }
+    }
+
+    $disables_items = mysqli_query($CONNECT, "$articles");
+
+    if (($disables_items->num_rows)  > 0)
+      $disables_items = mysqli_fetch_all($disables_items);
+    else {
+      $disables_items = [];
+      for ($i = 0; $i < $length; $i++) {
+        $articles_items = [$cart_item_user[$i]['article'], 1];
+        array_push($disables_items, $articles_items);
+      }
+      unset($articles_items);
+    }
+
+    for ($i = 0; $i < $length; $i++) {
+      $items = $cart_item_user[$i];
+      foreach ($items as $key => $item) {
+
+        if ($key == "disables") {
+          for ($s = 0; $s < count($disables_items); $s++) {
+            if ($disables_items[$s][0] == $cart_item_user[$i]['article']) {
+              $cart_item_user[$i]['disables'] = $disables_items[$s][1];
+            }
+          }
+        } else if ($key == 'title') {
+        }
+      }
+    }
+    unset($disables_items);
+    $rov = json_encode($cart_item_user, JSON_UNESCAPED_UNICODE);
+    mysqli_query($CONNECT, "UPDATE `cart_users` SET `item` = '" . $rov . "' WHERE `id_user` = " . $row['id'] . ";");
+
+    setcookie('cart', $rov);
+  }
+
+  $los = mysqli_query($CONNECT, "SELECT * From `favoritesu`WHERE `id_user` = " . $row['id']);
+  if (($los->num_rows) != 0) {
+    $los = mysqli_fetch_all($los);
+    $mi = [];
+    foreach ($los as $item) {
+      array_push($mi, $item[1]);
+    }
+    $_SESSION['favorits'] = $mi;
+  }
   if ($row['type'] == '2') {
     $code = random_str(5);
     //mail_l($mail, 'Подтверждения входа в админ панель', $code);
@@ -71,65 +137,6 @@ if (isset($_POST['auth_f']) && $_POST['auth_f'] == 1) {
     // $_SESSION['vxod_admin'] = code($code, 's');
     // go('confirm');
   } else {
-
-    $cart_item_user = mysqli_query($CONNECT, "Select * From `cart_users` WHERE `id_user`='" . $row['id'] . "'");
-
-    if (($cart_item_user->num_rows) > 0) {
-      $cart_item_user = mysqli_fetch_assoc($cart_item_user)['item'];
-      $cart_item_user = json_decode($cart_item_user, true);
-
-      $articles = "SELECT `articl`,`disable` from `product` WHERE ";
-
-      $length =  count($cart_item_user);
-
-      $sv = 1;
-
-      for ($i = 0; $i < $length; $i++) {
-        if ($sv == 0) {
-          $articles .= " or ";
-        }
-        $sv = 1;
-        foreach ($cart_item_user[$i] as $key => $data) {
-          if ($key == 'article' && $sv == 1) {
-            $articles .= "`articl` =" . $data;
-            $sv = 0;
-          }
-        }
-      }
-
-      $disables_items = mysqli_query($CONNECT, "$articles");
-
-      if (($disables_items->num_rows)  > 0)
-        $disables_items = mysqli_fetch_all($disables_items);
-      else {
-        $disables_items = [];
-        for ($i = 0; $i < $length; $i++) {
-          $articles_items = [$cart_item_user[$i]['article'], 1];
-          array_push($disables_items, $articles_items);
-        }
-        unset($articles_items);
-      }
-
-      for ($i = 0; $i < $length; $i++) {
-        $items = $cart_item_user[$i];
-        foreach ($items as $key => $item) {
-
-          if ($key == "disables") {
-            for ($s = 0; $s < count($disables_items); $s++) {
-              if ($disables_items[$s][0] == $cart_item_user[$i]['article']) {
-                $cart_item_user[$i]['disables'] = $disables_items[$s][1];
-              }
-            }
-          } else if ($key == 'title') {
-          }
-        }
-      }
-      unset($disables_items);
-      $rov = json_encode($cart_item_user, JSON_UNESCAPED_UNICODE);
-      mysqli_query($CONNECT, "UPDATE `cart_users` SET `item` = '" . $rov . "' WHERE `id_user` = " . $row['id'] . ";");
-
-      setcookie('cart', $rov);
-    }
 
     foreach ($row as $key => $value) {
       if ($key == 'token_user_auto') $_SESSION[$key] = $password_cookie_token;

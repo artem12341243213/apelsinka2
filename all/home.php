@@ -103,12 +103,10 @@ hedeer("Главная", ['chief-slider']);
                         <?
                         } else {
 
-
-
-
-
-
-                            $array = mysqli_fetch_all(mysqli_query($CONNECT, "SELECT * FROM (SELECT * FROM `product` ORDER BY `articl` DESC LIMIT 10) t ORDER BY `articl`;"));
+                            $array = mysqli_fetch_all(mysqli_query(
+                                $CONNECT,
+                                "SELECT * FROM (SELECT * FROM `product` ORDER BY `articl` DESC LIMIT 10) t ORDER BY `articl`;"
+                            ));
                             if (count($array) > 1) {
                                 foreach ($array as $item) {
 
@@ -120,7 +118,7 @@ hedeer("Главная", ['chief-slider']);
                                     $pod_catecorian_product     =       $item[6];
                                     $sostav_product             =       $item[7];
                                     $textile_product = $item[8];
-
+                            
                                     $disables_product           =       $item[9];
                                     $price_opt_product          =       $item[11];
                                     $price_roz_product          =       $item[12];
