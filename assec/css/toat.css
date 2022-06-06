@@ -99,7 +99,7 @@
   border-bottom: 1px solid rgb(141 141 141);
   display: flex;
   align-items: center;
-}
+color: black;}
 
 .toast__close {
   content: "";

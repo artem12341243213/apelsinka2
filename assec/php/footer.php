@@ -54,7 +54,7 @@
                 </div>
                 <div class="footer-box__rov"><input type="checkbox" name="" id="sogl">
                     <label for="sogl">
-                        Я прочитал и принимаю условия <a href="politconf">Политики конфиденциальности</a> и <a href="polzowSogls">Пользовательского соглашения</a>
+                        Я прочитал(а) и принимаю условия <a href="politconf">Политики конфиденциальности</a> и <a href="polzowSogls">Пользовательского соглашения</a>
                     </label>
                 </div>
 

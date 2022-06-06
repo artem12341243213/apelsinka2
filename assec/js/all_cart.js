@@ -189,7 +189,7 @@ function remove_cart(id, numberrs) { //удаление из корзины
     }
 }
 
-function add_cart(type = '') {
+function add_cart(type = '') { // сам скрипт добавление в корхину
 
     if (user_after == false) { // выход если пользователь не авторизован. Авторизация в главном файле
         error_mesages("Для добавление товара в корзину нужно авторизоваться", 2, "Корзина");
@@ -249,12 +249,17 @@ function add_cart(type = '') {
     img.forEach(item => {
         var im = $(item)[0].classList.length;
         if (im > 1) {
-            img = $(item)[0].children[0].src;
-            img = img.replace("http://alica/assec/images/product/", "")
+            img = $(item)[0].children[0].dataset.src; // поправил
+            img = img.replace("https://apelsinka/assec/images/product/", "")
             items['img'] = img;
             return
         }
     });
+
+    if (typeof img == "object") {
+        error_mesages("Расцетка не выбрана", 2, "Корзина");
+        return;
+    }
     if (optovik == 1)
         items['Opt'] = 1;
     else
@@ -263,12 +268,34 @@ function add_cart(type = '') {
     // номер товара в корзине
     console.log(img)
     console.log(size);
+    console.log(cart_array);
+    items['id_cartItems'] = 0
     var numbers = 0;
+    var block = true;
     var cart_number = 0; // счечик 2 
     for (let i = 0; i < cart_array.length; i++) {
         let array = cart_array[i];
         if (array.article == article) {
-            if (array.size != size || array.img != img) {
+            if (array.img == img && array.size == size) {  // работает
+                cart_array[i]["count_s"] += 1;
+                cart_array[i]['price_all'] = price * cart_array[i]["count_s"] * amount;
+                block = false
+            }
+            else if (array.img != img || array.size != size) {
+                items['id_cartItems'] += 1
+                numbers = i + 1;
+            }
+        }
+        else {
+            numbers = i + 1;
+        }
+    }
+    console.log("n = " + numbers + " / cn = " + cart_array.length);
+    if (numbers == cart_array.length && block == true) {
+        cart_array.push(items);
+    }
+    /* 
+       if (array.size != size || array.img != img) {
                 cart_number++;
                 if (typeof cart_array[i + 1].id_cartItems == undefined) {
                     items['id_cartItems'] = cart_number;
@@ -282,17 +309,7 @@ function add_cart(type = '') {
                 cart_array[i].count_s++;
                 cart_array[i].price_all = price * cart_array[i].count_s * amount;
                 break;
-            }
-        }
-        else {
-            numbers = i + 1;
-        }
-    }
-
-    if (numbers == cart_array.length) {
-        items['id_cartItems'] = 0
-        cart_array.push(items);
-    }
+            } */
 
     /*  console.log(cart_array)
      return

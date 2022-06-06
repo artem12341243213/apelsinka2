@@ -18,9 +18,11 @@ $disables_product;
 $price_opt_product;
 $price_roz_product;
 $favoris_user = "";
-foreach ($_SESSION['favorits'] as $item) {
-    if ($item == $article_product)
-        $favoris_user = "add_favor";
+if (isset($_SESSION['favorits'])) {
+    foreach ($_SESSION['favorits'] as $item) {
+        if ($item == $article_product)
+            $favoris_user = "add_favor";
+    }
 }
 
 ?>

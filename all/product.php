@@ -133,7 +133,7 @@ $arrays_img = explode('|', $img_product);
                 <div class="ul_product_img">
                     <? foreach ($arrays_img as $key => $img) { ?>
                         <button class="li_product_img" onclick="cheked_img('img_<? echo $key ?>')" id="img_<? echo $key ?>">
-                            <img src="assec/images/product/<? echo $img ?>">
+                            <img src="assec/images/product/<? echo $img ?>" data-src="<? echo $img ?>">
                         </button>
                     <? } ?>
                 </div>
