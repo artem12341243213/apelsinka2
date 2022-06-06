@@ -54,7 +54,7 @@
                 </div>
                 <div class="footer-box__rov"><input type="checkbox" name="" id="sogl">
                     <label for="sogl">
-                        Подтверждаю согласие с <a href="politconf">Политикой конфиденциальности</a> и принимаю условия <a href="polzowSogls">Пользовательского соглашения</a>
+                        Я прочитал и принимаю условия <a href="politconf">Политики конфиденциальности</a> и <a href="polzowSogls">Пользовательского соглашения</a>
                     </label>
                 </div>
 
