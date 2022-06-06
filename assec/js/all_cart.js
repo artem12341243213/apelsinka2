@@ -266,9 +266,9 @@ function add_cart(type = '') { // сам скрипт добавление в к
         items['Opt'] = 0;
 
     // номер товара в корзине
-    console.log(img)
-    console.log(size);
-    console.log(cart_array);
+   // console.log(img)
+  //  console.log(size);
+  //  console.log(cart_array);
     items['id_cartItems'] = 0
     var numbers = 0;
     var block = true;
@@ -281,8 +281,8 @@ function add_cart(type = '') { // сам скрипт добавление в к
                 cart_array[i]['price_all'] = price * cart_array[i]["count_s"] * amount;
                 block = false
             }
-            else if (array.img != img || array.size != size) {
-                items['id_cartItems'] += 1
+            else if (array.img != img || array.size != size) {// работает ураааааааа
+                items['id_cartItems'] += 1 
                 numbers = i + 1;
             }
         }
@@ -290,7 +290,7 @@ function add_cart(type = '') { // сам скрипт добавление в к
             numbers = i + 1;
         }
     }
-    console.log("n = " + numbers + " / cn = " + cart_array.length);
+    //console.log("n = " + numbers + " / cn = " + cart_array.length);
     if (numbers == cart_array.length && block == true) {
         cart_array.push(items);
     }
