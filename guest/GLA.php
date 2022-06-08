@@ -112,7 +112,9 @@ if (isset($_POST['auth_f']) && $_POST['auth_f'] == 1) {
   }
 
   $los = mysqli_query($CONNECT, "SELECT * From `favoritesu`WHERE `id_user` = " . $row['id']);
+
   if (($los->num_rows) != 0) {
+
     $los = mysqli_fetch_all($los);
     $mi = [];
     foreach ($los as $item) {
@@ -120,25 +122,31 @@ if (isset($_POST['auth_f']) && $_POST['auth_f'] == 1) {
     }
     $_SESSION['favorits'] = $mi;
   }
-  if ($row['type'] == '2') {
-    $code = random_str(5);
-    //mail_l($mail, 'Подтверждения входа в админ панель', $code);
-    /*  $mi_code = "<p>Ваш код для окончания регистрации</p>
-      <p><div style='color: black;
-      padding: 0.6rem;
-      background: #cececed6;
-      border-radius: 5px;
-      font-size: 1.2rem;
-      max-width: fit-content;
-      margin: auto;'>$code</div></p>
-      ";
- */
-    //mail_l($email, "Апельсинка регистрация", 'Код регистрации', $mi_code);
-    // $_SESSION['vxod_admin'] = code($code, 's');
-    // go('confirm');
+
+  if ($row['type'] == 2) {
+    $lest['id'] = $row['id'];
+    unset($row);
+    $code = random_str(6, 'admin');
+
+    $mi_code = "<p>Код для подтверждения регистрации</p>
+    <p><div style='color: black;
+    padding: 0.6rem;
+    background: #cececed6;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    max-width: fit-content;
+    margin: auto;'>" . $code . "</div></p>  ";
+
+    $lest['code'] = code($code);
+    $lest['type'] = "vxod_admin";
+
+    $_SESSION['confirm'] = $lest;
+    if (mail_l($email, "Подтверждения входа в админ панель", 'Код администратора', $mi_code)) {
+      message('Вход', 2, 'Ключ подтверждения отправлен на почту', true, 'confirm');
+    }
   } else {
 
-    foreach ($row as $key => $value) {
+    /* foreach ($row as $key => $value) {
       if ($key == 'token_user_auto') $_SESSION[$key] = $password_cookie_token;
       else
         $_SESSION[$key] = $value;
@@ -147,7 +155,7 @@ if (isset($_POST['auth_f']) && $_POST['auth_f'] == 1) {
     if (isset($GET) && $GET != 'authorization')
       go($GET);
     else
-      go('store');
+      go('store'); */
   }
 } else if (isset($_POST['registers_f']) && $_POST['registers_f'] == 1) {
   $mas_ses = [];
@@ -260,7 +268,6 @@ if (isset($_POST['auth_f']) && $_POST['auth_f'] == 1) {
 
   $datee = $_SESSION['confirm'];
   if ($datee['code'] != code($_POST['code'])) {
-
     message("Подтверждение", 2, "Kод подтверждения указан не верно");
   } else {
     if ($datee['type'] === 'register') {
@@ -320,15 +327,16 @@ if (isset($_POST['auth_f']) && $_POST['auth_f'] == 1) {
       mail_l($datee['email'], 'Смена пароля',  'Новый пароль', "На странице был изменен пароль");
       unset($_SESSION['confirm']);
       message("Сброс пароль", 1, "Пароль был сброшен", true, 'authorization');
+    } else if ($datee['type'] === 'vxod_admin') {
+      $los = mysqli_fetch_assoc(mysqli_query($CONNECT, "SELECT * From `favoritesu`WHERE `id_user` = " . $datee['id']));
+      foreach ($los as $key => $value) {
+        if ($key == 'token_user_auto') $_SESSION[$key] = $password_cookie_token;
+        else
+          $_SESSION[$key] = $value;
+      };
+      $_SESSION['ADMIN_LOGIN_IN'] = 1;
+      go("home");
     } else not_found();
-  }
-} else if (isset($_POST['admins_f']) && $_POST['admins_f'] == 1 /* && isset($_SESSION['type']) && $_SESSION['type'] == 2) */) {
-  if (!isset($_SESSION['ADMIN_LOGIN_IN'])) {
-    $_SESSION['ADMIN_LOGIN_IN'] = 1;
-    message('Админ права', 1, 'Админ права выданы');
-  } else {
-    unset($_SESSION['ADMIN_LOGIN_IN']);
-    message('Админ права', 1, 'Админ права отозваны');
   }
 } else if (isset($_POST['Rewrite_f']) && $_POST['Rewrite_f'] == 1) {
 
@@ -358,6 +366,7 @@ if (isset($_POST['auth_f']) && $_POST['auth_f'] == 1) {
   mail_l($email, "Апельсинка регистрация", 'Код сброса пароля', $mi_code);
   message("Подтверждение", 1, "Письмо с кодом подтверждения было отправленно вам на почту", true, 'confirm');
 }
+
 
 
 function mail_l($user_meil, $hea, $h1, $text)

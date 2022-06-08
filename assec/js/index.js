@@ -83,7 +83,7 @@ function simbuls(id_block, id_span) {
   '', ''
   var id_block = $("#" + id_block).val();
   var id_span = $("#" + id_span);
-  id_span.html(id_block.length + "/600")
+  id_span.html(id_block.length + "/300")
 }
 function remove_coments(id) {
   $.ajax({

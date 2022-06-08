@@ -694,6 +694,9 @@ button.slider-prev::after {
   text-transform: uppercase;
   color: var(--text-color);
 }
+.dopNawmenu {
+    min-height: 925px;
+}
 .contents div.contents-list {
   display: -webkit-box;
   display: -ms-flexbox;

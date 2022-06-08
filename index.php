@@ -33,7 +33,7 @@ if (!$CONNECT) exit('Error mysqli');
 // $CONNECT = mysqli_connect('localhost', 'toropchina', 'rutiAns_2a', 'toropchina');
 
 /* Авторизация */
-if (isset($_COOKIE["password_cookie_token"]) && !empty($_COOKIE["password_cookie_token"]) && !isset($_SESSION['id'])) {
+if ((isset($_COOKIE["password_cookie_token"]) && !empty($_COOKIE["password_cookie_token"])) && !isset($_SESSION['id']) && !isset($_SESSION['confirm'])) {
     $row = mysqli_fetch_array(mysqli_query($CONNECT, "SELECT * FROM `user` WHERE `token_user_auto` LIKE '%" . $_COOKIE["password_cookie_token"] . "%'"));
     foreach ($row as $key => $value) {
         $_SESSION[$key] = $value;
@@ -167,10 +167,21 @@ function captch_valid()
         message('Ответ на капчу', '2', 'ответ на вопрос указан не верно');
     }
 }
-function random_str($num = 10)
+function random_str($num = 10, $types = 'user')
 {
-    //return substr(str_shuffle('0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM'), 0, $num);
-    return substr(str_shuffle('0123456789'), 0, $num);
+    switch ($types) {
+        case "user":
+            return substr(str_shuffle('0123456789'), 0, $num);
+            break;
+        case "admin":
+            $listAlpha = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            $listNonAlpha = ',;:!?.$/*-+&@_+;./*&?$-!,';
+            return str_shuffle(
+                substr(str_shuffle($listAlpha), 0, $num) .
+                    substr(str_shuffle($listNonAlpha), 0, rand(1, 4))
+            );
+            break;
+    }
 }
 
 

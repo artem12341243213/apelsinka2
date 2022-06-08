@@ -2,6 +2,7 @@
 hedeer("Подтверждение действий");
 ?>
 
+
 <div class="autorin">
     <div class="global">
         <div class="h1 text-g">

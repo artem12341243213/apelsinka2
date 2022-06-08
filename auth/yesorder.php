@@ -1,19 +1,61 @@
 <?
 
-/* if (!isset($_SESSION['id'])) {
-?>
-    <script>
-        setTimeout(() => {
-            locations("home")
-        }, 900)
-    </script>
-<?
-    not_found();
-} */
+if (isset($_SESSION['orders_prise'])) {
+
+    mail_l('orders@apelsinka.tech', 'Заказ', 'ye n', $text, $dop = '', $name = '');
+    //mail_l($user_meil, $hea, $h1, $text, $dop = '', $name = '')
+    //
+
+
+    $email = $user_meil; // почта получателя
+    $subject = $hea;
+    $html = "
+      <html><head>
+        <meta charset='UTF-8'>
+        <title>' . $subject . '</title> 
+        </head><body style = 'width: fit-content;
+        min-width: 21rem; '>
+         <div style='background: #ffb100;
+         border-radius: 5px;
+         color: #0037ff;
+         padding: 0.5rem; '>
+              <h1 style = 'text-align: center;
+              margin: 0.5rem;'>Апельсинка</h1>
+          </div>
+          <div style = 'text-align: center;
+          margin: 1rem;'>
+            <h2>$h1</h2>
+              <div>$text</div>
+          </div>
+        </body> 
+      </html>
+        ";
+
+    $mail = new mail();
+    $mail->addAddress($email);
+    $mail->Subject = $subject;
+    $mail->Body = $html;
+    $mail->addAttachment("$dop", "$name"); // приложить файл, если нужно (можешь даже несколько)
+    $mail->send();
+
+    //unset($_SESSION['orders_prise']);
+
+
+    /* Opt: 1
+article: 100064
+count_f: 1
+count_s: 2
+dels: 0
+disables: "0"
+id_cartItems: 0
+img: "PHOTO-2022-02-20-12-05-18.jpg"
+price_all: 660
+prise: 330
+size: 56
+title: " Комбинезоны с лапкой " */
+}
 
 hedeer('Спасибо за заказ')
-
-
 
 ?>
 <div class="headers_cart">

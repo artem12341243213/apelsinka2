@@ -873,6 +873,7 @@ button.slider-prev::after {
   row-gap: 0.9375em;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
+  min-height: 434vw;
 }
 .contents-list .contents-list__element {
   display: inline-block;

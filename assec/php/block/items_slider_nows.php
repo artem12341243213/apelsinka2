@@ -30,7 +30,7 @@ if (isset($_SESSION['favorits'])) {
     <span title="Добавить в избранное" onclick="addFavoritesUser(<? echo $article_product; ?>)" class="<? echo $favoris_user ?>"></span>
     <div class="element_containers" onclick="locations('product&article=<? echo $article_product; ?>')">
         <div class="element__img">
-            <img src="assec/images/product/<? echo $img ?> " alt="">
+            <img data-src="assec/images/product/<? echo $img ?> " alt="">
         </div>
 
         <div class="bode__element">
