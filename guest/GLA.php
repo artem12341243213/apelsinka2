@@ -139,7 +139,7 @@ if (isset($_POST['auth_f']) && $_POST['auth_f'] == 1) {
 
     $lest['code'] = code($code);
     $lest['type'] = "adminauthc";
-    $lest['password_coo'] = $password_cookie_token;;
+    $lest['password_coo'] = $password_cookie_token;
 
     $_SESSION['confirm'] = $lest;
     if (mail_l($email, "Подтверждения входа в админ панель", 'Код администратора', $mi_code)) {
@@ -271,44 +271,35 @@ if (isset($_POST['auth_f']) && $_POST['auth_f'] == 1) {
       if (isset($datee['email']))       $email = $datee['email'];
       if (isset($datee['password']))    $password = $datee['password'];
       if (isset($datee['name']))        $name = $datee['name'];
-      else $name = "NULL";
+      else $name = "-";
       if (isset($datee['first_name']))  $first_name = $datee['first_name'];
-      else $first_name = "NULL";
+      else $first_name = "-";
       if (isset($datee['last_name']))   $last_name = $datee['last_name'];
-      else $last_name = "NULL";
+      else $last_name = "-";
       if (isset($datee['phone']))       $phone = $datee['phone'];
-      else $phone = "NULL";
+      else $phone = "-";
       if (isset($datee['index']))       $index = $datee['index'];
-      else $index = "NULL";
+      else $index = "-";
       if (isset($datee['obl']))         $obl = $datee['obl'];
-      else $obl = "NULL";
+      else $obl = "-";
       if (isset($datee['sity']))        $sity = $datee['sity'];
-      else $sity = "NULL";
+      else $sity = "-";
       if (isset($datee['strasse']))     $strasse = $datee['strasse'];
-      else $strasse = "NULL";
+      else $strasse = "-";
       if (isset($datee['home']))        $home = $datee['home'];
-      else $home = "NULL";
+      else $home = "-";
       if (isset($datee['home_s']))        $home = $datee['home_s'];
-      else $kvart = "NULL";
+      else $kvart = "-";
 
       $sql = "SELECT max(`id`) AS 'max_id' FROM `user` WHERE `id`";
 
       $id_max = mysqli_fetch_assoc(mysqli_query($CONNECT, $sql))['max_id']  + 1;
-      /*
-      echo "<pre>";
-      print_r($datee);
-      echo "</pre>";
-    
-      print(mysqli_error($CONNECT));
-      */
 
       $sql =   "INSERT INTO `user` (`id`, `img`,`type`, `email`, `password`, `name`, `first_name`, `last_name`, `phone`, `region`, `sity`, `strasse`, `home`,`kvart`, `inpex_home`) 
       VALUES ('$id_max','noFoto.jpg','0', '$email', '$password', '$name', '$first_name', '$last_name', '$phone', '$obl', '$sity', '$strasse', '$kvart', '$home', '$index')
        ";
 
       mysqli_query($CONNECT, $sql);
-
-
 
 
       $sql = "INSERT INTO `cart_users` (`id_user`, `item`) VALUES ('" . $id_max . "', '[]')";
@@ -325,8 +316,8 @@ if (isset($_POST['auth_f']) && $_POST['auth_f'] == 1) {
       unset($_SESSION['confirm']);
       message("Сброс пароль", 1, "Пароль был сброшен", true, 'authorization');
     } else if ($datee['type'] === 'adminauthc') {
-      $los = mysqli_fetch_assoc(mysqli_query($CONNECT, "SELECT * From `user` WHERE `id_user` = " . $datee['id']));
-      foreach ($los as $key => $value) {
+      $lo1s = mysqli_fetch_assoc(mysqli_query($CONNECT, "SELECT * FROM `user` WHERE `id` = " . $datee['id']));
+      foreach ($lo1s as $key => $value) {
         if ($key == 'token_user_auto') $_SESSION[$key] = $datee['password_coo'];
         else
           $_SESSION[$key] = $value;

@@ -296,8 +296,7 @@ function hedeer($title, $css = [], $href = "")
     }
     if ($href != "") {
         $css_incl .= "<link rel='stylesheet' href='$href'>";
-    }
-?>
+    } ?>
     <!DOCTYPE html>
     <html lang="RU-ru">
 
@@ -384,11 +383,12 @@ function hedeer($title, $css = [], $href = "")
             <? include_once("assec/php/header.php"); ?>
         </header>
         <main>
-        <?
-    }
+        <? 
+};
 
-    function footer($mi = [], $script = "", $type = "")
-    { ?>
+
+function footer($mi = [], $script = "", $type = "")
+ { ?>
         </main>
         <? if (isset($_SESSION['ADMIN_LOGIN_IN'])) { ?>
             <script>
@@ -414,37 +414,43 @@ function hedeer($title, $css = [], $href = "")
             <script src="assec/js/lazyLoad.js"></script>
             <script type="text/javascript">
                 window.onload = function() {
-                    (function(m, e, t, r, i, k, a) {
-                        m[i] = m[i] || function() {
-                            (m[i].a = m[i].a || []).push(arguments)
-                        };
-                        m[i].l = 1 * new Date();
-                        k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
-                    })
-                    (window, document, "script", "assec/js/teg.js", "ym");
+                    (function(d, w, c) {
+                        (w[c] = w[c] || []).push(function() {
+                            try {
+                                w.yaCounter88782445 = new Ya.Metrika({
+                                    id: 88782445,
+                                    clickmap: true,
+                                    trackLinks: true,
+                                    accurateTrackBounce: true
+                                });
+                            } catch (e) {}
+                        });
 
-                    ym(88782445, "init", {
-                        clickmap: true,
-                        trackLinks: true,
-                        accurateTrackBounce: true,
-                        webvisor: true
-                    });
+                        var n = d.getElementsByTagName("script")[0],
+                            s = d.createElement("script"),
+                            f = function() {
+                                n.parentNode.insertBefore(s, n);
+                            };
+                        s.type = "text/javascript";
+                        s.async = true;
+                        s.src = "https://mc.yandex.ru/metrika/watch.js";
+
+                        if (w.opera == "[object Opera]") {
+                            d.addEventListener("DOMContentLoaded", f, false);
+                        } else {
+                            f();
+                        }
+                    })(document, window, "yandex_metrika_callbacks");
                 }
+            </script>
             </script>
             <noscript>
                 <div><img src="https://mc.yandex.ru/watch/88782445" style="position:absolute; left:-9999px;" alt="" /></div>
             </noscript>
             <!-- /Yandex.Metrika counter -->
         </footer>
-    </body>
-
-    </html>
+    </body></html>
 <? }
-
-
-
-
-
 
 /* media="screen and (max-width: 768px)" href="assec/css/style_Mobil.css">
     <link rel="stylesheet" media="screen and (min-width: 769px) and (max-width: 1080px)" href="assec/css/style_PC-center.css">
