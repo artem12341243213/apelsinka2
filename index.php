@@ -96,6 +96,7 @@ if (!isset($_SESSION['type']) || $_SESSION['type'] == 0) {
     $type = "opt";
 } else if (isset($_SESSION['type']) && $_SESSION['type'] == 2) {
     $type = "admin";
+    $_SESSION['ADMIN_LOGIN_IN'] = 1;
 }
 
 $c = 20;

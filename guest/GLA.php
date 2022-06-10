@@ -45,7 +45,7 @@ if (isset($_POST['auth_f']) && $_POST['auth_f'] == 1) {
     if (isset($_COOKIE["password_cookie_token"])) {
 
       //Очищаем поле password_cookie_token из базы данных
-      mysqli_query($CONNECT, "UPDATE users SET password_cookie_token = '' WHERE email = '" . $email . "'");
+      mysqli_query($CONNECT, "UPDATE `user` SET password_cookie_token = '' WHERE email = '" . $email . "'");
 
       //Удаляем куку password_cookie_token
       setcookie("password_cookie_token", "", time() - 3600);
@@ -138,7 +138,8 @@ if (isset($_POST['auth_f']) && $_POST['auth_f'] == 1) {
     margin: auto;'>" . $code . "</div></p>  ";
 
     $lest['code'] = code($code);
-    $lest['type'] = "vxod_admin";
+    $lest['type'] = "adminauthc";
+    $lest['password_coo'] = $password_cookie_token;;
 
     $_SESSION['confirm'] = $lest;
     if (mail_l($email, "Подтверждения входа в админ панель", 'Код администратора', $mi_code)) {
@@ -146,16 +147,12 @@ if (isset($_POST['auth_f']) && $_POST['auth_f'] == 1) {
     }
   } else {
 
-    /* foreach ($row as $key => $value) {
+    foreach ($row as $key => $value) {
       if ($key == 'token_user_auto') $_SESSION[$key] = $password_cookie_token;
       else
         $_SESSION[$key] = $value;
     };
-
-    if (isset($GET) && $GET != 'authorization')
-      go($GET);
-    else
-      go('store'); */
+    go('authorization');
   }
 } else if (isset($_POST['registers_f']) && $_POST['registers_f'] == 1) {
   $mas_ses = [];
@@ -327,14 +324,13 @@ if (isset($_POST['auth_f']) && $_POST['auth_f'] == 1) {
       mail_l($datee['email'], 'Смена пароля',  'Новый пароль', "На странице был изменен пароль");
       unset($_SESSION['confirm']);
       message("Сброс пароль", 1, "Пароль был сброшен", true, 'authorization');
-    } else if ($datee['type'] === 'vxod_admin') {
-      $los = mysqli_fetch_assoc(mysqli_query($CONNECT, "SELECT * From `favoritesu`WHERE `id_user` = " . $datee['id']));
+    } else if ($datee['type'] === 'adminauthc') {
+      $los = mysqli_fetch_assoc(mysqli_query($CONNECT, "SELECT * From `user` WHERE `id_user` = " . $datee['id']));
       foreach ($los as $key => $value) {
-        if ($key == 'token_user_auto') $_SESSION[$key] = $password_cookie_token;
+        if ($key == 'token_user_auto') $_SESSION[$key] = $datee['password_coo'];
         else
           $_SESSION[$key] = $value;
       };
-      $_SESSION['ADMIN_LOGIN_IN'] = 1;
       go("home");
     } else not_found();
   }
