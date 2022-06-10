@@ -2,7 +2,6 @@
 
 //php_value error_reporting 500
 
-
 /*
 опт - eajlusafsjxd@cutradition.com 123456789 
 розница - blwyhomh@cutradition.com 123456789
@@ -125,12 +124,42 @@ function go($url)
     exit('{"go" : "' . $url . '"}');
 }
 
-function not_found()
+function not_found($types = '404')
 {
+    if (isset($_GET['errors'])) $types = code($_GET['errors']);
     if (isset($_SESSION['ADMIN_LOGIN_IN'])) {
         print_r("<pre>");
         print_r(debug_backtrace());
         echo ("</pre>"); // проверить кто вызывает функцию
+    }
+    if ($types == "404") {
+        http_response_code($types);
+        $text = "<h1>Ошибка $types</h1>
+            <p>Искомая страница не существует, либо была перенесена</p>";
+    } else if ($types == "500") {
+        http_response_code($types);
+        $text = "<h1>Ошибка $types</h1>
+                <p>Ой... что-то сломалось, пожалуйста попробуйте позже</p>";
+    } else if ($types == "503") {
+        http_response_code($types);
+        $text = "<h1>Ошибка $types</h1>
+                <p>Ой... что-то сломалось, пожалуйста попробуйте позже</p>";
+    } else if ($types == "408") {
+        http_response_code($types);
+        $text = "<h1>Ошибка $types</h1>
+                <p>Сервер не долждался вашего ответа, пожалуйста попробуйте позже</p>";
+    } else if ($types == "522") {
+        http_response_code($types);
+        $text = "<h1>Ошибка $types</h1>
+                <p>Соединения с сервером было не установленно</p>";
+    } else if ($types == "403") {
+        http_response_code($types);
+        $text = "<h1>Ошибка $types</h1>
+                <p>Вам сюда нельзя</p>";
+    } else {
+        http_response_code($types);
+        $text = "<h1>Ошибка $types</h1>
+                <p>Ой... что-то сломалось, пожалуйста попробуйте позже</p>";
     }
     include_once 'assec/php/notfound.php';
     exit('');
@@ -274,11 +303,12 @@ function hedeer($title, $css = [], $href = "")
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="icon" href="favicon.png" type="image/x-icon">
-        <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+        <link rel="icon" href="favicon.ico" type="image/x-icon">
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
         <link rel="stylesheet" href="assec/css/index.css">
         <meta property="og:title" content="Детская одежда от производителя" />
         <meta property="og:description" content="Детская одежда от производителя. Опт и рознциа по низким ценам." />
+        <meta property="og:image" content="https://apelsinka.tech/assec/images/dopMenu-element5.jpg" />
         <meta property="og:locale" content="RU-ru" />
         <meta property="og:url" content="https://apelsinka.tech/authorization" />
         <meta property="og:url" content="https://apelsinka.tech/profil" />
@@ -316,27 +346,7 @@ function hedeer($title, $css = [], $href = "")
         <title><? print($title) ?></title>
 
         <!-- Yandex.Metrika counter -->
-        <script type="text/javascript">
-            (function(m, e, t, r, i, k, a) {
-                m[i] = m[i] || function() {
-                    (m[i].a = m[i].a || []).push(arguments)
-                };
-                m[i].l = 1 * new Date();
-                k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
-            })
-            (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
 
-            ym(88782445, "init", {
-                clickmap: true,
-                trackLinks: true,
-                accurateTrackBounce: true,
-                webvisor: true
-            });
-        </script>
-        <noscript>
-            <div><img src="https://mc.yandex.ru/watch/88782445" style="position:absolute; left:-9999px;" alt="" /></div>
-        </noscript>
-        <!-- /Yandex.Metrika counter -->
 
     </head>
 
@@ -368,6 +378,7 @@ function hedeer($title, $css = [], $href = "")
 
             <? unset($f) ?>
         </script>
+
         <header>
             <? include_once("assec/php/header.php"); ?>
         </header>
@@ -397,13 +408,37 @@ function hedeer($title, $css = [], $href = "")
 
 
         <footer>
+
             <? require_once("assec/php/footer.php"); ?>
+            <script src="assec/js/lazyLoad.js"></script>
+            <script type="text/javascript">
+                window.onload = function() {
+                    (function(m, e, t, r, i, k, a) {
+                        m[i] = m[i] || function() {
+                            (m[i].a = m[i].a || []).push(arguments)
+                        };
+                        m[i].l = 1 * new Date();
+                        k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
+                    })
+                    (window, document, "script", "assec/js/teg.js", "ym");
+
+                    ym(88782445, "init", {
+                        clickmap: true,
+                        trackLinks: true,
+                        accurateTrackBounce: true,
+                        webvisor: true
+                    });
+                }
+            </script>
+            <noscript>
+                <div><img src="https://mc.yandex.ru/watch/88782445" style="position:absolute; left:-9999px;" alt="" /></div>
+            </noscript>
+            <!-- /Yandex.Metrika counter -->
         </footer>
     </body>
 
     </html>
 <? }
-
 
 
 

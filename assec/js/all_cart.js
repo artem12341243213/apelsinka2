@@ -64,7 +64,7 @@ function show_cart() {
             <a onclick="remove_cart(${items["article"]},${items["id_cartItems"]})"> Удалить товар </a> </span></p> </div>`
             elements += `
         <div class="items_img_backet">
-        <img src="assec/images/product/${items["img"]}" alt="">
+        <img data-src="assec/images/product/${items["img"]}" src="assec/images/product/1x1.jpg" alt="">
         </div>
             <div class="items_backet_body">
                 <div class="items_titles_backet"><a href="product&article=${items["article"]}">${name}
@@ -266,9 +266,9 @@ function add_cart(type = '') { // сам скрипт добавление в к
         items['Opt'] = 0;
 
     // номер товара в корзине
-   // console.log(img)
-  //  console.log(size);
-  //  console.log(cart_array);
+    // console.log(img)
+    //  console.log(size);
+    //  console.log(cart_array);
     items['id_cartItems'] = 0
     var numbers = 0;
     var block = true;
@@ -282,7 +282,7 @@ function add_cart(type = '') { // сам скрипт добавление в к
                 block = false
             }
             else if (array.img != img || array.size != size) {// работает ураааааааа
-                items['id_cartItems'] += 1 
+                items['id_cartItems'] += 1
                 numbers = i + 1;
             }
         }
@@ -398,6 +398,7 @@ $(document).ready(function () {
 
     $(".header_box-rightPanel_cart.svg").mouseenter(() => {
         $(".backet_box").removeClass("hidden_items");
+        lazyScrollCheck()
         setTimeout(() => {
             dom.addEventListener('click', listener, false);
         }, 200)
@@ -406,6 +407,7 @@ $(document).ready(function () {
     var dom = $("body")[0];
     $(".header_box-rightPanel_cart.svg").on("click", () => {
         $(".backet_box").removeClass("hidden_items");
+        lazyScrollCheck()
         setTimeout(() => {
             dom.addEventListener('click', listener, false);
         }, 200)
