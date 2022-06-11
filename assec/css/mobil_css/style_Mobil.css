@@ -1296,7 +1296,7 @@ div.footer-box__rov label p {
   margin-right: 3vw;
   height: 10vw;
 }
-.footer-box__rov input[type="button"] {
+.footer-box__rov .Block_footers__button {
   border: 1px solid black;
   background: white;
   font-size: 4vw;
@@ -1318,7 +1318,7 @@ div.footer-box__rov label p {
   -ms-flex-align: center;
   align-items: center;
 }
-.footer-box__rov .buttonBlock_footers:before {
+.footer-box__rov .Block_footers__button:before {
   content: "";
   background: url("../svg/arrow_rigt_mail.svg");
   background-position: center;
@@ -1350,12 +1350,8 @@ div.footer-box__rov label p {
   -ms-flex-direction: row;
   flex-direction: row;
 }
-.footer-box__rov input[type="button"]:hover {
-  background: rgb(250, 207, 151);
-  border: 0.0625em solid gray;
-  cursor: pointer;
-}
-.footer-box__rov input[type="button"]:active {
+
+.footer-box__rov .Block_footers__button:active {
   opacity: 0.6;
   border: 0.0625em solid rgb(250, 207, 151);
 }
