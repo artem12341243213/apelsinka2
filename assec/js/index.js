@@ -492,70 +492,53 @@ function show_hide_password(targ, targ2) {
 function check_box(id_box, func) {
   var box = $("#" + id_box)[0].checked;
   var button = $("#button_input")
-  var but_span = $("#timeout");
   var phone_input = $("#phone");
   var m = 0;
   var phone_value = phone_input.val()
-  if (phone_value == "") {
-    error_mesages('Поле должны быть заполнено', 2, "Прайс"); $(phone_input).addClass("no_valid");
-    m++
-  } else {
-    if (!$("input#phone")[0].classList.contains('valid')) { error_mesages('Не правильно указан телефон', 2, 'Прайс'); button_dis(); }
-  }
-
-
   var FIO_input = $("#FIO");
   var FIO_value = FIO_input.val()
-  if (FIO_value == "") {
-    error_mesages('Поле должны быть заполнено', 2, "Прайс"); $(FIO_input).addClass("no_valid");
-    m++
-  } else {
-    if (!$("input#FIO")[0].classList.contains('valid')) { error_mesages('Не правильно указанно ФИО', 2, 'Прайс'); button_dis(); }
-  }
-
-
   var email_input = $("#email");
   var email_value = email_input.val()
-  if (email_value == "") {
-    error_mesages('Поле должны быть заполнено', 2, "Прайс"); $(email_input).addClass("no_valid");
-    m++
-  } else {
-    if (!$("input#email")[0].classList.contains('valid')) { error_mesages('Не правильно указанна почта', 3, 'Прайс'); button_dis(); }
-  }
 
-  if (m >= 1) {
-    button_dis();
-  }
-
-  if (box == true) {
-
-    if (phone_value != "" && FIO_value != "" && email_value != "") {
-      var funct = func.split(',')[0] + "('" + func.split(',')[1] + "','" + func.split(',')[2] + "','" + func.split(',')[3] + "')"
-      eval(funct)
-    }
+  if (phone_value == "" || FIO_value == "" || email_value == "") {
+    error_mesages('Все поля должны быть заполнено', 2, "Прайс");
+    if (FIO_value == "") $(FIO_input).addClass("no_valid");
+    if (phone_value == "") $(phone_input).addClass("no_valid");
+    if (email_value == "") $(email_input).addClass("no_valid");
+    button_disables(button);
   }
   else {
-    error_mesages('Нет согласие на обработку данных', 2, 'Прайс');
-    $("#" + id_box).addClass('no_valid')
-    button_dis();
+    if (!$("input#phone")[0].classList.contains('valid')) {
+      error_mesages('Не правильно указан телефон', 2, 'Прайс'); button_disables(button);
+      return;
+    }
+
+    if (!$("input#FIO")[0].classList.contains('valid')) {
+      error_mesages('Не правильно указанно ФИО', 2, 'Прайс'); button_disables(button);
+      return;
+    }
+
+    if (!$("input#email")[0].classList.contains('valid')) {
+      error_mesages('Не правильно указанна почта', 3, 'Прайс'); button_disables(button);
+      return;
+    }
+
+    if (box == true) {
+      error_mesages('Заявка оптравлена, ждем ответ', 1, 'Прайс');
+      button_disables(button);
+      if (phone_value != "" && FIO_value != "" && email_value != "") {
+        var funct = func.split(',')[0] + "('" + func.split(',')[1] + "','" + func.split(',')[2] + "','" + func.split(',')[3] + "')"
+        eval(funct)
+      }
+    }
+    else {
+      error_mesages('Нет согласие на обработку данных', 2, 'Прайс');
+      $("#" + id_box).addClass('no_valid')
+      button_disables(button);
+    }
   }
 
-  function button_dis() {
-    button.attr("disabled", "")
-    but_span.removeClass("hidden_items")
-    var i = 4
-    let mons = setInterval(() => {
-      but_span.html(i)
-      i--;
-    }, 1000)
-    setTimeout(() => {
-      button.removeAttr("disabled")
-      but_span.html('5')
-      but_span.addClass("hidden_items")
-      clearInterval(mons);
-    }, 5000)
-    return
-  }
+
 }
 
 function closse(id, clase = "hidden_items") {
@@ -591,7 +574,33 @@ function menu_box_mobil(item_menu) {
 
 }
 
-
+function button_disables(id) {
+  var button = $(id);
+  button.attr("disabled", "")
+  if (button[0].children.length > 0) {
+    var but_span = button[0].children[0];
+    but_span = $(but_span)
+    but_span.removeClass("hidden_items")
+    var i = 4
+    let mons = setInterval(() => {
+      but_span.html(i)
+      i--;
+    }, 1000)
+    setTimeout(() => {
+      button.removeAttr("disabled")
+      but_span.html('5')
+      but_span.addClass("hidden_items")
+      clearInterval(mons);
+    }, 5000)
+    return
+  }
+  else {
+    setTimeout(() => {
+      button.removeAttr("disabled")
+    }, 5000)
+    return
+  }
+}
 
 function send_email() { //#тут
   let email = $('#input_email_send');
@@ -612,7 +621,9 @@ function send_email() { //#тут
     box_chek.addClass("no_valid")
     return;
   }
-
+  let button = $(".buttonBlock_footers .Block_footers__button");
+  button_disables(button)
+  error_mesages("Заявка принята. Ожидаю ответ с сервера", 1, "Email-Рассылка")
   formes('GLA1', 'user_send_email', "input_email_send")
 }
 

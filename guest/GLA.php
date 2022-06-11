@@ -308,7 +308,7 @@ if (isset($_POST['auth_f']) && $_POST['auth_f'] == 1) {
 
       unset($_SESSION['confirm']);
 
-      go('authorization');
+      go('store');
     } else if ($datee['type'] === 'recovery') {
       $new_password = code($datee['newpassword'], 's');
       mysqli_query($CONNECT, "UPDATE `user` SET `password`='" . $new_password . "'WHERE `email`='" . $datee['email'] . "'");

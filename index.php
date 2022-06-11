@@ -9,6 +9,7 @@
 
 */
 session_start();
+
 function getIp()
 {
     $keys = [
@@ -383,12 +384,12 @@ function hedeer($title, $css = [], $href = "")
             <? include_once("assec/php/header.php"); ?>
         </header>
         <main>
-        <? 
-};
+        <?
+    };
 
 
-function footer($mi = [], $script = "", $type = "")
- { ?>
+    function footer($mi = [], $script = "", $type = "")
+    { ?>
         </main>
         <? if (isset($_SESSION['ADMIN_LOGIN_IN'])) { ?>
             <script>
@@ -449,7 +450,9 @@ function footer($mi = [], $script = "", $type = "")
             </noscript>
             <!-- /Yandex.Metrika counter -->
         </footer>
-    </body></html>
+    </body>
+
+    </html>
 <? }
 
 /* media="screen and (max-width: 768px)" href="assec/css/style_Mobil.css">

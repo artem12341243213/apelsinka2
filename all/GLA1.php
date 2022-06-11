@@ -161,17 +161,26 @@ if (isset($_POST['prise_block_f']) && $_POST['prise_block_f'] == 1) {
 
 if (isset($_POST['user_send_email_f']) && $_POST['user_send_email_f'] == 1) {
     $user_emeil = code($_POST['input_email_send']);
+    if (!isset($_SESSION['lock_accaunt']))
+        $_SESSION['lock_accaunt'] = 0;
+    if (isset($_SESSION['id']))    $_SESSION['lock_accaunt'] = 0;
+    if ($_SESSION['lock_accaunt'] == 4)  message("Подписка на рассылку", 3, "Данное действие больше недоступно");
+    $ldsa = mysqli_query($CONNECT, "SELECT * From `email_send_user` WHERE `email` = '$user_emeil'");
+    if (($ldsa->num_rows) == 0) {
+        if (isset($_SESSION['id']))
+            mysqli_query($CONNECT, "INSERT INTO `email_send_user` (`id_user`, `email`) VALUES ('" . $_SESSION['id'] . "', '$user_emeil')");
+        else mysqli_query($CONNECT, "INSERT INTO `email_send_user` (`id_user`, `email`) VALUES ('-1', '$user_emeil')");
 
-    if (!isset($_SESSION['id']))
-        mysqli_query($CONNECT, "INSERT INTO `email_send_user` (`id_user`, `email`) VALUES ('" . $_SESSION['id'] . "', '$user_emeil')");
-    mysqli_query($CONNECT, "INSERT INTO `email_send_user` (`id_user`, `email`) VALUES ('-1', '$user_emeil')");
-
-    $text = '
+        $text = '
         <p>Здраствуйте, ваша почта успешно добавленна в базу, теперь вы будете получать новости и информацию о наших новинках на почту. </p>   
         <p> Для отписки от расский перейдите по <a href = "https://apelsinka.tech/delit_user_mail&email=' . $user_emeil . '"> Данной ссылке</a> </p>    
-    ';
-    if (mail_l($user_emeil, "Подписка на рассылку", "", $text))
-        message("Подписка на рассылку", 1, "Вы успешно подписались на рассылку");
+        ';
+        if (mail_l($user_emeil, "Подписка на рассылку", "", $text))
+            message("Подписка на рассылку", 1, "Вы успешно подписались на рассылку");
+    } else {
+        if (!isset($_SESSION['id']))  $_SESSION['lock_accaunt'] += 1;
+        message("Подписка на рассылку", 2, "Данная почта уже подписанна на рассылку");
+    }
 }
 
 

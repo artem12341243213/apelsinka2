@@ -47,8 +47,8 @@
                 <div class="footer-box__rov">
                     <div class="footer_inputs">
                         <input type="text" placeholder="Ваш e-mail" id="input_email_send" oninput="email_valid('input_email_send')">
-                        <div class="buttonBlock_footers" onclick="send_email()">
-                            <input type="button" value="">
+                        <div class="buttonBlock_footers">
+                            <button class="Block_footers__button" onclick="send_email()"></button>
                         </div>
                     </div>
                 </div>

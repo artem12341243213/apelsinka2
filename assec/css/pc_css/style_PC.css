@@ -1089,36 +1089,21 @@ div.footer-box__rov input[type="checkbox"] {
   outline: none;
   padding: 10px;
 }
-.footer-box__rov input[type="button"] {
+.footer-box__rov .Block_footers__button {
   border: 1px solid black;
   background: white;
   font-size: 16px;
   border-radius: 5px;
-  padding: 10px;
-  max-width: 40px;
-  max-height: 40px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -ms-flex-line-pack: center;
-
   width: 40px;
   height: 40px;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-
-  align-items: center;
-  align-content: center;
+  cursor: pointer;
 }
-.footer-box__rov input[type="button"]:hover {
+.footer-box__rov  .Block_footers__button:hover {
   background: rgb(250, 207, 151);
   border: 1px solid gray;
   cursor: pointer;
 }
-.footer-box__rov input[type="button"]:active {
+.footer-box__rov  .Block_footers__button:active {
   outline: 0.1225em solid rgb(0 0 0);
 }
 .footer-box__rov input[type="text"]:focus {
@@ -3450,26 +3435,17 @@ span.users_status {
 span#footer_backet_all_count {
   border-bottom: 1px solid black;
 }
-.buttonBlock_footers:before {
+.buttonBlock_footers .Block_footers__button:before {
   content: "";
   background: url(../svg/arrow_rigt_mail.svg);
   background-position: center;
-  width: 20px;
-  height: 20px;
+  width: 70%;
+  height: 70%;
   background-repeat: no-repeat;
   display: block;
-  top: 50%;
-  left: 50%;
-  position: absolute;
-  -webkit-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
+  margin: auto;
 }
-.buttonBlock_footers {
-  position: relative;
-  display: inline-block;
-  cursor: pointer;
-}
+.buttonBlock_footers {display: block;width: 40px;height: 40px;}
 .footer_backet_button button {
   background: #e9e8e8;
   border-radius: 5px;
