@@ -249,8 +249,7 @@ function add_cart(type = '') { // сам скрипт добавление в к
     img.forEach(item => {
         var im = $(item)[0].classList.length;
         if (im > 1) {
-            img = $(item)[0].children[0].dataset.src; // поправил
-            img = img.replace("https://apelsinka/assec/images/product/", "")
+            img = $(item)[0].children[0].dataset.img; // поправил
             items['img'] = img;
             return
         }

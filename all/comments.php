@@ -17,7 +17,7 @@ $comments = mysqli_fetch_all(mysqli_query($CONNECT, "SELECT `user`.`name`,`user`
             <div class="box">
                 <div class="element_box">
                     <div class="box_eme_button_com">
-                        <div class="vert_sort_emen">
+                        <div class="vert_sort_emen fz-4">
                             <button onclick="opens('modal_box_coments');">Оставить комментарий</button>
                         </div>
                     </div>

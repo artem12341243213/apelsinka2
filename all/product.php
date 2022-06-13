@@ -86,12 +86,14 @@ $arrays_img = explode('|', $img_product);
                     <div class="button_product_price">
                         <? if ($type == 'opt') { ?>
                             <p><span id="product_price"><? echo $price_opt_product ?> </span> руб </p>
+
                         <? } else if ($type == 'roz') { ?>
                             <p><span id="product_price"><? echo $price_roz_product ?> </span> руб </p>
-                            <? if ($type == 'admin' || isset($_SESSION['ADMIN_LOGIN_IN'])) { ?>
-                                <p><span id="product_price"><? echo $price_opt_product ?> </span> руб -ОПТ</p>
-                        <? }
-                        } ?>
+
+                        <? } else if ($type == 'admin' || isset($_SESSION['ADMIN_LOGIN_IN'])) { ?>
+                            <p><span id="product_price_1"><? echo $price_roz_product ?> </span> руб - ROZ </p>
+                            <p><span id="product_price"><? echo $price_opt_product ?> </span> руб - OPT</p>
+                        <? } ?>
                     </div>
 
                     <div class="buttons_product_buttons">
@@ -133,7 +135,7 @@ $arrays_img = explode('|', $img_product);
                 <div class="ul_product_img">
                     <? foreach ($arrays_img as $key => $img) { ?>
                         <button class="li_product_img" onclick="cheked_img('img_<? echo $key ?>')" id="img_<? echo $key ?>">
-                            <img src="assec/images/product/<? echo $img ?>" data-src="<? echo $img ?>">
+                            <img src="assec/images/product/1x1.jpg" data-src="assec/images/product/<? echo $img ?>" data-img="<? echo $img ?>">
                         </button>
                     <? } ?>
                 </div>
@@ -141,24 +143,26 @@ $arrays_img = explode('|', $img_product);
         </div>
 
         <div class="product_box mobil_element ">
-            <div class="text-g">
-                <h3>Итого</h3>
-            </div>
+
             <div class="product_content_button_product mt-5">
+                <div class="input m-3 fz-4">
+                    <span> Количество упаковок</span>
+                    <input type="text" placeholder="Введите количество" id="count_up" value="1">
+                </div>
+                <div class="text-g">
+                    <h3>Итого</h3>
+                </div>
                 <div class="button_product_price">
                     <? if ($type == 'opt') { ?>
                         <p><span id="product_price"><? echo $price_opt_product ?> Х
                                 <? echo  $count_product ?> &#8212; <? echo $price_opt_product * $count_product ?> </span> руб </p>
                     <? } else if ($type == 'roz') { ?>
                         <p><span id="product_price"><? echo $price_roz_product * $count_product ?> </span> руб </p>
-                        <? if ($type == 'admin' || isset($_SESSION['ADMIN_LOGIN_IN'])) { ?>
-                            <p><span id="product_price"><? echo $price_opt_product ?> </span> руб -ОПТ</p>
-                    <? }
-                    } ?>
-                </div>
-                <div class="input m-3">
-                    <span> Количество упаковок</span>
-                    <input type="text" placeholder="Введите количество" id="count_up" value="1">
+                    <?
+                    } else if ($type == 'admin' || isset($_SESSION['ADMIN_LOGIN_IN'])) { ?>
+                        <p><span id="product_price"><? echo $price_opt_product ?> Х
+                                <? echo  $count_product ?> &#8212; <? echo $price_opt_product * $count_product ?> </span> руб </p>
+                    <? } ?>
                 </div>
                 <div class="buttons_product_buttons">
                     <input type="button" value="Оплатить" onclick="add_cart('item')">
