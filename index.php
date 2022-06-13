@@ -112,6 +112,7 @@ else if ((!isset($_SESSION['id']) or isset($_SESSION['ADMIN_LOGIN_IN'])) and fil
 else if (isset($_SESSION['ADMIN_LOGIN_IN'])) {
     if (file_exists('admin/' . $page . '.php')) include('admin/' . $page . '.php');
 } else if (!isset($_SESSION['id']) and file_exists('auth/' . $page . '.php')) {
+    http_response_code(401);
     include('guest/authorization.php');
 } else {
     not_found();
@@ -163,6 +164,7 @@ function not_found($types = '404')
         $text = "<h1>Ошибка $types</h1>
                 <p>Ой... что-то сломалось, пожалуйста попробуйте позже</p>";
     }
+    //http_response_code(401); // требуется авторизация
     include_once 'assec/php/notfound.php';
     exit('');
 }
