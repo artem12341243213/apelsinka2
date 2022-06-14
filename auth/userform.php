@@ -44,10 +44,22 @@ if (isset($_POST['elem'])) {
     } else if ($_POST['elem'] == 'user_data')      print('В разработке');
     else if ($_POST['elem'] == 'beak_backet')        print('В разработке');
     else if ($_POST['elem'] == 'table_razmers')    require('assec/php/table_raz.php');
-    else if ($_POST['elem'] == 'favorits') {  require('assec/php/block/favorits.php');
+    else if ($_POST['elem'] == 'favorits') {
+        if (!isset($_SESSION['favorits'])) {
+            $los = mysqli_query($CONNECT, "SELECT * From `favoritesu`WHERE `id_user` = " . $_SESSION['id']);
+            if (($los->num_rows) != 0) {
+                $los = mysqli_fetch_all($los);
+                $mi = [];
+                foreach ($los as $item) {
+                    array_push($mi, $item[1]);
+                }
+                $_SESSION['favorits'] = $mi;
+            }
+        }
+        require('assec/php/block/favorits.php');
     } else if ($_POST['elem'] == "prise") {
 
-    ?>
+?>
 
         <div class="box_pri">
             <p> Ссылка на скачивание прайс листа</p>
@@ -63,6 +75,48 @@ if (isset($_POST['elem'])) {
     } else if ($_POST['elem'] == 'cart')              print('В разработке');
     else if ($_POST['elem'] == 'editor_user')       require('assec/php/block/user_edit_data.php');
 }
+
+if (isset($_POST['addFav_f']) && $_POST['addFav_f'] == 1) {
+    $article_ = code($_POST['articl']);
+    $id_users = $_SESSION['id'];
+
+    $los = mysqli_query($CONNECT, "SELECT * From `favoritesu`WHERE `id_user` = $id_users and `product` = $article_");
+    if (($los->num_rows) == 1) {
+        $sql =  "DELETE FROM `favoritesu` WHERE `id_user` = $id_users and `product` = $article_";
+
+        if (mysqli_query($CONNECT, $sql)) {
+            $num = array_search($article_, $_SESSION['favorits']);
+            if ($num != false) {
+                unset($_SESSION['favorits'][$num]);
+                sort($_SESSION['favorits']);
+            }
+            print_r('{"titel":"Товар удален из избранного",
+                "tip": 1,
+                "headers"   : "Избранное",
+                "items" : "no"}');
+        } else message("Избранное", 2,  "Упс ... Что-то пошло не так, пожалуйста повторите попытку позже");
+    } else if (($los->num_rows) == 0) {
+        $sql = "INSERT INTO `favoritesu` (`id_user`, `product`) VALUES ( $id_users , $article_)";
+
+        if (mysqli_query($CONNECT, $sql)) {
+
+            if (isset($_SESSION['favorits'])) {
+                if (array_search($article_, $_SESSION['favorits']))
+                    array_push($_SESSION['favorits'], $article_);
+            } else {
+                $mi = [];
+                array_push($mi, $article_);
+                $_SESSION['favorits'] = $mi;
+            }
+            print_r('{ "titel":"Товар успешно добавлен в избранное, посмотреть избранные товары можно в личном кабинете",
+            "tip": 1,
+            "headers"   : "Избранное",
+            "items" : "yes"
+        }');
+        }
+    } else message("Избранное", 2,  "Упс ... Что-то пошло не так, пожалуйста повторите попытку позже");
+}
+
 if (isset($_FILES) && $_FILES != null && !isset($_POST['elem'])) {
     if ($_FILES != null) {
         $img_product = '';

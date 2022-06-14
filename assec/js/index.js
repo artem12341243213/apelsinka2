@@ -986,7 +986,7 @@ function addFavoritesUser(id) {
   if (typeof id == "number" && /[0-9]{4,10}/.test(id) && user_after == true) {
     $.ajax({
       type: "POST",
-      url: "GLA1",
+      url: "userform",
       data: "addFav_f=1&articl=" + id,
       caches: false,
       success: function (rees) {

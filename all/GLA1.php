@@ -184,48 +184,6 @@ if (isset($_POST['user_send_email_f']) && $_POST['user_send_email_f'] == 1) {
 }
 
 
-if (isset($_POST['addFav_f']) && $_POST['addFav_f'] == 1) {
-    $article_ = code($_POST['articl']);
-    $id_users = $_SESSION['id'];
-
-    $los = mysqli_query($CONNECT, "SELECT * From `favoritesu`WHERE `id_user` = $id_users and `product` = $article_");
-    if (($los->num_rows) == 1) {
-        $sql =  "DELETE FROM `favoritesu` WHERE `id_user` = $id_users and `product` = $article_";
-
-        if (mysqli_query($CONNECT, $sql)) {
-
-
-            $num = array_search($article_, $_SESSION['favorits']);
-            if ($num != false) {
-                unset($_SESSION['favorits'][$num]);
-                sort($_SESSION['favorits']);
-            }
-            print_r('{"titel":"Товар удален из избранного",
-                "tip": 1,
-                "headers"   : "Избранное",
-                "items" : "no"}');
-        } else message("Избранное", 2,  "Упс ... Что-то пошло не так, пожалуйста повторите попытку позже");
-    } else if (($los->num_rows) == 0) {
-        $sql = "INSERT INTO `favoritesu` (`id_user`, `product`) VALUES ( $id_users , $article_)";
-
-        if (mysqli_query($CONNECT, $sql)) {
-
-            if (isset($_SESSION['favorits'])) {
-                array_push($_SESSION['favorits'], $article_);
-            } else {
-                $mi = [];
-                array_push($mi, $article_);
-                $_SESSION['favorits'] = $mi;
-            }
-            print_r('{ "titel":"Товар успешно добавлен в избранное, посмотреть избранные товары можно в личном кабинете",
-            "tip": 1,
-            "headers"   : "Избранное",
-            "items" : "yes"
-        }');
-        }
-    } else message("Избранное", 2,  "Упс ... Что-то пошло не так, пожалуйста повторите попытку позже");
-}
-
 //
 
 

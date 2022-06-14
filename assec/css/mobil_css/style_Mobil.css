@@ -335,7 +335,6 @@ span.logo:before {
   flex-wrap: nowrap;
 }
 
-
 h4 {
   font-size: 3.6vw;
   text-transform: uppercase;
@@ -3833,4 +3832,7 @@ span.non_chek {
   width: fit-content;
   color: red;
   text-decoration: underline;
+}
+ul.box_user_ {
+  margin-bottom: 1vw;
 }

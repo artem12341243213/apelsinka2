@@ -1,6 +1,6 @@
 <? hedeer("Профиль");
 
-if($_GET)
+if ($_GET)
 ?>
 <div class="users_profil_section">
     <div class="global">
@@ -70,12 +70,12 @@ if($_GET)
 
                     <? } else if ($_SESSION['type'] == 2) {  ?>
                         <div class="users_status text-g <? echo "roz"; ?> ">
-                            <p><? echo "Администратор" ?> </p>
+                            <p><? echo "Админ" ?> </p>
 
                         </div>
                     <? } else {  ?>
                         <div class="users_status text-g <? echo "opt"; ?> ">
-                            <p><? echo "Заблокирован" ?> </p>
+                            <p><? echo "Удален" ?> </p>
                         </div>
                     <? } ?>
 
@@ -119,7 +119,13 @@ if($_GET)
             </div>
         </div>
     <? } ?>
+
     <div class="users_profil_rightSection">
+        <ul class="box_user_">
+            <li class="el">
+                <p>Ваш номер<span>10</span></p>
+            </li>
+        </ul>
         <ul class="users_profil_right_top">
             <!--  <li class="url_link_item"><a data-src="user_data">Данные пользователя</a></li> -->
             <li class="url_link_item"><a data-src="table_razmers">Таблица размеров</a></li>

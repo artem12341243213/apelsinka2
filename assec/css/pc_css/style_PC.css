@@ -2723,8 +2723,8 @@ select {
 }
 .rewrite_input_contents input {
   border: 1px solid gray;
-  font-size: 15px;
-  padding: 2px 5px;
+  font-size: 16px;
+  padding: 5px 6px;
   border-radius: 3px;
   margin-bottom: 15px;
   margin-top: 2px;
@@ -2747,7 +2747,7 @@ select {
   left: 500px;
 }
 .button_passwod {
-  max-width: 190px;
+  min-width: 212px;
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
@@ -2801,6 +2801,7 @@ input.rewrite_input--button {
 }
 .text_chekbox_passwod_box {
   display: inline-block;
+  width: 148px;
 }
 .rewrite_input_contents .button_passwod label {
   width: -webkit-fit-content;
@@ -4580,6 +4581,11 @@ span.yes_chek:after {
 .chek_mail_cart {
   margin: 10px 0;
   margin-bottom: 0;
+}
+
+ul.box_user_ {
+    margin-bottom: 15px;
+    padding-left: 6px;
 }
 .box_date_right_cod {
   display: -webkit-box;

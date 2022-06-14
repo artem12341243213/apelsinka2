@@ -29,7 +29,7 @@ $comments = mysqli_fetch_all(mysqli_query($CONNECT, "SELECT `user`.`name`,`user`
                         <div class="box_body">
                             <div class="block_auth">
                                 <? if (isset($_SESSION['id'])) { ?>
-                                    <textarea name="" id="com_input_s"></textarea>
+                                    <textarea name="" id="com_input_s" maxlength="250"></textarea>
                                 <? } else { ?>
                                     <div class="lest">
                                         <p>Чтобы оставить комментарий, нужно быть <a href="authorization&lye=comments">авторизованным</a>.</p>
