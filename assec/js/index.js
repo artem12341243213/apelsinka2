@@ -541,11 +541,11 @@ function check_box(id_box, func) {
 
 }
 
-function closse(id, clase = "hidden_items") {
-  $("." + id).addClass(clase);
+function closse(i, c = "hidden_items") {
+  $("." + i).addClass(c);
 }
-function opens(id, clase = "hidden_items") {
-  $("." + id).removeClass(clase);
+function opens(i, c= "hidden_items") {
+  $("." + i).removeClass(c);
 }
 function open_menu(t) {
   let m = $("."+t);
@@ -554,6 +554,7 @@ function open_menu(t) {
     m.addClass("hiddens");
   }, 4000)
 }
+
 function menu_box_mobil(item_menu) {
 
   if ($(".modal_catalog_b")[0].classList.length == 1) {

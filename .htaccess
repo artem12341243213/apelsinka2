@@ -1,5 +1,5 @@
 AddDefaultCharset utf8
-
+php_value error_reporting 500
 RewriteEngine on
 RewriteCond %{REQUEST_FILENAME} !-f 
 RewriteCond %{REQUEST_FILENAME} !-d 

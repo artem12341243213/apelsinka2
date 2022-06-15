@@ -3,6 +3,9 @@ session_start();
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/PHPMailer/mail.php');
 
+
+
+
 if (isset($_POST['auth_f']) && $_POST['auth_f'] == 1) {
 
   $email = code($_POST['email']);
@@ -12,10 +15,6 @@ if (isset($_POST['auth_f']) && $_POST['auth_f'] == 1) {
   if ($email == '' or $pass == '') message('Ошибка входа', 2, 'Заполните поля для входа');
   if (!isset($_POST['password'])) message('Ошибка входа', 2, 'Пароль не указан');
 
-  if (isset($_POST['get']))  $GET = code($_POST['get']);
-  if (isset($_POST['article']))  $GET .= "&article=" . code($_POST['article']);
-  if (isset($_POST['items']))  $GET .= "&items=" . code($_POST['items']);
-
   $riv = mysqli_query($CONNECT, "select `id`,`password` from `user` where `email` = '" . $email . "'");
   if (($riv->num_rows) == 0) message('Ошибка входа', 2, 'Указаная почта не найдена');
   $riv = mysqli_fetch_assoc($riv);
@@ -23,7 +22,9 @@ if (isset($_POST['auth_f']) && $_POST['auth_f'] == 1) {
   if (decode($riv['password']) != $pass) {
     message('Ошибка входа', 2, 'Почта или пароль указаны неверно');
   }
-
+  if (isset($_POST['get']))  $GET = code($_POST['get']);
+  if (isset($_POST['article']))  $GET .= "&article=" . code($_POST['article']);
+  if (isset($_POST['items']))  $GET .= "&items=" . code($_POST['items']);
   // Проверяем пользователя 
   $row = mysqli_fetch_assoc(mysqli_query($CONNECT, "Select * From `user` WHERE `email`='" . $email . "'"));
 
@@ -53,9 +54,8 @@ if (isset($_POST['auth_f']) && $_POST['auth_f'] == 1) {
   }
 
   $cart_item_user = mysqli_query($CONNECT, "Select * From `cart_users` WHERE `id_user`='" . $row['id'] . "'");
-
-  if (($cart_item_user->num_rows) > 0) {
-    $cart_item_user = mysqli_fetch_assoc($cart_item_user)['item'];
+  $cart_item_user =  mysqli_fetch_assoc($cart_item_user)['item'];
+  if (strlen($cart_item_user) != 2) {
     $cart_item_user = json_decode($cart_item_user, true);
 
     $articles = "SELECT `articl`,`disable` from `product` WHERE ";
@@ -113,7 +113,7 @@ if (isset($_POST['auth_f']) && $_POST['auth_f'] == 1) {
 
   $los = mysqli_query($CONNECT, "SELECT * From `favoritesu`WHERE `id_user` = " . $row['id']);
 
-  if (($los->num_rows) != 0) {
+  if (($los->num_rows) > 0) {
 
     $los = mysqli_fetch_all($los);
     $mi = [];
@@ -140,6 +140,7 @@ if (isset($_POST['auth_f']) && $_POST['auth_f'] == 1) {
     $lest['code'] = code($code);
     $lest['type'] = "adminauthc";
     $lest['password_coo'] = $password_cookie_token;
+    $lest['GET'] = $GET;
 
     $_SESSION['confirm'] = $lest;
     if (mail_l($email, "Подтверждения входа в админ панель", 'Код администратора', $mi_code)) {
@@ -154,11 +155,11 @@ if (isset($_POST['auth_f']) && $_POST['auth_f'] == 1) {
       else
         $_SESSION[$key] = $value;
     };
-    go('authorization');
+
+    go($GET);
   }
 } else if (isset($_POST['registers_f']) && $_POST['registers_f'] == 1) {
   $mas_ses = [];
-
 
   $email = code($_POST['email']);
   if (!isset($_POST['email'])) message('Хакерс', 3, 'И как же ты это сделал ?');
@@ -238,7 +239,6 @@ if (isset($_POST['auth_f']) && $_POST['auth_f'] == 1) {
     $kvart = code($_POST['home_s'], 's');
     $mas_ses['home_s'] = $kvart;
   }
-
   if ($password !==  $password_dubl)  message("Ошибка данных", 2, "Пароли не совпадают");
 
 
@@ -310,7 +310,7 @@ if (isset($_POST['auth_f']) && $_POST['auth_f'] == 1) {
 
       unset($_SESSION['confirm']);
 
-      go('store');
+      go($datee['GET']);
     } else if ($datee['type'] === 'recovery') {
       $new_password = code($datee['newpassword'], 's');
       mysqli_query($CONNECT, "UPDATE `user` SET `password`='" . $new_password . "'WHERE `email`='" . $datee['email'] . "'");
@@ -324,7 +324,10 @@ if (isset($_POST['auth_f']) && $_POST['auth_f'] == 1) {
         else
           $_SESSION[$key] = $value;
       };
-      go("home");
+      if (isset($datee['GET']))
+        go($datee['GET']);
+      else
+        go("home");
     } else not_found();
   }
 } else if (isset($_POST['Rewrite_f']) && $_POST['Rewrite_f'] == 1) {

@@ -64,7 +64,7 @@ function show_cart() {
             <a onclick="remove_cart(${items["article"]},${items["id_cartItems"]})"> Удалить товар </a> </span></p> </div>`
             elements += `
         <div class="items_img_backet">
-        <img data-src="assec/images/product/${items["img"]}" src="assec/images/product/1x1.jpg" alt="">
+        <img loading="lazy" src="assec/images/product/${items["img"]}" alt="">
         </div>
             <div class="items_backet_body">
                 <div class="items_titles_backet"><a href="product&article=${items["article"]}">${name}
@@ -293,73 +293,6 @@ function add_cart(type = '') { // сам скрипт добавление в к
     if (numbers == cart_array.length && block == true) {
         cart_array.push(items);
     }
-    /* 
-       if (array.size != size || array.img != img) {
-                cart_number++;
-                if (typeof cart_array[i + 1].id_cartItems == undefined) {
-                    items['id_cartItems'] = cart_number;
-                    console.log("none")
-                    cart_array.push(items);
-                    break;
-                }
-            }
-            if (array.size == size && array.img == img) {
-                console.log("yes_size + yes_img")
-                cart_array[i].count_s++;
-                cart_array[i].price_all = price * cart_array[i].count_s * amount;
-                break;
-            } */
-
-    /*  console.log(cart_array)
-     return
-     cart_array.forEach((item, key) => {
-         if (item.article == article) {
-             if (item.id_cartItems == cart_number) {
-                 print(item.id_cartItems + " | " + cart_number)
-                 if (item.img == img && item.size == size) {
-                     cart_array[key]["count_s"] += 1;
-                     cart_array[key]['price_all'] = price * cart_array[key]["count_s"] * amount;
-                     mix = false
-                 }
-                 else {
-                     if (item.img == img && item.size != size) {
-                         items['id_cartItems'] += cart_number + 1;
-                         print("0")
-                         cart_array.push(items);
-                         mix = false
- 
-                     }
-                     else if (item.size != size && item.img == img) {
-                         print("1")
-                         items['id_cartItems'] += cart_number;
-                         cart_array.push(items);
-                         mix = false
- 
-                     }
-                     else if (item.size != size && item.img != img) {
-                         items['id_cartItems'] += cart_number + 1;
-                         print("2")
-                         cart_array.push(items);
-                         mix = false
-                     }
-                 }
-                 return;
-             }
-             else {
-                 cart_number += 1;
-             }
-         }
-         else {
-             numbers++;
-         }
-     });
- 
-     if (numbers == cart_array.length && mix == true) {
-         cart_array.push(items);
-     }
- 
-     print(cart_array)
-     return */
     let cart = JSON.stringify(cart_array);
 
     add_carts_ajax(cart);

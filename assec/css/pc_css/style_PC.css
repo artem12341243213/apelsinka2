@@ -5700,8 +5700,9 @@ div.footer-box__rov label > a {
   text-decoration: underline;
 }
 .elements {
-  height: 487px;
+  max-height: 487px;
   overflow: auto;
+  min-height: 150px;
 }
 .rewrite_input_contents p#code_email {
   transition: 0.4s;
@@ -5709,6 +5710,15 @@ div.footer-box__rov label > a {
   overflow: hidden;
 }
 
+.not_faf {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  height: 150px;
+}
 .rewrite_input_contents p#code_email.opens {
   height: 90px;
   overflow: visible;

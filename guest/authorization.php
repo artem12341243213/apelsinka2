@@ -42,7 +42,7 @@ if (array_key_exists("items", $_GET)) $pi .= "&items=" . $_GET['items'];
             <div class="registers">
                 <div class="register_box">
                     <p>Впервые у нас?</p>
-                    <a href="registers">
+                    <a href="registers<? echo "&" . $pi ?>">
                         <input type="button" class="register_box--button" value="Регистрация">
                     </a>
                 </div>

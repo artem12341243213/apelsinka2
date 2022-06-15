@@ -91,6 +91,7 @@ else {
             not_found();
     }
 }
+unset($_SESSION['ADMIN_LOGIN_IN']);
 if (!isset($_SESSION['type']) || $_SESSION['type'] == 0) {
     $type = "roz";
 } else if (isset($_SESSION['type']) && $_SESSION['type'] == 1) {
@@ -414,8 +415,8 @@ function hedeer($title, $css = [], $href = "")
         <footer>
 
             <? require_once("assec/php/footer.php"); ?>
-            <script src="assec/js/lazyLoad.js"></script>
-            <script type="text/javascript">
+            <script async src="assec/js/lazyLoad.js"></script>
+            <script async type="text/javascript">
                 window.onload = function() {
                     (function(d, w, c) {
                         (w[c] = w[c] || []).push(function() {

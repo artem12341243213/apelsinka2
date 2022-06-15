@@ -104,6 +104,7 @@ if ($_GET)
         <?
                 } else { ?>
             <div class=" box_include hidden_items" id="include_box">
+
                 <!--     <div class="moi_z">
                     <div class="heder_d">
                         <div class="h2">
@@ -119,11 +120,11 @@ if ($_GET)
             </div>
         </div>
     <? } ?>
-
+                    
     <div class="users_profil_rightSection">
         <ul class="box_user_">
             <li class="el">
-                <p>Ваш номер<span>10</span></p>
+                <p>Ваш идентификатор  <span><? echo $_SESSION['id'] ?></span></p>
             </li>
         </ul>
         <ul class="users_profil_right_top">

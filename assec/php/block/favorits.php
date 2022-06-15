@@ -1,13 +1,14 @@
 <?
-$text = "SELECT * FROM `product` WHERE";
-for ($i = 0; $i < count($_SESSION['favorits']); $i++) {
-    $text .= " `articl` = " . $_SESSION['favorits'][$i];
-    if (isset($_SESSION['favorits'][$i + 1]))  $text .= " or ";
-}
+if (isset($_SESSION['favorits'])) {
+    $text = "SELECT * FROM `product` WHERE";
+    for ($i = 0; $i < count($_SESSION['favorits']); $i++) {
+        $text .= " `articl` = " . $_SESSION['favorits'][$i];
+        if (isset($_SESSION['favorits'][$i + 1]))  $text .= " or ";
+    }
 
-$mase = mysqli_query($CONNECT, $text);
-
-
+    $mase = mysqli_query($CONNECT, $text);
+    $f = true;
+} else $f = false;
 $tkan = json_decode($GLOBALS['sorters'], true)[0];
 
 
@@ -16,11 +17,9 @@ $tkan = json_decode($GLOBALS['sorters'], true)[0];
     <div class="h2 text-g">
         <h2>Избранное</h2>
     </div>
-    <div class="elements">
-
-
+    <div class="elements not_faf_r">
         <?
-        if (($mase->num_rows) > 0) {
+        if ($f != false && ($mase->num_rows) > 0) {
 
 
             $data = mysqli_fetch_all($mase);
@@ -74,7 +73,11 @@ $tkan = json_decode($GLOBALS['sorters'], true)[0];
             }
         } else { ?>
 
-
+            <div class="box_items not_faf">
+                <div class="nons_faforites_box">
+                    <p>Сохранненых товаров нет. Для сохранинея товара, нажмите на сердечко в карточке товара.</p>
+                </div>
+            </div>
         <? } ?>
 
     </div>

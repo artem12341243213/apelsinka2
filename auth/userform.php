@@ -40,9 +40,10 @@ if (isset($_POST['elem'])) {
             }
         }
         unset($_SESSION['id']);
+
         go('home');
-    } else if ($_POST['elem'] == 'user_data')      print('В разработке');
-    else if ($_POST['elem'] == 'beak_backet')        print('В разработке');
+    }
+    else if ($_POST['elem'] == 'beak_backet')      print('В разработке');
     else if ($_POST['elem'] == 'table_razmers')    require('assec/php/table_raz.php');
     else if ($_POST['elem'] == 'favorits') {
         if (!isset($_SESSION['favorits'])) {
@@ -58,9 +59,7 @@ if (isset($_POST['elem'])) {
         }
         require('assec/php/block/favorits.php');
     } else if ($_POST['elem'] == "prise") {
-
 ?>
-
         <div class="box_pri">
             <p> Ссылка на скачивание прайс листа</p>
             <? if (file_exists("assec/data/prise.xls")) {

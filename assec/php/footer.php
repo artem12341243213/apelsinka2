@@ -22,7 +22,7 @@
             </div>
             <div class="footer-box__column">
                 <h4>Персональный раздел</h4>
-                <div class="footer-box__rov"><a href="authorization&lye=profil"> Личный кабинет </a> </div>
+                <div class="footer-box__rov"><a href="profil"> Личный кабинет </a> </div>
                 <div class="footer-box__rov"><a href="#"> История заказов </a></div>
                 <div class="footer-box__rov"><a href="#"> Избранное</a></div>
                 <? if (isset($_SESSION['ADMIN_LOGIN_IN'])) { ?>
@@ -69,7 +69,7 @@ if (array_key_first($_GET) != "/table_r") {
 }   ?>
 <script src="assec/js/jQuery.js"></script>
 <script src="assec/js/index.js"></script>
-<script src="assec/js/all_cart.js"></script>
+<script defer src="assec/js/all_cart.js"></script>
 <?
 if ($script != "") {
 ?>
@@ -82,7 +82,7 @@ if (!empty($mi)) {
         <script src="assec/js/<? echo $mi[$i] ?>.js"></script>
 <? }
 } ?>
-<script src="assec/js/SmoothScroll.js"></script>
+<script defer src="assec/js/SmoothScroll.js"></script>
 <script>
     SmoothScroll({
         // Время скролла 400 = 0.4 секунды
