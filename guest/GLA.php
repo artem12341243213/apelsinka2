@@ -393,6 +393,7 @@ function mail_l($user_meil, $hea, $h1, $text)
   $mail->Subject = $subject;
   $mail->Body = $html;
   // $mail->addAttachment('/путь/к/файлу/файл', 'имя_файла'); // приложить файл, если нужно (можешь даже несколько)
+  //$mail->addEmbeddedImage("$puti", "$name"); // добавление картинки
   if ($mail->send()) {
     return true;
   } else {

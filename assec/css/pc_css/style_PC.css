@@ -4427,6 +4427,11 @@ p#counts_button_backet {
   height: 50px;
   margin-right: 15px;
 }
+
+.users_name span.non_chek,
+.users_name span.yes_chek {
+  top: 0;
+}
 .list_cart > .cart_svg_n1 {
   background: url("../svg/cart/cart.svg");
   background-size: auto;
@@ -4510,10 +4515,10 @@ span.actives input[type="text"] {
   flex-direction: row;
   -webkit-box-align: center;
   -ms-flex-align: center;
-  align-items: center;
   margin-bottom: 10px;
   font-size: 17px;
   font-weight: 600;
+  align-items: center;
 }
 span.non_chek:before {
   content: "";

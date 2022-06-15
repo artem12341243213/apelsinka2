@@ -50,9 +50,9 @@ if (!isset($_SESSION['id'])) {
     <div class="global">
         <? if (isset($_SESSION['id'])) {
 
-            $name = $_SESSION['last_name'] . " " . $_SESSION['name'] . " ";
-
-            if ($_SESSION['first_name'] != "-") $name .= $_SESSION['first_name'];
+            if ($_SESSION['last_name'] != "-")      $name = $_SESSION['last_name'];
+            if ($_SESSION['name'] != "-")           $name .= " " . $_SESSION['name'];
+            if ($_SESSION['first_name'] != "-")     $name .= " " . $_SESSION['first_name'];
         ?>
             <div class="car_h1">
                 <h1>Контактные данные</h1>
@@ -62,7 +62,13 @@ if (!isset($_SESSION['id'])) {
                 <div class="users_name">
                     <span class="mobil_element">Отредактировать данные можно в <a href="profil">личном кабинете</a></span>
                     <p>
-                        <label for="">ФИО: </label><input type="text" placeholder="ФИО" disabled value="<? print($name) ?>">
+
+                        <label for="">ФИО: </label>
+                        <? if ($name == "") { ?>
+                            <input type="text" placeholder="ФИО" oninput="fio_valid('no_block')" id="fionns"><span class="" id="fios"></span>
+                        <? } else { ?>
+                            <input type="text" placeholder="ФИО" disabled value="<? print($name) ?>" id="fionns">
+                        <? } ?>
                     </p>
                     <p>
                         <label for="">Email: </label>
@@ -72,11 +78,12 @@ if (!isset($_SESSION['id'])) {
                     <p>
                         <label for="">Телефон: </label>
                         <? if (decode($_SESSION['phone']) == NULL) { ?>
-                            <input type="phone" placeholder="Телефон" id="phone_input" value="">
-                        <? } else { ?>
-                            <input type="phone" placeholder="Телефон" id="phone_input" disabled value="<? print(decode($_SESSION['phone'])) ?>">
-                        <? } ?>
+                            <input type="phone" placeholder="Телефон" id="phone_input" oninput="phone_valid_s()"> <span class="" id="phone_span"></span>
                     </p>
+                <? } else { ?>
+                    <input type="phone" placeholder="Телефон" id="phone_input" disabled value="<? print(decode($_SESSION['phone'])) ?>">
+                <? } ?>
+                </p>
                 </div>
 
             </div>
@@ -130,7 +137,7 @@ if (!isset($_SESSION['id'])) {
         </div>
         <div class="data_user">
             <div class="block_pochta_in">
-                <div style="display:none;">
+                <div style="display:none;" id="redio_chek_m">
                     <input type="radio" name="dost" id="pochta_ru_r">
                     <input type="radio" name="dost" id="pochta_sdek_r">
                     <input type="radio" name="dost" id="samvi1_r">
@@ -339,7 +346,11 @@ if (!isset($_SESSION['id'])) {
         <div class="footer_cart order_cheeek">
             <div class="footer_cart_box">
                 <div class="mobil_flex_footer">
-                    <div class="footer_cart_margin"><button onclick="locations('yesorder')">Оформить</button></div>
+
+                    <div class="footer_cart_margin">
+                        <button onclick="locations('cart')">Назад</button>  
+                        <button onclick="order_yes_o()" id="formse">Оформить</button>
+                    </div>
                     <div class="footer_cart_allPrice">
                         <p><span style="text-decoration: underline;">Итог</span> <span id="cart_allPritse">0</span></p>
                     </div>

@@ -217,7 +217,7 @@ function formes(url, name, data) {
 }
 function add_carts_ajax(data) {
 
-  data.replace("+", "\+")
+  data.replace("+", "PL")
   setTimeout(() => {
     $.ajax({
       type: "POST",

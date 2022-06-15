@@ -1,5 +1,9 @@
 <?
+require_once($_SERVER['DOCUMENT_ROOT'] . '/PHPMailer/mail.php');
+
+
 session_start();
+
 if (isset($_POST['elem'])) {
     if ($_POST['elem'] == 'exit') {
 
@@ -42,8 +46,7 @@ if (isset($_POST['elem'])) {
         unset($_SESSION['id']);
 
         go('home');
-    }
-    else if ($_POST['elem'] == 'beak_backet')      print('В разработке');
+    } else if ($_POST['elem'] == 'beak_backet')      print('В разработке');
     else if ($_POST['elem'] == 'table_razmers')    require('assec/php/table_raz.php');
     else if ($_POST['elem'] == 'favorits') {
         if (!isset($_SESSION['favorits'])) {
@@ -171,4 +174,54 @@ if (isset($_POST['edit_data_user_f']) && $_POST['edit_data_user_f'] == 1) {
     foreach ($lwww as $key => $value) {
         $_SESSION[$key] = $value;
     };
+}
+
+if (isset($_POST['orderPrisesCasec_f']) && $_POST['orderPrisesCasec_f'] == 1) {
+
+
+    $FIO  = code($_POST['FIO']);
+    $obl = code($_POST['obl']);
+    $sity = code($_POST['sity']);
+    $strasse  = code($_POST['strasse']);
+    $home  = code($_POST['home']);
+    $name_user = code($_POST['name_user']);
+    $email = code($_POST['email']);
+    $phone  = code($_POST['phone']);
+    $dilivery = code($_POST['dilivery']);
+    $home_s  = code($_POST['home_s']);
+    $index = code($_POST['index']);
+
+    $cart = $_COOKIE['carts'];
+
+    $cart = json_decode($cart);
+
+    $number_orders = mysqli_fetch_assoc(mysqli_query($CONNECT, "SELECT count(`id`) as 'num' FROM `past_orders`"))['num'] + 1;
+
+    
+    // <img src="cid:0.jpg" width="128" height="128">
+    $email = "toropchin_a@bk.ru"; //"orders@apelsinka.tech"; // почта получателя
+
+    $subject = "Новый заказ #" . $number_orders;
+    $html = '<html><head>';
+    $html .= "<meta charset='UTF-8'>";
+    $html .= "<title>' . $subject . '</title>";
+    $html .= "</head><body style = 'width: fit-content;min-width: 21rem;'>";
+    $html .= "<div style='background: #ffb100;
+         border-radius: 5px;color: #0037ff;padding: 0.5rem;'>";
+    $html .= "<h1 style = 'text-align: center;margin: 0.5rem;'> Апельсинка </h1></div>";
+    $html .= "<div style = 'text-align: center;margin: 1rem;'>";
+    $html .= "<h2>Заказ</h2>";
+    $html .= "<div>$text</div>";
+    $html .= "</div></body></html>";
+
+    $mail = new mail();
+    $mail->addAddress($email);
+    $mail->Subject = $subject;
+    $mail->Body = $html;
+    $mail->addEmbeddedImage("$puti", "$name"); // добавление картинки
+    if ($mail->send()) {
+        print("Заказ сделан");
+    } else {
+        return $mail->ErrorInfo; //false; //'Ошибка: ' . 
+    }
 }

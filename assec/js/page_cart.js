@@ -36,7 +36,6 @@ function tables_ris() {
                 $(".cart_body_cart").addClass("hidden_items");
             }
             let name = item["title"];
-            print(name);
             if (name.includes('PL'))
                 name = item["title"].replace("PL", "+")
 
@@ -219,13 +218,14 @@ function code_meil(type = 'osn') {
 
 
 function fio_valid() {
-    let tel1 = $("input#fionns").val();
-    let tel = String(tel1);
-    if (tel.length > 3) {
+    let t = $("input#fionns").val();
+    let f = String(t);
+    let re = /[А-Яа-я]/;
+    if (f.length > 3 && re.test(f)) {
         document.getElementById("fios").classList.remove('non_chek')
         $("#fios").addClass("yes_chek");
     }
-    else if (tel.length == 0) {
+    else if (f.length == 0) {
         document.getElementById("fios").classList.remove("yes_chek");
         document.getElementById("fios").classList.remove('non_chek')
     }
@@ -259,23 +259,22 @@ function pochta(item) {
     $(".block .text_le").html("")
     $(".block .opisanie").html("")
     $(".block .opisanie_n").html("")
+
     for (var items in dost) {
         $("#" + items).removeClass("active")
         if (items == item) {
             $("#" + item).addClass("active")
-            for (var data in dost[items]) {
-                if (dost[items].name != false)
-                    $(".block .text_h2").html(dost[items].name)
-                if (dost[items].dostavka != false && dost[items].prise != false)
-                    $(".block .opisanie").html("<span> Доставка " + dost[items].dostavka + " дней </span><span> Стоймость от " + dost[items].prise + " руб</span>")
-                else if (dost[items].dostavka != false)
-                    $(".block .opisanie").html("<span> Доставка  " + dost[items].dostavka + " дней </span>")
-                if (dost[items].opisanie != false)
-                    $(".block .text_le").html(dost[items].opisanie)
-                if (dost[items].raschet != false)
-                    $(".block .opisanie_n").html(dost[items].raschet)
-            }
 
+            if (dost[items].name != false)
+                $(".block .text_h2").html(dost[items].name)
+            if (dost[items].dostavka != false && dost[items].prise != false)
+                $(".block .opisanie").html("<span> Доставка " + dost[items].dostavka + " дней </span><span> Стоймость от " + dost[items].prise + " руб</span>")
+            else if (dost[items].dostavka != false)
+                $(".block .opisanie").html("<span> Доставка  " + dost[items].dostavka + " дней </span>")
+            if (dost[items].opisanie != false)
+                $(".block .text_le").html(dost[items].opisanie)
+            if (dost[items].raschet != false)
+                $(".block .opisanie_n").html(dost[items].raschet)
         }
     }
 
@@ -307,16 +306,176 @@ var dost = {
     "samvi1": {
         "opisanie": 'Вы сможете забрать ваш заказ по <a href="https://goo.gl/maps/rcMMHrjZQBbyM3Ly5"> Рынок "Восточны" Бокс 99 </a> ',
         "dostavka": "1 - 3",
-        "name": "Самовывоз",
+        "name": "Самовывоз. Точка 1",
         "prise": false,
         "raschet": "Время работы: с 8:00 - 17:00"
     },
     "samvi2": {
         "opisanie": 'Вы сможете забрать ваш заказ по <a href="https://goo.gl/maps/rcMMHrjZQBbyM3Ly5"> Рынок "Восточны" (Оранжевая ярморка) Бокс 402 </a> ',
         "dostavka": "1 - 3",
-        "name": "Самовывоз",
+        "name": "Самовывоз. Точка 2",
         "prise": false,
         "raschet": "Время работы: с 8:00 - 17:00"
     }
 
+}
+
+
+/* функция оформления заказа полностью */
+
+function order_yes_o() {
+    let button = $('#formse');
+
+    /* блок с контактами*/
+    let name = $("#fionns");
+
+    if (!isNaN(name.val()) || name.val().length == 0) {
+        error_mesages('В поле <ФИО> можно только буквы', 2, "Контакты");
+        name.css("outline", "2px solid red")
+        button_disables(button)
+        return;
+    }
+    let email = $("#email"); //почта провена
+
+    let phone = $("#phone_input");
+    if (isNaN(phone.val()) || phone.val().length == 0 || phone.val().length > 11 || phone.val().length < 11) {
+        error_mesages('В поле <Телефон> можно только цифры', 2, "Контакты");
+        phone.css("outline", "2px solid red")
+        button_disables(button)
+        return;
+    }
+
+    /* Определение доставки  */
+    let redio_button = $("#redio_chek_m")[0].children;
+    for (let m = 0; m < redio_button.length; m++)
+        if ($(redio_button[m]).is(':checked')) redio_button = redio_button[m].id.replace("_r", "");
+
+    let dilivery = "";
+    for (var i in dost) {
+        if (i == redio_button)
+            dilivery = dost[i].name
+    }
+
+    /*block adress*/
+
+    let F = $("#last_name");
+    let I = $("#name");
+    let O = $("#first_name");
+
+    let obl = $("#obl");
+    let sity = $("#sity");
+    let strasse = $("#strasse");
+
+    let home = $("#home_strasse");
+
+    let home_s = $("#home");
+    if (isNaN(home_s.val())) {
+        error_mesages('В поле <Квартира> можно только цифры', 2, "Адресс доставки");
+        home_s.css("outline", "2px solid red")
+        button_disables(button)
+        return;
+    }
+    let index = $("#Address_ZipPostalCode");
+    if (isNaN(index.val())) {
+        error_mesages('В поле <Индекс> можно только цифры', 2, "Адресс доставки");
+        index.css("outline", "2px solid red")
+        button_disables(button)
+        return;
+    }
+
+    /*   let prov = [F, I, O, obl, sity, strasse, home]  доделать 
+      let t = 0;
+      for (let m in prov) {
+          if (prov[m].val().length == 0) {
+              console.log(prov[m].val())
+              let nams = "";
+              let noms = 0;
+              switch (m) {
+                  case prov[0]: {
+                      nams = "Фамилия"; noms = 0;
+                      error_mesages('Поле <' + nams + '> недолжно быть пустое', 2, "Адресс доставки");
+                      prov[noms].css("outline", "2px solid red")
+                      t++;
+                      break;
+                  } case prov[1]: {
+                      nams = "Имя "; noms = 1;
+                      error_mesages('Поле <' + nams + '> недолжно быть пустое', 2, "Адресс доставки");
+                      prov[noms].css("outline", "2px solid red")
+                      t++;
+                      break;
+                  }
+                  case prov[2]: {
+                      nams = "Отчество"; noms = 2;
+                      error_mesages('Поле <' + nams + '> недолжно быть пустое', 2, "Адресс доставки");
+                      prov[noms].css("outline", "2px solid red")
+                      t++;
+                      break;
+                  }
+                  case prov[3]: {
+                      nams = "Область "; noms = 3;
+                      error_mesages('Поле <' + nams + '> недолжно быть пустое', 2, "Адресс доставки");
+                      prov[noms].css("outline", "2px solid red")
+                      t++;
+                      break;
+                  }
+                  case prov[4]: {
+                      nams = "Город "; noms = 4;
+                      error_mesages('Поле <' + nams + '> недолжно быть пустое', 2, "Адресс доставки");
+                      prov[noms].css("outline", "2px solid red")
+                      t++;
+                      break;
+                  }
+                  case prov[5]: {
+                      nams = "Улица "; noms = 5;
+                      error_mesages('Поле <' + nams + '> недолжно быть пустое', 2, "Адресс доставки");
+                      prov[noms].css("outline", "2px solid red")
+                      t++;
+                      break;
+                  }
+                  case prov[6]: {
+                      nams = "Дом "; noms = 6;
+                      error_mesages('Поле <' + nams + '> недолжно быть пустое', 2, "Адресс доставки");
+                      prov[noms].css("outline", "2px solid red")
+                      t++;
+                      break;
+                  }
+              }
+          }
+      }
+      if (t != 0) {
+          button_disables(button)
+          return;
+      } */
+
+
+    /* Оборачиваем и ставим корзину для загрузки на сервер */
+    si = JSON.parse(localStorage.getItem("cart"));
+    setcookie("carts", JSON.stringify(si), 2)
+
+    /* отправка */
+    let data = "";
+    data += "FIO=" + F.val() + I.val() + O.val() + "&";
+    data += "obl=" + obl.val() + "&";
+    data += "sity=" + sity.val() + "&";
+    data += "strasse=" + strasse.val() + "&";
+    data += "home=" + home.val() + "&";
+    data += "name_user=" + name.val() + "&";
+    data += "email=" + email.val() + "&";
+    data += "phone=" + phone.val() + "&";
+    data += "dilivery=" + dilivery + "&";
+    data += "home_s=" + home_s.val() + "&";
+    data += "index=" + index.val();
+
+
+    $.ajax({
+        type: "POST",
+        url: "userform",
+        data: "orderPrisesCasec_f=1&" + data,
+        dataType: "dataType",
+        success: function (response) {
+            console.log(response)
+        }
+    });
+    return;
+    locations('yesorder')
 }
