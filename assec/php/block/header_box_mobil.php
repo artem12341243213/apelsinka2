@@ -1,4 +1,8 @@
-<div class="header_box_mobil">
+
+<div class="button_menu_visible" onclick="open_menu('header_box_mobil')">
+    <span></span>
+</div>
+<div class="header_box_mobil hiddens">
     <div class="global">
         <div class="header_box_mobil--box">
             <div class="header_box_mobil__catalog items_s" onclick="opens('modal_catalog_b')">

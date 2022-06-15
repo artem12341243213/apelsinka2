@@ -172,7 +172,7 @@ function comments_say(type) {
 
 function formes(url, name, data) {
   var str = "";
-
+  error_mesages("Данные отправлены, ожидаем ответ", 1, " ")
   $.each(data.split("."), function (k, v) {
 
     str += "&" + v + "=";
@@ -532,7 +532,7 @@ function check_box(id_box, func) {
       }
     }
     else {
-      error_mesages('Нет согласие на обработку данных', 2, 'Прайс');
+      error_mesages('Нет согласия на обработку данных', 2, 'Прайс');
       $("#" + id_box).addClass('no_valid')
       button_disables(button);
     }
@@ -547,7 +547,13 @@ function closse(id, clase = "hidden_items") {
 function opens(id, clase = "hidden_items") {
   $("." + id).removeClass(clase);
 }
-
+function open_menu(t) {
+  let m = $("."+t);
+  m.removeClass("hiddens");
+  setTimeout(() => {
+    m.addClass("hiddens");
+  }, 4000)
+}
 function menu_box_mobil(item_menu) {
 
   if ($(".modal_catalog_b")[0].classList.length == 1) {
@@ -731,6 +737,7 @@ function reg_infos() {
   var password = $("#password");
   var password_dubl = $("#password_dubl");
 
+
   /* Дополнительная секция */
 
   var name = $("#name");
@@ -745,10 +752,7 @@ function reg_infos() {
   var kvart = $("#home_s");
 
   /* Чек-боксы */
-  var pod3 = $("#pod3");
   var pod1 = $("#pod1");
-  var pod2 = $("#pod2");
-
 
   /* Блокировка кнопки на время проверки  */
 
@@ -770,7 +774,6 @@ function reg_infos() {
   var mas_id_test1 = [email, password, password_dubl];
 
   var coins_1 = 0;
-  var coins_2 = 0;
 
   /* Проверка параметров после нажатия кнопки */
 
@@ -785,46 +788,42 @@ function reg_infos() {
     }
   });
   if (coins_1 != 0) {
-    error_mesages("Заполните обязательные поля", 2, "Ошбика данных");
+    error_mesages("Заполните обязательные поля", 2, "Ошибка");
     return false;
   }
 
   /* Проверем второй блок */
 
   mas_id_test2.forEach((item) => {
-
     if (item.val() != "" && Number(item.val()) != 0) {
       mas_id.push(item);
     }
   });
-  //return false;
-  /* Проверем третий блок */
 
-  if (!pod3.is(":checked")) {
-    red($("#pod3_label"));
-    coins_2++;
-  }
-  if (!pod2.is(":checked")) {
-    red($("#pod2_label"));
-    coins_2++;
-  }
+
+  /* Проверем третий блок */
   if (!pod1.is(":checked")) {
     red($("#pod1_label"));
-    coins_2++;
-  }
-
-  if (coins_2 != 0) {
     error_mesages(
       "Нужно принять условия соглашения",
       2,
-      "Ошбика подтвреждения"
+      "Ошибка"
     );
     return false;
   }
+  if (password.val() != password_dubl.val()) {
+    error_mesages(
+      "Пароли не совпадают",
+      2,
+      "Ошибка"
+    );
+    return false;
+  }
+
   /* Окончательное решение */
 
 
-  if (coins_2 == 0 && coins_1 == 0) {
+  if (coins_1 == 0) {
     var str = "";
     mas_id.forEach((item, key) => {
       str += item.prop("id");
@@ -965,7 +964,13 @@ function list_catalog_modals(type) {
 }
 
 
+function rewritePassword() {
+  let email = $("#email");
+  let codeEmail_i = $("#code_email");
 
+  return;
+  formes('GLA', 'Rewrite', 'rewritePaswords.email')
+}
 function comments_opens(id) {
   $("#comments_id_" + id + " .contents").toggleClass("active")
 }

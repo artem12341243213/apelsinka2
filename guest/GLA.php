@@ -144,6 +144,8 @@ if (isset($_POST['auth_f']) && $_POST['auth_f'] == 1) {
     $_SESSION['confirm'] = $lest;
     if (mail_l($email, "Подтверждения входа в админ панель", 'Код администратора', $mi_code)) {
       message('Вход', 2, 'Ключ подтверждения отправлен на почту', true, 'confirm');
+    } else {
+      message('Ошибка', 3, 'Не удалость отправить код');
     }
   } else {
 

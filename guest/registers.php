@@ -18,7 +18,7 @@ $lands = mysqli_fetch_all(mysqli_query($CONNECT, "SELECT * FROM `land` ORDER BY 
                         <span id="email1" class="error_podpis">Проверте правильность ввода данных</span>
                         <input type="email" placeholder="E-mail" id="email" onclick="not_red('email')" oninput="validateEmail()" value="" patern="([A-z0-9_.-]{1,})@([A-z0-9_.-]{1,}).([A-z]{2,8})" required>
                         <span id="passNone1" class="error_podpis">Пароль должен быть от 6 до 10 символов</span>
-                        <input type="text" placeholder="Пароль" id="password" title="Пароль должен быть от 6 до 20 символов и состоять из цифр" onclick="not_red('password')" oninput="passchek()" value="" required  pattern="[\x1F-\xBF]{6,9}">
+                        <input type="text" placeholder="Пароль" id="password" title="Пароль должен быть от 6 до 20 символов и состоять из цифр" onclick="not_red('password')" oninput="passchek()" value="" required pattern="[\x1F-\xBF]{6,9}">
                         <span id="passNone" class="error_podpis">Пароли не совпадают</span>
                         <input type="text" placeholder="Повторите пароль" id="password_dubl" onclick="not_red('password_dubl')" oninput="passchek()" value="" required pattern="[\x1F-\xBF]{6,9}">
                     </fieldset>
@@ -55,16 +55,9 @@ $lands = mysqli_fetch_all(mysqli_query($CONNECT, "SELECT * FROM `land` ORDER BY 
                 <fieldset class="register_soglas_pole_fieldset">
                     <input type="checkbox" id="pod1">
                     <label for="pod1" class="register_soglas_pole_fieldset_pod" id="pod1_label" onclick="not_red('pod1_label')">
-                        Даю согласие на обрамотку моих персональных данных.
+                        Подтверждаю, что ознакомился(лась) и принимаю <a href="politconf"> Политику конфиденциальности</a>, а также 
+                        <a href="polzowSogls"> Пользовательское соглашения</a> и даю согласие на обработку мои персональный данных.
                         <span class="ob_posl" title="Обязательный элемент">*</span> </label>
-                    <input type="checkbox" id="pod2">
-                    <label for="pod2" class="register_soglas_pole_fieldset_pod" id="pod2_label" onclick="not_red('pod2_label')">
-                        Подтверждаю что ознакомился(лась) и принимаю  <a href="politconf"> Политику конфиденциальности</a>.
-                        <span class="ob_posl" title="Обязательный элемент">*</span></label>
-                    <input type="checkbox" id="pod3">
-                    <label for="pod3" class="register_soglas_pole_fieldset_pod" id="pod3_label" onclick="not_red('pod3_label')">
-                        Подтверждаю что ознакомился(лась) и принимаю  <a href="polzowSogls"> Пользовательское соглашения</a>.
-                        <span class="ob_posl" title="Обязательный элемент">*</span></label>
                 </fieldset>
             </div>
 

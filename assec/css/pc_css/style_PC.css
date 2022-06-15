@@ -695,7 +695,7 @@ button.slider-prev::after {
   color: var(--text-color);
 }
 .dopNawmenu {
-    min-height: 925px;
+  min-height: 925px;
 }
 .contents div.contents-list {
   display: -webkit-box;
@@ -1098,12 +1098,12 @@ div.footer-box__rov input[type="checkbox"] {
   height: 40px;
   cursor: pointer;
 }
-.footer-box__rov  .Block_footers__button:hover {
+.footer-box__rov .Block_footers__button:hover {
   background: rgb(250, 207, 151);
   border: 1px solid gray;
   cursor: pointer;
 }
-.footer-box__rov  .Block_footers__button:active {
+.footer-box__rov .Block_footers__button:active {
   outline: 0.1225em solid rgb(0 0 0);
 }
 .footer-box__rov input[type="text"]:focus {
@@ -2669,19 +2669,6 @@ select {
 }
 .register_soglas_pole_fieldset .register_soglas_pole_fieldset_pod {
   margin: 8px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: start;
-  -ms-flex-pack: start;
-  justify-content: flex-start;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: row;
-  flex-direction: row;
 }
 .register_soglas_pole_fieldset .register_soglas_pole_fieldset_pod::before {
   content: "";
@@ -2782,6 +2769,11 @@ input.rewrite_input--button {
   width: 150px;
   color: white;
   font-weight: 600;
+}
+
+input.rewrite_input--button:disabled {
+  color: gray;
+  background-color: #80808038;
 }
 .chekbox_password_box_s {
   min-width: 40px;
@@ -3446,7 +3438,11 @@ span#footer_backet_all_count {
   display: block;
   margin: auto;
 }
-.buttonBlock_footers {display: block;width: 40px;height: 40px;}
+.buttonBlock_footers {
+  display: block;
+  width: 40px;
+  height: 40px;
+}
 .footer_backet_button button {
   background: #e9e8e8;
   border-radius: 5px;
@@ -4584,8 +4580,8 @@ span.yes_chek:after {
 }
 
 ul.box_user_ {
-    margin-bottom: 15px;
-    padding-left: 6px;
+  margin-bottom: 15px;
+  padding-left: 6px;
 }
 .box_date_right_cod {
   display: -webkit-box;
@@ -5706,4 +5702,14 @@ div.footer-box__rov label > a {
 .elements {
   height: 487px;
   overflow: auto;
+}
+.rewrite_input_contents p#code_email {
+  transition: 0.4s;
+  height: 0;
+  overflow: hidden;
+}
+
+.rewrite_input_contents p#code_email.opens {
+  height: 90px;
+  overflow: visible;
 }
