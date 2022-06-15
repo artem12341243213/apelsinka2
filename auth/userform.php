@@ -49,17 +49,16 @@ if (isset($_POST['elem'])) {
     } else if ($_POST['elem'] == 'beak_backet')      print('В разработке');
     else if ($_POST['elem'] == 'table_razmers')    require('assec/php/table_raz.php');
     else if ($_POST['elem'] == 'favorits') {
-        if (!isset($_SESSION['favorits'])) {
-            $los = mysqli_query($CONNECT, "SELECT * From `favoritesu`WHERE `id_user` = " . $_SESSION['id']);
-            if (($los->num_rows) != 0) {
-                $los = mysqli_fetch_all($los);
-                $mi = [];
-                foreach ($los as $item) {
-                    array_push($mi, $item[1]);
-                }
-                $_SESSION['favorits'] = $mi;
+        $los = mysqli_query($CONNECT, "SELECT * From `favoritesu`WHERE `id_user` = " . $_SESSION['id']);
+        if (($los->num_rows) != 0) {
+            $los = mysqli_fetch_all($los);
+            $mi = [];
+            foreach ($los as $item) {
+                array_push($mi, $item[1]);
             }
+            $_SESSION['favorits'] = $mi;
         }
+
         require('assec/php/block/favorits.php');
     } else if ($_POST['elem'] == "prise") {
 ?>

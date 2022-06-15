@@ -4,9 +4,6 @@ if ($_GET)
 ?>
 <div class="users_profil_section">
     <div class="global">
-        <pre>
-    <? print_r($_SESSION['favorits']) ?>
-        </pre>
         <div class="h1 text-g">
             <h1>Профиль</h1>
         </div>
