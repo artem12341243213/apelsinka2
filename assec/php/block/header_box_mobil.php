@@ -60,7 +60,7 @@
                 <p onclick="menu_box_mobil('comments')"><span class="svg"></span>Отзывы</p>
             </div>
             <div>
-                <p onclick="  menu_box_mobil('help')"><span class="svg"></span>Помощь </p> <!--  -->
+                <p onclick="  menu_box_mobil('mi_s')"><span class="svg"></span>О нас </p> <!--  -->
 
                 <p onclick=" list_open('menu_header_box', 'closse')"><span class="svg"></span> Закрыть</p><!--  -->
 

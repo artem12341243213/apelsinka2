@@ -272,13 +272,11 @@ if (isset($_POST['orderPrisesCasec_f']) && $_POST['orderPrisesCasec_f'] == 1) {
     $mail->addAddress($emailX);
     $mail->Subject = $subject;
     $mail->Body = $html;
-    // $mail->addEmbeddedImage("$puti", "$name"); // добавление картинки
+    unset($_COOKIE['carts']);
+    mysqli_query($CONNECT, "UPDATE `cart_users` SET `item` = '[]' WHERE `id_user` ='" . $_SESSION['id']);
+    print_r("UPDATE `cart_users` SET `item` = '[]' WHERE `id_user` =" . $_SESSION['id']);
+    return;
     if ($mail->send()) {
-
-        unset($_COOKIE['carts']);
-        mysqli_query($CONNECT, "UPDATE `cart_users` SET `item` = '[]'
-        WHERE `cart_users`.`id_user` ='" . $_SESSION['id']);
-
         message('Заказ', 1, "Заказ принят в обработку. Ожидайте звонок для подтверждение заказа", true, "yesorder");
     } else {
         return print($mail->ErrorInfo); //false; //'Ошибка: ' . 

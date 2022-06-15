@@ -304,14 +304,14 @@ var dost = {
         "raschet": false
     },
     "samvi1": {
-        "opisanie": 'Вы сможете забрать ваш заказ по <a href="https://goo.gl/maps/rcMMHrjZQBbyM3Ly5"> Рынок "Восточны" Бокс 99 </a> ',
+        "opisanie": 'Вы сможете забрать ваш заказ по адрессу <a href="https://goo.gl/maps/rcMMHrjZQBbyM3Ly5"> Рынок "Восточны" Бокс 99 </a> ',
         "dostavka": "1 - 3",
         "name": "Самовывоз. Точка 1",
         "prise": false,
         "raschet": "Время работы: с 8:00 - 17:00"
     },
     "samvi2": {
-        "opisanie": 'Вы сможете забрать ваш заказ по <a href="https://goo.gl/maps/rcMMHrjZQBbyM3Ly5"> Рынок "Восточны" (Оранжевая ярморка) Бокс 402 </a> ',
+        "opisanie": 'Вы сможете забрать ваш заказ по адрессу <a href="https://goo.gl/maps/rcMMHrjZQBbyM3Ly5"> Рынок "Восточны" (Оранжевая ярморка) Бокс 402 </a> ',
         "dostavka": "1 - 3",
         "name": "Самовывоз. Точка 2",
         "prise": false,
@@ -466,7 +466,8 @@ function order_yes_o() {
     data += "home_s=" + home_s.val() + "&";
     data += "index=" + index.val();
 
-
+    button_disables(button)
+    error_mesages("Запрос отправлен",1,' ')
     $.ajax({
         type: "POST",
         url: "userform",

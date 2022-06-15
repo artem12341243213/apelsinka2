@@ -571,7 +571,7 @@ function menu_box_mobil(item_menu) {
 
   switch (item_menu) {
     case 'cart': locations('cart'); break;
-    case 'help': locations('help'); break;
+    case 'mi_s': locations('mi_s'); break;
     case 'home': locations('home'); break;
     case 'comments': locations('comments'); break;
     case 'modal_catalog_b': opens('modal_catalog_b'); break;

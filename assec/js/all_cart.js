@@ -232,14 +232,18 @@ function add_cart(type = '') { // сам скрипт добавление в к
 
     var size = Array.from(size_array); // размер
 
-    size.forEach(input => {
-        if (input.checked) {
-            size = Number($("#" + input.id).val());
-            items['size'] = size;
-            return;
-        }
-    });
+    if (size.length > 1)
+        size.forEach(input => {
+            if (input.checked) {
+                size = Number($("#" + input.id).val());
+                items['size'] = size;
+                return;
+            }
+        });
+    else {
 
+        size = $(size[0]).val();
+    }
     if (typeof size == "object") {
         error_mesages("Размер не выбран", 2, "Корзина");
         return;
