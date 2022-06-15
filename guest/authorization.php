@@ -3,6 +3,8 @@ $pi = "authorization";
 if (isset($_GET['lye'])) $pi = $_GET['lye'];
 if (array_key_exists("article", $_GET)) $pi .= "&article=" . $_GET['article'];
 if (array_key_exists("items", $_GET)) $pi .= "&items=" . $_GET['items'];
+
+
 ?>
 
 <div class="autorin">

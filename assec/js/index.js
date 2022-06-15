@@ -544,11 +544,11 @@ function check_box(id_box, func) {
 function closse(i, c = "hidden_items") {
   $("." + i).addClass(c);
 }
-function opens(i, c= "hidden_items") {
+function opens(i, c = "hidden_items") {
   $("." + i).removeClass(c);
 }
 function open_menu(t) {
-  let m = $("."+t);
+  let m = $("." + t);
   m.removeClass("hiddens");
   setTimeout(() => {
     m.addClass("hiddens");
@@ -997,9 +997,29 @@ function addFavoritesUser(id) {
       caches: false,
       success: function (rees) {
         let obj = jQuery.parseJSON(rees);
-        if (obj.items == "yes")
+        let o = $("#button_product_favorites_p");
+        let u = $("#button_product_favorites_m");
+        if (obj.items == "yes") {
+          if (o) {
+            o.addClass("faforites_a_buttons");
+            o.val("Сохранено")
+          }
+          if (u) {
+            u.addClass("faforites_a_buttons");
+            u.val("Сохранено")
+          }
           $("#id_product_i" + id + " span").addClass("add_favor")
+        }
         else if (obj.items == "no") {
+          if (o) {
+            o.removeClass("faforites_a_buttons");
+            o.val("Сохранить")
+          }
+          if (u) {
+            u.removeClass("faforites_a_buttons");
+            u.val("Сохранить")
+          }
+
           $("#id_product_i" + id + " span").removeClass("add_favor")
           if ($("#box_item_id" + id)) {
             $("#box_item_id" + id).remove()

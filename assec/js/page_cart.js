@@ -252,7 +252,9 @@ function phone_valid_s() {
     }
 }
 var listJU_p = '';
+
 function pochta(item) {
+
     $(".block .text_h2").html("")
     $(".block .text_le").html("")
     $(".block .opisanie").html("")
@@ -265,7 +267,9 @@ function pochta(item) {
                 if (dost[items].name != false)
                     $(".block .text_h2").html(dost[items].name)
                 if (dost[items].dostavka != false && dost[items].prise != false)
-                    $(".block .opisanie").html("<span>" + dost[items].dostavka + " дней </span><span> от " + dost[items].prise + " руб</span>")
+                    $(".block .opisanie").html("<span> Доставка " + dost[items].dostavka + " дней </span><span> Стоймость от " + dost[items].prise + " руб</span>")
+                else if (dost[items].dostavka != false)
+                    $(".block .opisanie").html("<span> Доставка  " + dost[items].dostavka + " дней </span>")
                 if (dost[items].opisanie != false)
                     $(".block .text_le").html(dost[items].opisanie)
                 if (dost[items].raschet != false)
@@ -299,5 +303,20 @@ var dost = {
         "name": "Узнать у менеджера",
         "prise": false,
         "raschet": false
+    },
+    "samvi1": {
+        "opisanie": 'Вы сможете забрать ваш заказ по <a href="https://goo.gl/maps/rcMMHrjZQBbyM3Ly5"> Рынок "Восточны" Бокс 99 </a> ',
+        "dostavka": "1 - 3",
+        "name": "Самовывоз",
+        "prise": false,
+        "raschet": "Время работы: с 8:00 - 17:00"
+    },
+    "samvi2": {
+        "opisanie": 'Вы сможете забрать ваш заказ по <a href="https://goo.gl/maps/rcMMHrjZQBbyM3Ly5"> Рынок "Восточны" (Оранжевая ярморка) Бокс 402 </a> ',
+        "dostavka": "1 - 3",
+        "name": "Самовывоз",
+        "prise": false,
+        "raschet": "Время работы: с 8:00 - 17:00"
     }
+
 }

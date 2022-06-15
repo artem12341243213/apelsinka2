@@ -33,6 +33,12 @@ foreach ($miste as $key => $item) {
     }
 }
 
+$favorites = mysqli_query(
+    $CONNECT,
+    "SELECT * FROM `favoritesu` WHERE `id_user` = " . $_SESSION['id'] . " AND `product` = $article"
+);
+if (($favorites->num_rows) != 0)
+    $faf_product =  mysqli_fetch_assoc($favorites);
 /*
 $disables_product           =       $product['disable'];
 $catecorian_product         =       $product['categories'];
@@ -97,8 +103,16 @@ $arrays_img = explode('|', $img_product);
                     </div>
 
                     <div class="buttons_product_buttons">
-                        <input type="button" value="Оплатить" onclick="add_cart('item')">
+                        <?
+                        if (isset($faf_product)) { ?>
+                            <input type="button" id="button_product_favorites_p" value="Сохранено" 
+                            onclick="addFavoritesUser(<? echo $article ?>)" class="faforites_a_buttons">
+                        <? } else { ?>
+                            <input type="button" id="button_product_favorites_p" value="Сохранить" 
+                            onclick="addFavoritesUser(<? echo $article ?>)" class="">
+                        <? } ?>
                         <input type="button" value="Добавить в корзину" onclick="add_cart()">
+
                     </div>
                 </div>
             </div>
@@ -165,8 +179,14 @@ $arrays_img = explode('|', $img_product);
                     <? } ?>
                 </div>
                 <div class="buttons_product_buttons">
-                    <input type="button" value="Оплатить" onclick="add_cart('item')">
+                    <!-- это мобильная версия  -->
                     <input type="button" value="Добавить в корзину" onclick="add_cart()">
+                    <?
+                    if (isset($faf_product)) { ?>
+                        <input type="button" id="button_product_favorites_m" value="Сохранено" onclick="addFavoritesUser(<? echo $article ?>)" class="faforites_a_buttons">
+                    <? } else { ?>
+                        <input type="button" id="button_product_favorites_m" value="Сохранить" onclick="addFavoritesUser(<? echo $article ?>)" class="">
+                    <? } ?>
                 </div>
             </div>
 

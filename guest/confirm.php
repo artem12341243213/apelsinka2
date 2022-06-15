@@ -1,4 +1,4 @@
-<? if (!isset($_SESSION['confirm']['code'])) not_found();
+<? if (!isset($_SESSION['confirm']['code'])) not_found(403);
 hedeer("Подтверждение действий");
 ?>
 
@@ -11,12 +11,12 @@ hedeer("Подтверждение действий");
         <div class="autorin_contents">
             <div class="autorin_input">
                 <form action="#" method="post">
-                    <div class="autorin_input_contents">
+                    <div class="confirm_input_contents">
                         <label for="code">Введите код, который был отправлен вам на почту</label>
                         <p>
-                            <input type="text" name="code" style='margin: auto;' id="code" placeholder="Код отправлен Вам на почты" required>
+                            <input type="text" name="code"  id="code" placeholder="Код отправлен Вам на почты" required>
                         </p>
-                        <input type="button" class="autorin_input--button" value="Подтвердить" onclick="formes('GLA','confirm','code')">
+                        <input type="button" class="confirm_input--button" value="Подтвердить" onclick="formes('GLA','confirm','code')">
                 </form>
             </div>
         </div>

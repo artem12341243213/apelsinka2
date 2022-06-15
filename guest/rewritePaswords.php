@@ -1,5 +1,6 @@
 <?
 hedeer("Востановление пароля");
+
 ?>
 <div class="autorin">
     <div class="global">

@@ -22,7 +22,13 @@
             </div>
             <div class="footer-box__column">
                 <h4>Персональный раздел</h4>
-                <div class="footer-box__rov"><a href="profil"> Личный кабинет </a> </div>
+                <div class="footer-box__rov">
+                    <? if (!isset($_Session['id'])) { ?>
+                        <a href="authorization&lye=profil"> Личный кабинет </a>
+                    <? } else { ?>
+                        <a href="profil"> Личный кабинет </a>
+                    <? } ?>
+                </div>
                 <div class="footer-box__rov"><a href="#"> История заказов </a></div>
                 <div class="footer-box__rov"><a href="#"> Избранное</a></div>
                 <? if (isset($_SESSION['ADMIN_LOGIN_IN'])) { ?>

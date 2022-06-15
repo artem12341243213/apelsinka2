@@ -16,7 +16,7 @@
                         <h2>Сделать заказ на сайте могут только авторизованные покупатели</h2>
                     </div>
                     <div class="paument_box_n1">
-                        <div class=" block">
+                        <div class=" paument_block">
                             <div class="left">
                                 <div class="hed">Шаг 1.</div>
                                 <div class="txt">
@@ -28,7 +28,7 @@
                         </div>
                     </div>
                     <div class="paument_box_n2">
-                        <div class=" block">
+                        <div class=" paument_block">
                             <div class="left">
                                 <div class="hed">Шаг 2.</div>
                                 <div class="txt">
@@ -40,7 +40,7 @@
                         </div>
                     </div>
                     <div class="paument_box_n2">
-                        <div class=" block">
+                        <div class=" paument_block">
                             <div class="left">
                                 <div class="hed">Шаг 3</div>
                                 <div class="txt">
@@ -58,7 +58,7 @@
                     </div>
 
                     <div class="paument_box_n2">
-                        <div class=" block">
+                        <div class=" paument_block">
                             <div class="left">
                                 <div class="hed">ШАГ 4.</div>
                                 <div class="txt">
@@ -75,7 +75,7 @@
 
 
                     <div class="paument_box_n2">
-                        <div class=" block">
+                        <div class=" paument_block">
                             <div class="left">
                                 <div class="hed">ШАГ 5.</div>
                                 <div class="txt">
@@ -93,7 +93,7 @@
 
 
                     <div class="paument_box_n2">
-                        <div class=" block">
+                        <div class=" paument_block">
                             <div class="left">
                                 <div class="hed">ШАГ 6.</div>
                                 <div class="txt">
@@ -112,7 +112,7 @@
 
 
                     <div class="paument_box_n2">
-                        <div class=" block">
+                        <div class=" paument_block">
                             <div class="left">
                                 <div class="hed">ШАГ 7.</div>
                                 <div class="txt">

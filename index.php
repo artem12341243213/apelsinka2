@@ -103,6 +103,7 @@ if (!isset($_SESSION['type']) || $_SESSION['type'] == 0) {
 
 $c = 20;
 
+if (isset($_SESSION['confirm'])) unset($_SESSION['confirm']);
 
 if (file_exists('all/' . $page . '.php')) include('all/' . $page . '.php');
 

@@ -133,6 +133,8 @@ if (!isset($_SESSION['id'])) {
                 <div style="display:none;">
                     <input type="radio" name="dost" id="pochta_ru_r">
                     <input type="radio" name="dost" id="pochta_sdek_r">
+                    <input type="radio" name="dost" id="samvi1_r">
+                    <input type="radio" name="dost" id="samvi2_r">
                     <input type="radio" name="dost" id="operator_r" checked>
                 </div>
 
@@ -168,7 +170,26 @@ if (!isset($_SESSION['id'])) {
                         </div>
                     </div>
                 </label>
-
+                <label for="samvi1_r">
+                    <div class="box_item_cart" id="samvi1" onclick="pochta('samvi1')">
+                        <div class="bloxk_cart">
+                            <div class="img_block_cart_item"> <img src="/assec/css/svg/cart/order_mi_sami.svg" alt=""></div>
+                            <div class="text_block_cart_item">
+                                <p>Самовывоз. Точка 1</p>
+                            </div>
+                        </div>
+                    </div>
+                </label>
+                <label for="samvi2_r">
+                    <div class="box_item_cart" id="samvi2" onclick="pochta('samvi2')">
+                        <div class="bloxk_cart">
+                            <div class="img_block_cart_item"> <img src="/assec/css/svg/cart/order_mi_sami.svg" alt=""></div>
+                            <div class="text_block_cart_item">
+                                <p>Самовывоз. Точка 2</p>
+                            </div>
+                        </div>
+                    </div>
+                </label>
 
             </div>
 

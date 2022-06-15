@@ -9,6 +9,7 @@
   --px: 16px;
   --logo: #ff5f00;
   --bg-green: #58c070;
+  --bg-greens: #77bd1c;
   --toast-border-radius: 0.25rem;
   --toast-theme-default: #fff;
 }
@@ -160,6 +161,7 @@ main {
   font-size: 18px;
   font-weight: 600;
   padding: 5px 0;
+  text-transform: uppercase;
 }
 .header_box {
   width: auto;
@@ -490,7 +492,7 @@ p.header_box_logoUser img {
   max-height: 100%;
 }
 .naw-menu {
-  background: rgb(109 185 11 / 93%);
+  background: var(--bg-greens);
   min-width: -webkit-fit-content;
   min-width: -moz-fit-content;
   min-width: fit-content;
@@ -1277,6 +1279,39 @@ input.autorin_input--button:active {
 .autorin {
   margin: 96px 0px;
 }
+
+.confirm_input_contents {
+  margin: auto;
+  margin-bottom: 10px;
+}
+
+input.confirm_input--button {
+  color: white;
+  font-size: 16px;
+  width: 192px;
+  display: block;
+  margin: auto;
+  background: var(--bg-color-orange);
+  color: white;
+  font-weight: 700;
+  padding: 5px;
+  border-radius: 16px;
+  border: 1px solid gray;
+  cursor: pointer;
+  -webkit-box-shadow: inset -1px -3px 3px 1px rgb(169 112 8),
+    0px 2px 3px 0px grey;
+  box-shadow: inset -1px -3px 3px 1px rgb(169 112 8), 0px 2px 3px 0px grey;
+}
+
+.confirm_input_contents input#code {
+  padding: 5px 12px;
+  border-radius: 5px;
+  -webkit-box-shadow: 0px 2px 3px 0 grey;
+  box-shadow: 0px 2px 3px 0 grey;
+  border: 1px solid gray;
+  width: 100%;
+  font-size: 15px;
+}
 .register_box {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1285,6 +1320,9 @@ input.autorin_input--button:active {
   -moz-column-gap: 25px;
   column-gap: 25px;
   font-size: 1.13rem;
+}
+.confirm_input_contents p {
+  margin: 15px 0;
 }
 .autorin_input_contents {
   margin: auto;
@@ -2995,6 +3033,10 @@ input.rewrite_input--button:disabled {
   -ms-flex-direction: column;
   flex-direction: column;
 }
+.faforites_a_buttons {
+  background-color: var(--bg-greens) !important;
+  color: white !important;
+}
 .buttons_product_buttons input[type="button"] {
   width: auto;
   height: 32px;
@@ -4639,7 +4681,7 @@ span.letions_fwadwaghyu {
   border: 1px solid #ff5f00;
 }
 .block_pochta_op {
-  width: 30%;
+  width: 36%;
 }
 .block_pochta_in {
   display: -webkit-box;
@@ -4650,15 +4692,21 @@ span.letions_fwadwaghyu {
   -webkit-box-direction: normal;
   -ms-flex-direction: row;
   flex-direction: row;
+  flex-wrap: wrap;
+}
+.block_pochta_in > label {
+  min-width: 250px;
+  margin-bottom: 15px;
 }
 .block_pochta_op > .block {
   border: 1px solid #77be1c;
   width: 100%;
-  height: 100%;
+  height: 229px;
   border-radius: 5px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  justify-content: normal !important;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -ms-flex-direction: column;
@@ -4669,24 +4717,32 @@ span.letions_fwadwaghyu {
   -ms-flex-align: stretch;
   align-items: stretch;
 }
-.block > .text_h2 {
+.block_pochta_op > .block > .text_h2 {
   margin-bottom: 15px;
   font-size: 19px;
   font-weight: bold;
   border-bottom: 1px solid;
+  position: absolute;
+  top: 3%;
+  width: 95%;
 }
-.block > .text_le {
+.block_pochta_op > .block > .text_le {
   margin-bottom: 26px;
   font-size: 17px;
+  position: absolute;
+  top: 15%;
 }
-.block > .opisanie_n {
+.text_le a {
+  color: var(--bg-color-orange);
+}
+.block_pochta_op > .block > .opisanie_n {
   bottom: 11px;
   margin-bottom: 0;
   margin-top: 10px;
   color: #0c0c0c;
   position: absolute;
 }
-.block > .opisanie {
+.block_pochta_op > .block > .opisanie {
   margin-bottom: 10px;
   font-size: 18px;
   display: -webkit-box;
@@ -4698,6 +4754,9 @@ span.letions_fwadwaghyu {
   flex-direction: row;
   -ms-flex-pack: distribute;
   justify-content: space-around;
+  position: absolute;
+  top: 50%;
+  width: 95%;
 }
 .data_lis_input input,
 .data_lis_input select {
@@ -5561,7 +5620,7 @@ span.Mobil_s {
   color: blue;
   text-decoration: underline;
 }
-.block {
+.paument_block {
   display: flex;
   width: 100%;
   flex-direction: row;

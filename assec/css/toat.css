@@ -99,7 +99,8 @@
   border-bottom: 1px solid rgb(141 141 141);
   display: flex;
   align-items: center;
-color: black;}
+  color: black;
+}
 
 .toast__close {
   content: "";
@@ -146,6 +147,7 @@ color: black;}
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
   display: flex;
   align-items: center;
+  color: #222222;
 }
 .toast_info .toast__header::before {
   content: "";
