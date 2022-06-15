@@ -179,6 +179,64 @@ if (isset($_POST['edit_data_user_f']) && $_POST['edit_data_user_f'] == 1) {
 if (isset($_POST['orderPrisesCasec_f']) && $_POST['orderPrisesCasec_f'] == 1) {
 
 
+    $cart = $_COOKIE['carts'];
+
+    $cart = json_decode($cart, true);
+
+    $number_orders = mysqli_fetch_assoc(mysqli_query($CONNECT, "SELECT count(`id`) as 'num' FROM `past_orders`"))['num'] + 1;
+
+    //$number_owadwarders =  mysqli_fetch_assoc(mysqli_query($CONNECT, "SELECT * FROM `past_orders` WHERE `id` = 3"));
+
+    $titles = "";
+    $images = "";
+    $size = "";
+    $prise = "";
+    $prise = 0;
+    // <img src="cid:0.jpg" width="128" height="128">
+    $emailX = "orders@apelsinka.tech"; // почта получателя
+    $mail = new mail();
+    $subject = "Новый заказ #" . $number_orders;
+    $html = '<html><head>';
+    $html .= "<meta charset='UTF-8'>";
+    $html .= "<title>' . $subject . '</title>";
+    $html .= "</head><body style = 'width: fit-content;min-width: 21rem;'>";
+    $html .= "<div style='background: #ffb100;
+         border-radius: 5px;color: #0037ff;padding: 0.5rem;'>";
+    $html .= "<h1 style = 'text-align: center;margin: 0.5rem;'> Апельсинка </h1></div>";
+    $html .= "<div style = 'text-align: start;margin: 1rem;'>";
+    $html .= "<h2>Новый заказ</h2>";
+
+    foreach ($cart as $key => $data) {
+        $html .= "<div style='border-bottom:1px solid black;'> 
+        <p> Название: " . $data['title'] . "</p>";
+
+        $html .= "<p> Артикль: <a href='https://apelsinka.tech/product&article="
+            . $data['article'] . "'>" . $data['article'] . "</a></p>";
+        $titles .= ($data['title'] . "&" . $data['article']) . "|";
+
+        $html .= "<p> Картинка: <img src='cid:" . ($key + 1) . "' width='128' height='128'></p>";
+        $mail->addEmbeddedImage("assec/images/product/" . $data['img'], $key + 1);
+        $images .= $data['img'] . "|";
+
+
+        $html .= "<p> Размер: " . $data['size'] . "</p>";
+        $size .=  $data['size'] . "|";
+
+        $count = "";
+        $html .= "<p> Колличество: ";
+        if ($data['Opt'] != 0) {
+            $html .=  $data['count_f'] * $data['count_s'] . "</p>";
+            $count .=  ($data['count_f'] * $data['count_s']) . "|";
+        } else {
+            $html .=   $data['count_s'] . "</p>";
+            $count .= $data['count_s'] . "|";
+        }
+
+
+        $html .= "<p> Стоймость: " . $data['price_all'] . "</p>";
+        $prise += $data['price_all'];
+        $html .=  "</div>";
+    }
     $FIO  = code($_POST['FIO']);
     $obl = code($_POST['obl']);
     $sity = code($_POST['sity']);
@@ -191,37 +249,48 @@ if (isset($_POST['orderPrisesCasec_f']) && $_POST['orderPrisesCasec_f'] == 1) {
     $home_s  = code($_POST['home_s']);
     $index = code($_POST['index']);
 
-    $cart = $_COOKIE['carts'];
-
-    $cart = json_decode($cart);
-
-    $number_orders = mysqli_fetch_assoc(mysqli_query($CONNECT, "SELECT count(`id`) as 'num' FROM `past_orders`"))['num'] + 1;
-
-    
-    // <img src="cid:0.jpg" width="128" height="128">
-    $email = "toropchin_a@bk.ru"; //"orders@apelsinka.tech"; // почта получателя
-
-    $subject = "Новый заказ #" . $number_orders;
-    $html = '<html><head>';
-    $html .= "<meta charset='UTF-8'>";
-    $html .= "<title>' . $subject . '</title>";
-    $html .= "</head><body style = 'width: fit-content;min-width: 21rem;'>";
-    $html .= "<div style='background: #ffb100;
-         border-radius: 5px;color: #0037ff;padding: 0.5rem;'>";
-    $html .= "<h1 style = 'text-align: center;margin: 0.5rem;'> Апельсинка </h1></div>";
-    $html .= "<div style = 'text-align: center;margin: 1rem;'>";
-    $html .= "<h2>Заказ</h2>";
-    $html .= "<div>$text</div>";
+    $html .= "<div style = 'text-align: center;margin: 1rem;'> Полная стоймость $prise</div>";
+    $html .= "<div style = 'text-align: start;margin: 1rem;'> Пользователь </div>";
+    $html .= "<div style = 'text-align: start;margin: 1rem;'> ФИО: $name_user </div>";
+    $html .= "<div style = 'text-align: start;margin: 1rem;'> Телефон: <a href='tel:$phone'>$phone</a> </div>";
+    $html .= "<div style = 'text-align: start;margin: 1rem;'> Почта: <a href='mailto:$email'>$email </a></div>";
+    $html .= "<div style = 'text-align: start;margin: 1rem;'> Адрес доставки </div>";
+    $html .= "<div style = 'text-align: start;margin: 1rem;'> ФИО: $FIO </div>";
+    $html .= "<div style = 'text-align: start;margin: 1rem;'> Область: $obl </div>";
+    $html .= "<div style = 'text-align: start;margin: 1rem;'> Город: $sity </div>";
+    $html .= "<div style = 'text-align: start;margin: 1rem;'> Улица: $strasse </div>";
+    $html .= "<div style = 'text-align: start;margin: 1rem;'> Дом: $home </div>";
+    $html .= "<div style = 'text-align: start;margin: 1rem;'> Квартира: $home_s </div>";
+    $html .= "<div style = 'text-align: start;margin: 1rem;'> Индекс: $index </div>";
+    $html .= "<div style = 'text-align: start;margin: 1rem;'> Доставка </div>";
+    $html .= "<div style = 'text-align: start;margin: 1rem;'> Пользователь выбрал: $dilivery </div>";
     $html .= "</div></body></html>";
 
-    $mail = new mail();
-    $mail->addAddress($email);
+    mysqli_query($CONNECT, "INSERT INTO `past_orders` (`id`, `id_user`, `name_product`, `size`, `img`, `count`, `prise`, `status`,`delivery`) 
+    VALUES (null, '" . $_SESSION['id'] . "', '$titles', 
+    '$size',     '$images',    '$count', '$prise', 'ovit','$dilivery')");
+
+    $mail->addAddress($emailX);
     $mail->Subject = $subject;
     $mail->Body = $html;
-    $mail->addEmbeddedImage("$puti", "$name"); // добавление картинки
+    // $mail->addEmbeddedImage("$puti", "$name"); // добавление картинки
     if ($mail->send()) {
-        print("Заказ сделан");
+
+        unset($_COOKIE['carts']);
+        mysqli_query($CONNECT, "UPDATE `cart_users` SET `item` = '[]'
+        WHERE `cart_users`.`id_user` ='" . $_SESSION['id']);
+
+        message('Заказ', 1, "Заказ принят в обработку. Ожидайте звонок для подтверждение заказа", true, "yesorder");
     } else {
-        return $mail->ErrorInfo; //false; //'Ошибка: ' . 
+        return print($mail->ErrorInfo); //false; //'Ошибка: ' . 
     }
 }
+//php_value error_reporting 500
+
+/*
+ovit -- для админа уведомлени
+process -- подтверждение
+yesorders -- одобренно
+
+
+*/

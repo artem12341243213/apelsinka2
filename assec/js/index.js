@@ -704,7 +704,7 @@ function privetst(date, locat) {
 
   setTimeout(() => {
     locations(locat);
-  }, 6000);
+  }, 4000);
 }
 
 function locations(url) {

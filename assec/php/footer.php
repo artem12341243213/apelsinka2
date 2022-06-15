@@ -88,7 +88,7 @@ if (!empty($mi)) {
         <script src="assec/js/<? echo $mi[$i] ?>.js"></script>
 <? }
 } ?>
-<script defer src="assec/js/SmoothScroll.js"></script>
+<script src="assec/js/SmoothScroll.js"></script>
 <script>
     SmoothScroll({
         // Время скролла 400 = 0.4 секунды

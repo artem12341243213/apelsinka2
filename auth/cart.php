@@ -1,63 +1,67 @@
 <? hedeer("Корзина");
 
 if (isset($_SESSION['id'])) {
-    $cart_item_user = mysqli_query($CONNECT, "Select * From `cart_users` WHERE `id_user`='" . $_SESSION['id'] . "'");
+    $cart_item_user = mysqli_query($CONNECT, "Select * From `cart_users` WHERE `id_user`=" . $_SESSION['id'] . "");
+
     if (($cart_item_user->num_rows) > 0) {
         $cart_item_user = mysqli_fetch_assoc($cart_item_user)['item'];
-        $cart_item_user = json_decode($cart_item_user, true);
 
-        $articles = "SELECT `articl`,`disable` from `product` WHERE ";
+        if (strlen($cart_item_user) != 2) {
+            $cart_item_user = json_decode($cart_item_user, true);
 
-        $length =  count($cart_item_user);
+            $articles = "SELECT `articl`,`disable` from `product` WHERE ";
 
-        $sv = 1;
+            $length =  count($cart_item_user);
 
-        for ($i = 0; $i < $length; $i++) {
-            if ($sv == 0) {
-                $articles .= " or ";
-            }
             $sv = 1;
-            foreach ($cart_item_user[$i] as $key => $data) {
-                if ($key == 'article' && $sv == 1) {
-                    $articles .= "`articl` =" . $data;
-                    $sv = 0;
-                }
-            }
-        }
 
-        $disables_items = mysqli_query($CONNECT, "$articles");
-
-        if (($disables_items->num_rows)  > 0)
-            $disables_items = mysqli_fetch_all($disables_items);
-        else {
-            $disables_items = [];
             for ($i = 0; $i < $length; $i++) {
-                $articles_items = [$cart_item_user[$i]['article'], 1];
-                array_push($disables_items, $articles_items);
-            }
-            unset($articles_items);
-        }
-
-        for ($i = 0; $i < $length; $i++) {
-            $items = $cart_item_user[$i];
-            foreach ($items as $key => $item) {
-
-                if ($key == "disables") {
-                    for ($s = 0; $s < count($disables_items); $s++) {
-                        if ($disables_items[$s][0] == $cart_item_user[$i]['article']) {
-                            $cart_item_user[$i]['disables'] = $disables_items[$s][1];
-                        }
+                if ($sv == 0) {
+                    $articles .= " or ";
+                }
+                $sv = 1;
+                foreach ($cart_item_user[$i] as $key => $data) {
+                    if ($key == 'article' && $sv == 1) {
+                        $articles .= "`articl` =" . $data;
+                        $sv = 0;
                     }
-                } else if ($key == 'title') {
                 }
             }
+
+            $disables_items = mysqli_query($CONNECT, "$articles");
+
+            if (($disables_items->num_rows)  > 0)
+                $disables_items = mysqli_fetch_all($disables_items);
+            else {
+                $disables_items = [];
+                for ($i = 0; $i < $length; $i++) {
+                    $articles_items = [$cart_item_user[$i]['article'], 1];
+                    array_push($disables_items, $articles_items);
+                }
+                unset($articles_items);
+            }
+
+            for ($i = 0; $i < $length; $i++) {
+                $items = $cart_item_user[$i];
+                foreach ($items as $key => $item) {
+
+                    if ($key == "disables") {
+                        for ($s = 0; $s < count($disables_items); $s++) {
+                            if ($disables_items[$s][0] == $cart_item_user[$i]['article']) {
+                                $cart_item_user[$i]['disables'] = $disables_items[$s][1];
+                            }
+                        }
+                    } else if ($key == 'title') {
+                    }
+                }
+            }
+
+
+            $array_codes = json_encode($cart_item_user, JSON_UNESCAPED_UNICODE);
+            unset($disables_items);
+
+            mysqli_query($CONNECT, "UPDATE `cart_users` SET `item` = '" . $array_codes . "' WHERE `id_user` = " .  $_SESSION['id'] . ";");
         }
-
-
-        $array_codes = json_encode($cart_item_user, JSON_UNESCAPED_UNICODE);
-        unset($disables_items);
-
-        mysqli_query($CONNECT, "UPDATE `cart_users` SET `item` = '" . $array_codes . "' WHERE `id_user` = " .  $_SESSION['id'] . ";");
     }
 }
 ?>

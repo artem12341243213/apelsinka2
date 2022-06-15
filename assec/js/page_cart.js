@@ -471,11 +471,14 @@ function order_yes_o() {
         type: "POST",
         url: "userform",
         data: "orderPrisesCasec_f=1&" + data,
-        dataType: "dataType",
-        success: function (response) {
-            console.log(response)
+        caches: false,
+        success: function (rese) {
+            let obj = jQuery.parseJSON(rese);
+            console.log(obj)
+            if (obj.tip == 1) {
+                localStorage.setItem("cart", []);
+            }
+            privetst(obj.headers + "." + obj.titel + "." + Number(obj.tip), obj.go_i)
         }
     });
-    return;
-    locations('yesorder')
 }
