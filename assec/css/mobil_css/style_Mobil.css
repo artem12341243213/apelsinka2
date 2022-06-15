@@ -1,9 +1,3 @@
-/*
-* Prefixed by https://autoprefixer.github.io
-* PostCSS: v8.4.12,
-* Autoprefixer: v10.4.4
-* Browsers: last 4 version
-*/
 
 :root {
   --bg-color-grey: #333;
@@ -170,6 +164,8 @@ body {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  -webkit-transition: 0.5s;
+  -o-transition: 0.5s;
   transition: 0.5s;
 }
 @media screen and (max-height: 490px) {
@@ -198,12 +194,16 @@ body {
   }
   .button_menu_visible > span:after {
     top: 3vw;
-    transform: rotate(15deg);
+    -webkit-transform: rotate(15deg);
+        -ms-transform: rotate(15deg);
+            transform: rotate(15deg);
     right: 0;
   }
   .button_menu_visible > span:before {
     top: 3vw;
-    transform: rotate(345deg);
+    -webkit-transform: rotate(345deg);
+        -ms-transform: rotate(345deg);
+            transform: rotate(345deg);
     left: 0;
   }
   .button_menu_visible > span:after,
@@ -555,10 +555,14 @@ h4 {
 .modal_box_coments .box_d {
   background: white;
   width: 100%;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
   height: fit-content;
   top: 50%;
   position: absolute;
-  transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
   padding: 0 3vw;
   padding-bottom: 4vw;
 }
@@ -579,10 +583,19 @@ h4 {
 .box_d .box_body {
   width: 100%;
   height: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .box_body .block_auth {
@@ -1202,7 +1215,8 @@ button:disabled {
   background: #d5d5d5 !important;
   color: #212529 !important;
   border: 2px solid gray !important;
-  box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+          box-shadow: none !important;
 }
 #button_input span#timeout {
   margin-left: 10px;
@@ -1473,13 +1487,7 @@ div.footer-box__rov label p {
   left: 0px;
   height: 5vw;
   background: -o-linear-gradient(bottom, white, #ffffff6e);
-  background: -webkit-gradient(
-    linear,
-    left bottom,
-    left top,
-    from(white),
-    to(#ffffff6e)
-  );
+  background: -webkit-gradient(linear, left bottom, left top, from(white), to(#ffffff6e));
   background: linear-gradient(0deg, white, #ffffff6e);
   -webkit-transition: 2.5s;
   -o-transition: 2.5s;
@@ -1603,7 +1611,7 @@ input#height {
 .autorin_input {
   font-size: 4vw;
   margin: 5vw 0;
-  margin-bottom: 20px;
+  margin-bottom: 6vw;
 }
 .autorin_input_contents label {
   left: 0;
@@ -1659,9 +1667,16 @@ input.autorin_input--button {
   margin: auto;
   margin-bottom: 10px;
   width: 66vw;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 input.confirm_input--button {
@@ -2848,8 +2863,10 @@ div.cart_items {
 
   font-size: 4vw;
 }
-.items_count >div {
-    display: flex;
+.items_count > div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 .delete_product > span {
   border: 1px solid gray;
@@ -2918,7 +2935,7 @@ div.cart_items {
   border: 1px solid gray;
 }
 .footer_cart_margin > button:active {
-    background: #ffb61d;
+  background: #ffb61d;
 }
 .none_items_mobil {
   display: none;
@@ -3550,8 +3567,13 @@ div.input input:invalid {
 }
 
 .users_profil_rightSection {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   text-align: center;
 }
 
@@ -3573,10 +3595,19 @@ ul.users_profil_right_top > li,
 .users_profil_right_bottom > li {
   width: 100%;
   height: 11vw;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   font-size: 5vw;
   border: 1px solid gray;
   border-radius: 2vw;
@@ -3587,22 +3618,38 @@ ul.users_profil_right_top > li,
 }
 
 .body_user {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   text-align: center;
 }
 
 .input_body_user > div {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: row;
-  justify-content: center;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   margin-bottom: 2vw;
 }
 
 .input_body_user > div .chek {
   width: 65vw;
   height: 8vw;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   text-align: center;
 }
@@ -3731,13 +3778,18 @@ span.non_chek {
 }
 
 .box_items {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   margin-bottom: 30px;
   padding: 0 10px;
   border: 1px solid gray;
   border-left: 0;
   border-right: 0;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 .text_item > div {
@@ -3802,6 +3854,8 @@ span.non_chek {
 }
 
 .items_count {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
 }
 
@@ -3867,6 +3921,8 @@ span.non_chek {
 
 .items_allPrise {
   border-bottom: 1px solid black;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
   width: fit-content;
   margin: 0 auto;
   margin-top: 2vw;
@@ -3886,10 +3942,17 @@ span.non_chek {
 }
 
 .name_items {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   width: 68vw;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .name_items p.Name {
@@ -3907,6 +3970,8 @@ span.non_chek {
 }
 
 .name_items .panel_admins {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
   width: fit-content;
   color: red;
   text-decoration: underline;
@@ -3915,6 +3980,8 @@ ul.box_user_ {
   margin-bottom: 1vw;
 }
 .rewrite_input_contents p#code_email {
+  -webkit-transition: 0.4s;
+  -o-transition: 0.4s;
   transition: 0.4s;
   height: 0;
   overflow: hidden;
@@ -3937,8 +4004,11 @@ ul.box_user_ {
 }
 
 .block_pochta_in {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
 }
 
 .bloxk_cart .text_block_cart_item {
@@ -3975,8 +4045,13 @@ ul.box_user_ {
   color: var(--bg-color-orange);
 }
 .data_lis_input {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 .data_lis_input p > input {
@@ -3987,10 +4062,14 @@ ul.box_user_ {
 }
 
 .data_lis_input > p {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   margin-bottom: 3vw;
   font-size: 5vw;
-  justify-content: space-between;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 .data_user {
@@ -4017,9 +4096,16 @@ span.mobil_element {
   margin-bottom: 3vw;
   font-size: 5vw;
   margin-top: 3vw;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
   position: relative;
 }
 
@@ -4042,4 +4128,148 @@ span.mobil_element {
 .body_cart_box_s {
   max-height: 179vw;
   overflow: scroll;
+}
+.rewrite_contents {
+  width: 73vw;
+  border: 1px solid #8c8c8c;
+  margin: 0 auto;
+  border-radius: 2vw;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-box-shadow: 0 1px 4px 0px #808080de;
+  box-shadow: 0 1px 4px 0px #808080de;
+  padding: 4vw;
+  background: white;
+}
+
+.button_passwod {
+  min-width: 54vw;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-sizing: content-box;
+  box-sizing: content-box;
+  margin-bottom: 15px;
+  margin: 0 auto 5vw auto;
+}
+.chekbox_password_box_s.active {
+  background: #3498ff;
+}
+.chekbox_password_box_s:before {
+  content: "";
+  position: absolute;
+  background: white;
+  width: 4.5vw;
+  height: 4.5vw;
+  border-radius: 50%;
+  top: 0;
+  left: 20px;
+  outline: 1px solid black;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s;
+  -webkit-transition-delay: 0.3s;
+  -o-transition-delay: 0.3s;
+  transition-delay: 0.3s;
+}
+.chekbox_password_box_s.active:before {
+  content: "";
+  position: absolute;
+  background: white;
+  width: 4.5vw;
+  height: 4.5vw;
+  border-radius: 50%;
+  top: 0;
+  left: 0;
+  outline: 1px solid black;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s;
+  -webkit-transition-delay: 0.3s;
+  -o-transition-delay: 0.3s;
+  transition-delay: 0.3s;
+}
+.button_passwod input#passworduuu {
+  position: absolute;
+  left: 500px;
+}
+.rewrite_input_contents input {
+  border: 1px solid gray;
+  font-size: 4.5vw;
+  padding: 2vw 2vw;
+  border-radius: 3px;
+  margin-bottom: 5vw;
+  margin-top: 2px;
+  outline-color: orange;
+}
+.rewrite_input_contents .button_passwod label {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  border: 1px solid #727272;
+  padding: 2.4vw;
+  margin: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.chekbox_password_box_s {
+  min-width: 8.8vw;
+  height: 4.5vw;
+  border-radius: 42px;
+  display: inline-block;
+  margin-right: 6px;
+  background: #999999;
+  outline: 1px solid black;
+  position: relative;
+  -webkit-transition: 0.4s;
+  -o-transition: 0.4s;
+  transition: 0.4s;
+  -webkit-transition-delay: 0.3s;
+  -o-transition-delay: 0.3s;
+  transition-delay: 0.3s;
+}
+
+.text_chekbox_passwod_box {
+  display: inline-block;
+  width: 38vw;
+}
+input.rewrite_input--button {
+  background: orange;
+  border: 1px solid gray;
+  border-radius: 5px;
+  padding: 2vw;
+  font-size: 4.5vw;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  margin: auto;
+  cursor: pointer;
+  width: 64vw;
+  color: white;
+  font-weight: 600;
 }

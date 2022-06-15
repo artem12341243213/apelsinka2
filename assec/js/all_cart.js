@@ -236,7 +236,6 @@ function add_cart(type = '') { // сам скрипт добавление в к
         size.forEach(input => {
             if (input.checked) {
                 size = Number($("#" + input.id).val());
-                items['size'] = size;
                 return;
             }
         });
@@ -244,6 +243,7 @@ function add_cart(type = '') { // сам скрипт добавление в к
 
         size = $(size[0]).val();
     }
+    items['size'] = size;
     if (typeof size == "object") {
         error_mesages("Размер не выбран", 2, "Корзина");
         return;
