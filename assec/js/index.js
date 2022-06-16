@@ -965,12 +965,74 @@ function list_catalog_modals(type) {
 }
 
 
-function rewritePassword() {
+function rewritePassword(types = "lest") {
   let email = $("#email");
-  let codeEmail_i = $("#code_email");
+  let codeEmail_p = $("#code_email");
+  let codeEmail_i = $("#code_mous");
+  let password_i = $("#rewritePaswords");
+  let button = $("#but_codD");
+  let button2 = $("#buton_ma");
 
-  return;
-  formes('GLA', 'Rewrite', 'rewritePaswords.email')
+  if (types == 'lest') {
+    if (email.val() != "") {
+      button.addClass("activese")
+    }
+  }
+  else if (types == "send_code") {
+    codeEmail_p.addClass("opens")
+    $.ajax({
+      type: "POST",
+      url: "GLA",
+      data: "revrite_codes_send_f=1&email=" + email.val(),
+      caches: false,
+      success: function (res) {
+        if (res == 'yes') {
+          codeEmail_i.removeAttr('disabled')
+          codeEmail_i.css("outline", "3px solid orange")
+          codeEmail_i.attr("autofocus", "")
+        }
+      }
+    });
+  }
+  else if (types == "pass") {
+    if (codeEmail_i.val().length == 6) {
+      codeEmail_i.attr("disabled", "");
+      codeEmail_i.css("outline", "0px solid orange")
+      let interval_id = setInterval(() => {
+        $.ajax({
+          type: "POST",
+          url: "GLA",
+          data: "revrite_codes_f=1&code=" + codeEmail_i.val(),
+          caches: false,
+          success: function (res) {
+            if (res == 'yes') {
+              password_i.removeAttr('disabled')
+              codeEmail_p.removeClass("opens")
+              password_i.css("outline", "3px solid orange")
+              password_i.attr("autofocus", "")
+            }
+            else {
+              alert("Введеный код неправельный")
+              codeEmail_i.removeAttr("disabled", "");
+              codeEmail_i.css("outline", "4px solid red")
+            }
+          }
+        })
+        clearInterval(interval_id);
+      }, 2000);
+    }
+  }
+  else if (types == "pasword") {
+    if (password_i.val().length >= 6)
+      button2.removeAttr("disabled", "");
+    else if (password_i.val().length > 15)
+      button2.attr("disabled", "");
+    else if (password_i.val().length < 6)
+      button2.attr("disabled", "");
+  }
+  else if (types == "send") {
+    formes('GLA', 'Rewrite', 'rewritePaswords.email')
+  }
 }
 function comments_opens(id) {
   $("#comments_id_" + id + " .contents").toggleClass("active")

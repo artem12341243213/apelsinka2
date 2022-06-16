@@ -1,3 +1,10 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v8.4.12,
+* Autoprefixer: v10.4.4
+* Browsers: last 4 version
+*/
+
 
 :root {
   --bg-color-grey: #333;
@@ -195,15 +202,15 @@ body {
   .button_menu_visible > span:after {
     top: 3vw;
     -webkit-transform: rotate(15deg);
-        -ms-transform: rotate(15deg);
-            transform: rotate(15deg);
+    -ms-transform: rotate(15deg);
+    transform: rotate(15deg);
     right: 0;
   }
   .button_menu_visible > span:before {
     top: 3vw;
     -webkit-transform: rotate(345deg);
-        -ms-transform: rotate(345deg);
-            transform: rotate(345deg);
+    -ms-transform: rotate(345deg);
+    transform: rotate(345deg);
     left: 0;
   }
   .button_menu_visible > span:after,
@@ -561,8 +568,8 @@ h4 {
   top: 50%;
   position: absolute;
   -webkit-transform: translateY(-50%);
-      -ms-transform: translateY(-50%);
-          transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
   padding: 0 3vw;
   padding-bottom: 4vw;
 }
@@ -588,14 +595,14 @@ h4 {
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
 }
 
 .box_body .block_auth {
@@ -1216,7 +1223,7 @@ button:disabled {
   color: #212529 !important;
   border: 2px solid gray !important;
   -webkit-box-shadow: none !important;
-          box-shadow: none !important;
+  box-shadow: none !important;
 }
 #button_input span#timeout {
   margin-left: 10px;
@@ -1611,7 +1618,34 @@ input#height {
 .autorin_input {
   font-size: 4vw;
   margin: 5vw 0;
-  margin-bottom: 6vw;
+  margin-bottom: 2vw;
+}
+input#email {
+  margin-bottom: 1vw;
+}
+
+button#but_codD {
+  margin: 0 auto;
+  margin-bottom: 3vw;
+  width: 54vw;
+  padding: 2vw 1vw;
+  border: 1px solid var(--bg-color-grey_Whei);
+  font-size: 3.3vw;
+}
+
+.rewrite_input_contents p {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin-bottom: 1vw;
+}
+
+input#code_mous {
+  margin-bottom: 2vw;
 }
 .autorin_input_contents label {
   left: 0;
@@ -1672,11 +1706,11 @@ input.autorin_input--button {
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 input.confirm_input--button {
@@ -3572,8 +3606,8 @@ div.input input:invalid {
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
   text-align: center;
 }
 
@@ -3600,14 +3634,14 @@ ul.users_profil_right_top > li,
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   font-size: 5vw;
   border: 1px solid gray;
   border-radius: 2vw;
@@ -3623,11 +3657,11 @@ ul.users_profil_right_top > li,
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   text-align: center;
 }
 
@@ -3637,11 +3671,11 @@ ul.users_profil_right_top > li,
   display: flex;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   margin-bottom: 2vw;
 }
 
@@ -3788,8 +3822,8 @@ span.non_chek {
   border-right: 0;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
 }
 
 .text_item > div {
@@ -3947,12 +3981,12 @@ span.non_chek {
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
   width: 68vw;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .name_items p.Name {
@@ -3988,7 +4022,7 @@ ul.box_user_ {
 }
 
 .rewrite_input_contents p#code_email.opens {
-  height: 90px;
+  height: 100px;
   overflow: visible;
 }
 .block_pochta_in > label > div {
@@ -4008,7 +4042,7 @@ ul.box_user_ {
   display: -ms-flexbox;
   display: flex;
   -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
+  flex-wrap: wrap;
 }
 
 .bloxk_cart .text_block_cart_item {
@@ -4050,8 +4084,8 @@ ul.box_user_ {
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
 }
 
 .data_lis_input p > input {
@@ -4068,8 +4102,8 @@ ul.box_user_ {
   margin-bottom: 3vw;
   font-size: 5vw;
   -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
 }
 
 .data_user {
@@ -4101,11 +4135,11 @@ span.mobil_element {
   display: flex;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
   position: relative;
 }
 
@@ -4156,7 +4190,7 @@ span.mobil_element {
   -webkit-box-sizing: content-box;
   box-sizing: content-box;
   margin-bottom: 15px;
-  margin: 0 auto 5vw auto;
+  margin: 3vw auto;
 }
 .chekbox_password_box_s.active {
   background: #3498ff;
@@ -4208,9 +4242,26 @@ span.mobil_element {
   font-size: 4.5vw;
   padding: 2vw 2vw;
   border-radius: 3px;
-  margin-bottom: 5vw;
   margin-top: 2px;
   outline-color: orange;
+}
+.rewrite_input_contents span > button {
+  min-width: 30px;
+  min-height: 30px;
+  margin-left: 5px;
+  display: none;
+  cursor: pointer;
+}
+.rewrite_input_contents span > button.activese {
+  display: block;
+}
+.rewrite_input_contents span {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: baseline;
+      -ms-flex-align: baseline;
+          align-items: baseline;
 }
 .rewrite_input_contents .button_passwod label {
   width: -webkit-fit-content;
@@ -4272,4 +4323,15 @@ input.rewrite_input--button {
   width: 64vw;
   color: white;
   font-weight: 600;
+}
+input.rewrite_input--button:active {
+  background: #ff7700;
+}.rewrite_contents a {
+    color: blue;
+    text-decoration: underline;
+    margin-left: 11vw;
+}
+
+.autorin_input form {
+    margin-bottom: 2vw;
 }

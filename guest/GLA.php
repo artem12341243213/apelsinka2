@@ -311,12 +311,6 @@ if (isset($_POST['auth_f']) && $_POST['auth_f'] == 1) {
       unset($_SESSION['confirm']);
 
       go("authorization");
-    } else if ($datee['type'] === 'recovery') {
-      $new_password = code($datee['newpassword'], 's');
-      mysqli_query($CONNECT, "UPDATE `user` SET `password`='" . $new_password . "'WHERE `email`='" . $datee['email'] . "'");
-      mail_l($datee['email'], 'Смена пароля',  'Новый пароль', "На странице был изменен пароль");
-      unset($_SESSION['confirm']);
-      message("Сброс пароль", 1, "Пароль был сброшен", true, 'authorization');
     } else if ($datee['type'] === 'adminauthc') {
       $lo1s = mysqli_fetch_assoc(mysqli_query($CONNECT, "SELECT * FROM `user` WHERE `id` = " . $datee['id']));
       foreach ($lo1s as $key => $value) {
@@ -333,33 +327,36 @@ if (isset($_POST['auth_f']) && $_POST['auth_f'] == 1) {
 } else if (isset($_POST['Rewrite_f']) && $_POST['Rewrite_f'] == 1) {
 
   if (isset($_POST['email']))       $email = code($_POST['email']);
-  if (isset($_POST['rewritePaswords']))    $password = code($_POST['rewritePaswords']);
+  if (isset($_POST['rewritePaswords']))    $password = code($_POST['rewritePaswords'], 's');
+
+  mysqli_query($CONNECT, "UPDATE `user` SET `password`='" . $password . "'WHERE `email`='" . $email . "'");
+  mail_l($email, 'Смена пароля',  'Новый пароль', "На странице был изменен пароль");
+
+  message("Сброс пароль", 1, "Пароль был сброшен", true, 'authorization');
+} else if (isset($_POST['revrite_codes_send_f']) && $_POST['revrite_codes_send_f'] == 1) {
+  $email = code($_POST['email']);
 
   $code = random_str(6);
-
-  $mas_ses['code'] = $code;
-  $mas_ses['type'] = "recovery";
-  $mas_ses['email'] = $email;
-  $mas_ses['newpassword'] = $password;
-
-
-  $_SESSION['confirm'] = $mas_ses;
-
-  $mi_code = "<p>Код для сброса пароля</p>
+  $mi_code = "<p>Код для подтверждения регистрации</p>
   <p><div style='color: black;
   padding: 0.6rem;
   background: #cececed6;
   border-radius: 5px;
   font-size: 1.2rem;
   max-width: fit-content;
-  margin: auto;'>$code</div></p>  ";
+  margin: auto;'>" . $code . "</div></p>  ";
 
-
-  mail_l($email, "Апельсинка регистрация", 'Код сброса пароля', $mi_code);
-  message("Подтверждение", 1, "Письмо с кодом подтверждения было отправленно вам на почту", true, 'confirm');
+  if (mail_l($email, "Код подтверждения", "Ваш код", $mi_code)) {
+    $_SESSION['codes_m'] = "$code";
+    print("yes");
+  }
+} else if (isset($_POST['revrite_codes_f']) && $_POST['revrite_codes_f'] == 1) {
+  $code = code($_POST['code']);
+  if ($_SESSION['codes_m'] ==  $code)
+    print("yes");
+  else
+    print("no");
 }
-
-
 
 function mail_l($user_meil, $hea, $h1, $text)
 {
