@@ -1,10 +1,10 @@
-<? if (!isset($_SESSION['confirm']['code'])) not_found(403);
+<? if (!isset($_SESSION['confirm']['code']) ) not_found(403);
 hedeer("Подтверждение действий");
 ?>
 
-
 <div class="autorin">
     <div class="global">
+        <pre><?print_r($_SESSION)?></pre>
         <div class="h1 text-g">
             <h1>Подтверждение действий</h1>
         </div>

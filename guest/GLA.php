@@ -3,9 +3,6 @@ session_start();
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/PHPMailer/mail.php');
 
-
-
-
 if (isset($_POST['auth_f']) && $_POST['auth_f'] == 1) {
 
   $email = code($_POST['email']);
@@ -25,10 +22,11 @@ if (isset($_POST['auth_f']) && $_POST['auth_f'] == 1) {
   if (isset($_POST['get']))  $GET = code($_POST['get']);
   if (isset($_POST['article']))  $GET .= "&article=" . code($_POST['article']);
   if (isset($_POST['items']))  $GET .= "&items=" . code($_POST['items']);
+
   // Проверяем пользователя 
   $row = mysqli_fetch_assoc(mysqli_query($CONNECT, "Select * From `user` WHERE `email`='" . $email . "'"));
-
-  if ($chek_auto) {
+  //авто вход 
+  if ($chek_auto == true) {
     //Создаём токен
     $password_cookie_token = md5($row['id']  . $pass . time());
     if ($row['token_user_auto'] != null) {
@@ -38,9 +36,6 @@ if (isset($_POST['auth_f']) && $_POST['auth_f'] == 1) {
     }
     //Добавляем созданный токен в базу данных
     mysqli_query($CONNECT, "UPDATE `user` SET token_user_auto='" . $miso . "' WHERE email = '" . $email . "'");
-
-    //Устанавливаем куку с токеном
-    setcookie("password_cookie_token", $password_cookie_token, time() + (1000 * 60 * 60 * 24 * 30));
   } else {
     //Если галочка "запомнить меня" небыла поставлена, то мы удаляем куки
     if (isset($_COOKIE["password_cookie_token"])) {
@@ -121,9 +116,13 @@ if (isset($_POST['auth_f']) && $_POST['auth_f'] == 1) {
       array_push($mi, $item[1]);
     }
     $_SESSION['favorits'] = $mi;
+    unset($mi);
+    unset($los);
   }
 
+
   if ($row['type'] == 2) {
+    $lest = [];
     $lest['id'] = $row['id'];
     unset($row);
     $code = random_str(6, 'admin');
@@ -139,16 +138,23 @@ if (isset($_POST['auth_f']) && $_POST['auth_f'] == 1) {
 
     $lest['code'] = code($code);
     $lest['type'] = "adminauthc";
-    $lest['password_coo'] = $password_cookie_token;
+    if (isset($password_cookie_token))
+      //Устанавливаем куку с токеном
+      $lest['password_coo'] = $password_cookie_token;
     $lest['GET'] = $GET;
 
     $_SESSION['confirm'] = $lest;
+    unset($lest);
+
     if (mail_l($email, "Подтверждения входа в админ панель", 'Код администратора', $mi_code)) {
-      message('Вход', 2, 'Ключ подтверждения отправлен на почту', true, 'confirm');
+      message('Вход', 1, 'Ключ подтверждения отправлен на почту', true, 'confirm');
     } else {
       message('Ошибка', 3, 'Не удалость отправить код');
     }
   } else {
+    if (isset($password_cookie_token))
+      //Устанавливаем куку с токеном
+      setcookie("password_cookie_token", $password_cookie_token, time() + (1000 * 60 * 60 * 24 * 30));
 
     foreach ($row as $key => $value) {
       if ($key == 'token_user_auto') $_SESSION[$key] = $password_cookie_token;
@@ -310,18 +316,24 @@ if (isset($_POST['auth_f']) && $_POST['auth_f'] == 1) {
 
       unset($_SESSION['confirm']);
 
-      go("authorization");
+      go("authorization&lye=home");
     } else if ($datee['type'] === 'adminauthc') {
+
       $lo1s = mysqli_fetch_assoc(mysqli_query($CONNECT, "SELECT * FROM `user` WHERE `id` = " . $datee['id']));
+
+      if (isset($datee['password_coo']))
+        //Устанавливаем куку с токеном
+        setcookie("password_cookie_token", $datee['password_coo'], time() + (1000 * 60 * 60 * 24 * 30));
+
+
       foreach ($lo1s as $key => $value) {
         if ($key == 'token_user_auto') $_SESSION[$key] = $datee['password_coo'];
         else
           $_SESSION[$key] = $value;
       };
-      if (isset($datee['GET']))
-        go($datee['GET']);
-      else
-        go("home");
+
+      unset($_SESSION['confirm']);
+      go("home");
     } else not_found();
   }
 } else if (isset($_POST['Rewrite_f']) && $_POST['Rewrite_f'] == 1) {
@@ -332,12 +344,17 @@ if (isset($_POST['auth_f']) && $_POST['auth_f'] == 1) {
   mysqli_query($CONNECT, "UPDATE `user` SET `password`='" . $password . "'WHERE `email`='" . $email . "'");
   mail_l($email, 'Смена пароля',  'Новый пароль', "На странице был изменен пароль");
 
-  message("Сброс пароль", 1, "Пароль был сброшен", true, 'authorization');
+  message("Сброс пароль", 1, "Пароль был сброшен", true, 'authorization&lye=home');
 } else if (isset($_POST['revrite_codes_send_f']) && $_POST['revrite_codes_send_f'] == 1) {
   $email = code($_POST['email']);
 
+  $p = mysqli_query($CONNECT, "SELECT * FROM `user` WHERE `email`='" . $email . "'");
+  if (($p->num_rows) == 0) {
+    print("No_mail");
+    return;
+  }
   $code = random_str(6);
-  $mi_code = "<p>Код для подтверждения регистрации</p>
+  $mi_code = "<p>Код для подтверждения почты</p>
   <p><div style='color: black;
   padding: 0.6rem;
   background: #cececed6;
@@ -352,9 +369,10 @@ if (isset($_POST['auth_f']) && $_POST['auth_f'] == 1) {
   }
 } else if (isset($_POST['revrite_codes_f']) && $_POST['revrite_codes_f'] == 1) {
   $code = code($_POST['code']);
-  if ($_SESSION['codes_m'] ==  $code)
+  if ($_SESSION['codes_m'] ==  $code) {
+    unset($_SESSION['codes_m']);
     print("yes");
-  else
+  } else
     print("no");
 }
 

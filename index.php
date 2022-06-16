@@ -103,8 +103,6 @@ if (!isset($_SESSION['type']) || $_SESSION['type'] == 0) {
 
 $c = 20;
 
-if (isset($_SESSION['confirm'])) unset($_SESSION['confirm']);
-
 if (file_exists('all/' . $page . '.php')) include('all/' . $page . '.php');
 
 else if ((isset($_SESSION['id']) or isset($_SESSION['ADMIN_LOGIN_IN'])) and file_exists('auth/' . $page . '.php')) include('auth/' . $page . '.php');
@@ -210,7 +208,7 @@ function random_str($num = 10, $types = 'user')
             break;
         case "admin":
             $listAlpha = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-            $listNonAlpha = ',;:!?.$/*-+&@_+;./*&?$-!,';
+            $listNonAlpha = ',;:!?.$/*-@_;./*?$-!,';
             return str_shuffle(
                 substr(str_shuffle($listAlpha), 0, $num) .
                     substr(str_shuffle($listNonAlpha), 0, rand(1, 4))

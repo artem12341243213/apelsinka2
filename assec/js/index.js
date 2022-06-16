@@ -979,7 +979,7 @@ function rewritePassword(types = "lest") {
     }
   }
   else if (types == "send_code") {
-    codeEmail_p.addClass("opens")
+
     $.ajax({
       type: "POST",
       url: "GLA",
@@ -987,9 +987,12 @@ function rewritePassword(types = "lest") {
       caches: false,
       success: function (res) {
         if (res == 'yes') {
+          codeEmail_p.addClass("opens")
           codeEmail_i.removeAttr('disabled')
           codeEmail_i.css("outline", "3px solid orange")
           codeEmail_i.attr("autofocus", "")
+        } else if (res == 'No_mail') {
+          error_mesages("Аккаунт с данной почтой не обнаружен", 2, " ")
         }
       }
     });

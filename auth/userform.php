@@ -224,11 +224,11 @@ if (isset($_POST['orderPrisesCasec_f']) && $_POST['orderPrisesCasec_f'] == 1) {
         $count = "";
         $html .= "<p> Колличество: ";
         if ($data['Opt'] != 0) {
-            $html .=  $data['count_f'] * $data['count_s'] . "</p>";
-            $count .=  ($data['count_f'] * $data['count_s']) . "|";
+            $html   .=      $data['count_f'] * $data['count_s'] . "</p>";
+            $count  .=      ($data['count_f'] * $data['count_s']) . "|";
         } else {
-            $html .=   $data['count_s'] . "</p>";
-            $count .= $data['count_s'] . "|";
+            $html   .=      $data['count_s'] . "</p>";
+            $count  .=      $data['count_s'] . "|";
         }
 
 
