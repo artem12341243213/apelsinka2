@@ -80,19 +80,24 @@ if ($_GET)
                 </div>
                 <? if (isset($_GET['sot'])) {
                 ?>
-                    <div class=" box_include " id="include_box">
+                    <div class="box_include" id="include_box">
                         <?
                         $m = code($_GET['sot']);
+
                         switch ($m) {
 
                             case "beak_backet":
                                 require('assec/php/table_raz.php');
                                 break;
-
+                            case "favorits":
+                                require('assec/php/favorits.php');
+                                break;
                                 /*  case "prise":include  ; break;*/
                             case "editor_user":
                                 require('assec/php/block/user_edit_data.php');
                                 break;
+                            default:
+                                echo ("Такого блока нет, либо же он в разработке");
                         }
 
                         ?>
@@ -100,24 +105,12 @@ if ($_GET)
             </div>
         <?
                 } else { ?>
-            <div class=" box_include hidden_items" id="include_box">
-
-                <!--     <div class="moi_z">
-                    <div class="heder_d">
-                        <div class="h2">
-                            <h2>Мои заказы</h2>
-                        </div>
-                    </div>
-                    <div class="body_z">
-                        <? ?>
-                        Ну тут типа заказы коорые были
-                    </div>
-                </div> -->
+            <div class="box_include hidden_items" id="include_box">
 
             </div>
         </div>
     <? } ?>
-                    
+
     <div class="users_profil_rightSection">
         <ul class="box_user_">
             <li class="el">
