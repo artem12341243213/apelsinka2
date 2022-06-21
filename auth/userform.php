@@ -206,6 +206,7 @@ if (isset($_POST['orderPrisesCasec_f']) && $_POST['orderPrisesCasec_f'] == 1) {
 
     if ($type == "opt")        $html .= "<h2>Новый ОПТОВЫЙ заказ</h2>";
     else if ($type == "roz") $html .= "<h2>Новый РОЗНИЧНЫЙ заказ</h2>";
+    else $html .= "<h2>Новый заказ от Админа</h2>";
 
     foreach ($cart as $key => $data) {
         $html .= "<div style='border-bottom:1px solid black;'> 
@@ -238,6 +239,10 @@ if (isset($_POST['orderPrisesCasec_f']) && $_POST['orderPrisesCasec_f'] == 1) {
         $prise += $data['price_all'];
         $html .=  "</div>";
     }
+    $listXXX = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $listYYYY = '123456789';
+    $code_orders = substr(str_shuffle($listXXX), 0, 2) . ":" . substr(str_shuffle($listYYYY), 0, 4);
+
     $FIO  = code($_POST['FIO']);
     $obl = code($_POST['obl']);
     $sity = code($_POST['sity']);
@@ -250,8 +255,8 @@ if (isset($_POST['orderPrisesCasec_f']) && $_POST['orderPrisesCasec_f'] == 1) {
     $home_s  = code($_POST['home_s']);
     $index = code($_POST['index']);
 
-    $html .= "<div style = 'text-align: center;margin: 1rem;'> Полная стоймость $prise</div>";
-    $html .= "<div style = 'text-align: start;margin: 1rem;'> Пользователь </div>";
+    $html .= "<div style = 'text-align: start;margin: 1rem; margin-left: 2rem;'> Полная стоймость <b> $prise </b></div>";
+    $html .= "<h2>Пользователь</h2>";
     $html .= "<div style = 'text-align: start;margin: 1rem;'> ФИО: $name_user </div>";
     $html .= "<div style = 'text-align: start;margin: 1rem;'> Телефон: <a href='tel:$phone'>$phone</a> </div>";
     $html .= "<div style = 'text-align: start;margin: 1rem;'> Почта: <a href='mailto:$email'>$email </a></div>";
@@ -263,19 +268,32 @@ if (isset($_POST['orderPrisesCasec_f']) && $_POST['orderPrisesCasec_f'] == 1) {
     $html .= "<div style = 'text-align: start;margin: 1rem;'> Дом: $home </div>";
     $html .= "<div style = 'text-align: start;margin: 1rem;'> Квартира: $home_s </div>";
     $html .= "<div style = 'text-align: start;margin: 1rem;'> Индекс: $index </div>";
-    $html .= "<div style = 'text-align: start;margin: 1rem;'> Доставка </div>";
+    $html .= "<h2>Доставка</h2>";
     $html .= "<div style = 'text-align: start;margin: 1rem;'> Пользователь выбрал: $dilivery </div>";
+    $html .= "<h2>Код заказа</h2>";
+    $html .= "<div style = 'text-align: start;margin: 1rem;font-size: 2rem;'> <b> $code_orders </b> - <span style ='color:red;'>Написать на упаковке </span> </div>";
     $html .= "</div></body></html>";
 
-    mysqli_query($CONNECT, "INSERT INTO `past_orders` (`id`, `id_user`, `name_product`, `size`, `img`, `count`, `prise`, `status`,`delivery`) 
+    mysqli_query($CONNECT, "INSERT INTO `past_orders` (`id`, `id_user`, `name_product`, `size`, `img`, `count`, 
+    `prise`, `status`,`delivery`,`codeitems`) 
     VALUES (null, '" . $_SESSION['id'] . "', '$titles', 
-    '$size',     '$images',    '$count', '$prise', 'ovit','$dilivery')");
+    '$size',     '$images',    '$count', '$prise', 'ovit','$dilivery','$code_orders')");
 
     $mail->addAddress($emailX);
     $mail->Subject = $subject;
     $mail->Body = $html;
     unset($_COOKIE['carts']);
-    mysqli_query($CONNECT, "UPDATE `cart_users` SET `item` = '[]' WHERE `id_user` ='" . $_SESSION['id']);
+    setcookie('carts', null, -1, '/');
+    $_SESSION['code_orders'] = $code_orders;
+
+
+    if ($dilivery == "Самовывоз. Точка 1")
+        $_SESSION['adress_orders_b'] = 1;
+    else if ($dilivery == "Самовывоз. Точка 2")
+        $_SESSION['adress_orders_b'] = 2;
+
+    mysqli_query($CONNECT, "UPDATE `cart_users` SET `item` = '[]' WHERE `id_user` = " . $_SESSION['id']);
+
     if ($mail->send()) {
         message('Заказ', 1, "Заказ принят в обработку. Ожидайте звонок для подтверждение заказа", true, "yesorder");
     } else {

@@ -1,62 +1,5 @@
 <?
-
-if (isset($_SESSION['orders_prise'])) {
-
-    mail_l('orders@apelsinka.tech', 'Заказ', 'ye n', $text, $dop = '', $name = '');
-    //mail_l($user_meil, $hea, $h1, $text, $dop = '', $name = '')
-    //
-
-
-    $email = $user_meil; // почта получателя
-    $subject = $hea;
-    $html = "
-      <html><head>
-        <meta charset='UTF-8'>
-        <title>' . $subject . '</title> 
-        </head><body style = 'width: fit-content;
-        min-width: 21rem; '>
-         <div style='background: #ffb100;
-         border-radius: 5px;
-         color: #0037ff;
-         padding: 0.5rem; '>
-              <h1 style = 'text-align: center;
-              margin: 0.5rem;'>Апельсинка</h1>
-          </div>
-          <div style = 'text-align: center;
-          margin: 1rem;'>
-            <h2>$h1</h2>
-              <div>$text</div>
-          </div>
-        </body> 
-      </html>
-        ";
-
-    $mail = new mail();
-    $mail->addAddress($email);
-    $mail->Subject = $subject;
-    $mail->Body = $html;
-    $mail->addAttachment("$dop", "$name"); // приложить файл, если нужно (можешь даже несколько)
-    $mail->send();
-
-    //unset($_SESSION['orders_prise']);
-
-
-    /* Opt: 1
-article: 100064
-count_f: 1
-count_s: 2
-dels: 0
-disables: "0"
-id_cartItems: 0
-img: "PHOTO-2022-02-20-12-05-18.jpg"
-price_all: 660
-prise: 330
-size: 56
-title: " Комбинезоны с лапкой " */
-}
-
 hedeer('Спасибо за заказ')
-
 ?>
 <div class="headers_cart">
     <ul>
@@ -100,14 +43,27 @@ hedeer('Спасибо за заказ')
                     <h2>Спасибо за заказ</h2>
                 </div>
             </div>
-
             <div>
                 <p>Ваш заказ сформирован и передан на склад. После уточнения наличия товара Вам будет выслан предварительный
                     счёт на почту. Для подтверждения заказа или его корректировки с Вами свяжется наш менеджер.</p>
+                <p>Ваш номер заказа <b><? print($_SESSION['code_orders']) ?></b>.
+                    Не забудьте его предьявить, для получения заказа по адрессу
+                    <?
+                    if ($_SESSION['adress_orders_b'] == 1) { ?>
+                        <a href="https://goo.gl/maps/rcMMHrjZQBbyM3Ly5"> Рынок "Восточны" Бокс 99 </a>
+                    <? } else if ($_SESSION['adress_orders_b'] == 2) { ?>
+                        <a href="https://goo.gl/maps/rcMMHrjZQBbyM3Ly5"> Рынок "Восточны" (Оранжевая ярморка) Бокс 402 </a>
+                    <? }
+                    unset($_SESSION['adress_orders_b']);
+                    unset($_SESSION['code_orders']);
+                    ?>
+                </p>
             </div>
 
             <div>
-                <p> <a href="store">Вернуться в магазин</a></p>
+                <p> <a href="store">
+                        <-- Вернуться в магазин</a>
+                </p>
             </div>
         </div>
     </div>

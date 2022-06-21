@@ -466,8 +466,9 @@ function order_yes_o() {
     data += "home_s=" + home_s.val() + "&";
     data += "index=" + index.val();
 
-    button_disables(button)
-    error_mesages("Запрос отправлен",1,' ')
+    button.attr("disabled", "");
+
+    error_mesages("Запрос отправлен", 1, ' ')
     $.ajax({
         type: "POST",
         url: "userform",
@@ -477,7 +478,7 @@ function order_yes_o() {
             let obj = jQuery.parseJSON(rese);
             console.log(obj)
             if (obj.tip == 1) {
-                localStorage.setItem("cart", []);
+                localStorage.setItem("cart", '[]');
             }
             privetst(obj.headers + "." + obj.titel + "." + Number(obj.tip), obj.go_i)
         }

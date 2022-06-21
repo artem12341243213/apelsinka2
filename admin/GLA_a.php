@@ -13,7 +13,6 @@ if (isset($_POST['adminis_f']) && $_POST['adminis_f'] == 1) {
         message('Админ права', 1, 'Админ права выданы');
     } else {
         unset($_SESSION['ADMIN_LOGIN_IN']);
-        //unset($_SESSION['IMG_PRODUCT']);
         $GLOBALS['_SESSION']['IMG_PRODUCT'] = '';
         message('Админ права', 1, 'Админ права отозваны');
     }

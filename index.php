@@ -65,7 +65,7 @@ if (!$is_mobile) {
 $page_list = [
     'product', 'profil', "table_r", 'delit_user_mail', "help", "yesorder", "mi_s", "polzowSogls", "politconf", "payment", "delivery", "heplorder",
     "returnsorder", "contacts", "cooperation", "orderchek", "comments", "store", 'rewritePaswords',
-    'registers', 'store', 'authorization','GLA', 'GLA1', 'GLA_a', 'confirm',
+    'registers', 'store', 'authorization', 'GLA', 'GLA1', 'GLA_a', 'confirm',
     'userform', 'home', 'cart', 'adminPanels'
 ];
 
@@ -101,6 +101,7 @@ if (!isset($_SESSION['type']) || $_SESSION['type'] == 0) {
     $type = "admin";
     $_SESSION['ADMIN_LOGIN_IN'] = 1;
 }
+
 
 if (file_exists('all/' . $page . '.php')) include('all/' . $page . '.php');
 
