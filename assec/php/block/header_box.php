@@ -70,34 +70,10 @@
                         </div>
                     </div>
                     <div class="body_backet ">
-                        <!--    <div class="noneitems_cart"  none_items>
-                    <p> Здесь пока ничего нет</p>
-                    <p onclick="locations('store&items=bous')">Начни покупять прямо сейчас </p>
-                </div> -->
-
-                        <div class="items_backet">
-                            <div class="items_img_backet"><img src="assec/images/product/PHOTO-2022-02-20-12-03-40.jpg" alt=""></div>
-                            <div class="items_backet_body">
-                                <div class="items_titles_backet"><a href="product&amp;article=100061"> Футболка
-                                        <div class="items_artiecle_backet"> Артикул: 100061</div>
-                                    </a>
-                                </div>
-                                <div class="items_size_backet">Размер: 80</div>
-                                <div class="items_counts_backet">
-                                    <div class="items_counts_button_backet">
-                                        <div class="buttons_backet">
-                                            <button><span class="button_backet_up" data-src="100061" data-lis="0" onclick="button_backet_up('100061','0')"></span></button>
-                                            <p id="counts_button_backet">1 Упк</p>
-                                            <button><span class="button_backet_down" data-src="100061" data-lis="0" onclick="button_backet_down('100061','0')"></span></button>
-                                        </div>
-                                        <p>x123 за шт.</p>
-                                    </div>
-                                    <div class="count_all_price"> ИТОГО:1750</div>
-                                </div>
-                                <div class="button_mobil_delet_items"><button>Удалить</button></div>
-                            </div>
+                        <div class="noneitems_cart" none_items>
+                            <p> Здесь пока ничего нет</p>
+                            <p onclick="locations('store&items=bous')">Начни покупять прямо сейчас </p>
                         </div>
-
                     </div>
 
                     <div class="footer_backet">

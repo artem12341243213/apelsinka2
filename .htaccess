@@ -12,3 +12,9 @@ RewriteRule ^(.*)$ index.php?/$1 [L]
 #RewriteRule ^(.*)$ https://%{SERVER_NAME}%{REQUEST_URI} [R=301,L]
 # END SpaceWeb HTTPS
 
+ErrorDocument 401 https://apelsinka.tech/index.php?errors=401
+ErrorDocument 403 https://apelsinka.tech/index.php?errors=403
+ErrorDocument 404 https://apelsinka.tech/index.php?errors=404
+ErrorDocument 500 https://apelsinka.tech/index.php?errors=500
+
+DirectoryIndex index.php

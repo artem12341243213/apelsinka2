@@ -65,31 +65,32 @@ if (!$is_mobile) {
 $page_list = [
     'product', 'profil', "table_r", 'delit_user_mail', "help", "yesorder", "mi_s", "polzowSogls", "politconf", "payment", "delivery", "heplorder",
     "returnsorder", "contacts", "cooperation", "orderchek", "comments", "store", 'rewritePaswords',
-    'registers', 'store', 'authorization', 'GLA', 'GLA1', 'GLA_a', 'confirm',
+    'registers', 'store', 'authorization','GLA', 'GLA1', 'GLA_a', 'confirm',
     'userform', 'home', 'cart', 'adminPanels'
 ];
-
 
 if ($_SERVER["REQUEST_URI"] == '/') $page = 'home';
 else {
     $page       =   substr($_SERVER["REQUEST_URI"], 1);
     $page_mas   =   explode("&", "$page");
     $page       =   $page_mas[0];
+    unset($page_mas);
     $mixe       =   0;
 
     if (!preg_match('/^[A-z0-9]{3,15}$/', $page)) not_found();
     else {
         foreach ($page_list as $items) {
             if ($items != $page) {
-
                 $mixe++;
             }
         }
         $nums_length = (int) count($page_list);
 
         if ($mixe >= $nums_length)
-            not_found();
+            not_found(404);
     }
+    unset($mixe);
+    unset($page_list);
 }
 unset($_SESSION['ADMIN_LOGIN_IN']);
 if (!isset($_SESSION['type']) || $_SESSION['type'] == 0) {
@@ -100,8 +101,6 @@ if (!isset($_SESSION['type']) || $_SESSION['type'] == 0) {
     $type = "admin";
     $_SESSION['ADMIN_LOGIN_IN'] = 1;
 }
-
-$c = 20;
 
 if (file_exists('all/' . $page . '.php')) include('all/' . $page . '.php');
 
@@ -130,41 +129,6 @@ function go($url)
 function not_found($types = '404')
 {
     if (isset($_GET['errors'])) $types = code($_GET['errors']);
-    if (isset($_SESSION['ADMIN_LOGIN_IN'])) {
-        print_r("<pre>");
-        print_r(debug_backtrace());
-        echo ("</pre>"); // проверить кто вызывает функцию
-    }
-    if ($types == "404") {
-        http_response_code($types);
-        $text = "<h1>Ошибка $types</h1>
-            <p>Искомая страница не существует, либо была перенесена</p>";
-    } else if ($types == "500") {
-        http_response_code($types);
-        $text = "<h1>Ошибка $types</h1>
-                <p>Ой... что-то сломалось, пожалуйста попробуйте позже</p>";
-    } else if ($types == "503") {
-        http_response_code($types);
-        $text = "<h1>Ошибка $types</h1>
-                <p>Ой... что-то сломалось, пожалуйста попробуйте позже</p>";
-    } else if ($types == "408") {
-        http_response_code($types);
-        $text = "<h1>Ошибка $types</h1>
-                <p>Сервер не долждался вашего ответа, пожалуйста попробуйте позже</p>";
-    } else if ($types == "522") {
-        http_response_code($types);
-        $text = "<h1>Ошибка $types</h1>
-                <p>Соединения с сервером было не установленно</p>";
-    } else if ($types == "403") {
-        http_response_code($types);
-        $text = "<h1>Ошибка $types</h1>
-                <p>Вам сюда нельзя</p>";
-    } else {
-        http_response_code($types);
-        $text = "<h1>Ошибка $types</h1>
-                <p>Ой... что-то сломалось, пожалуйста попробуйте позже</p>";
-    }
-    //http_response_code(401); // требуется авторизация
     include_once 'assec/php/notfound.php';
     exit('');
 }

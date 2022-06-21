@@ -24,6 +24,7 @@ if (isset($_POST['elem'])) {
         unset($_SESSION['kvart']);
 
         if (isset($_COOKIE['cart']))        unset($_COOKIE['cart']);
+        if (isset($_SESSION['favorits']))        unset($_SESSION['favorits']);
 
         if (isset($_COOKIE["password_cookie_token"])) {
 
@@ -46,7 +47,7 @@ if (isset($_POST['elem'])) {
         unset($_SESSION['id']);
 
         go('home');
-    } else if ($_POST['elem'] == 'beak_backet')      print('В разработке');
+    } else if ($_POST['elem'] == 'beak_backet')    require('auth/myorders.php');
     else if ($_POST['elem'] == 'table_razmers')    require('assec/php/table_raz.php');
     else if ($_POST['elem'] == 'favorits') {
         $los = mysqli_query($CONNECT, "SELECT * From `favoritesu`WHERE `id_user` = " . $_SESSION['id']);
@@ -58,8 +59,7 @@ if (isset($_POST['elem'])) {
             }
             $_SESSION['favorits'] = $mi;
         }
-
-        require('assec/php/block/favorits.php');
+        require('auth/favorits.php');
     } else if ($_POST['elem'] == "prise") {
 ?>
         <div class="box_pri">
@@ -192,7 +192,7 @@ if (isset($_POST['orderPrisesCasec_f']) && $_POST['orderPrisesCasec_f'] == 1) {
     $prise = "";
     $prise = 0;
     // <img src="cid:0.jpg" width="128" height="128">
-    $emailX = "orders@apelsinka.tech"; // почта получателя
+    $emailX = "toropchin_a@bk.ru"; //"orders@apelsinka.tech"; // почта получателя
     $mail = new mail();
     $subject = "Новый заказ #" . $number_orders;
     $html = '<html><head>';
@@ -203,7 +203,9 @@ if (isset($_POST['orderPrisesCasec_f']) && $_POST['orderPrisesCasec_f'] == 1) {
          border-radius: 5px;color: #0037ff;padding: 0.5rem;'>";
     $html .= "<h1 style = 'text-align: center;margin: 0.5rem;'> Апельсинка </h1></div>";
     $html .= "<div style = 'text-align: start;margin: 1rem;'>";
-    $html .= "<h2>Новый заказ</h2>";
+
+    if ($type == "opt")        $html .= "<h2>Новый ОПТОВЫЙ заказ</h2>";
+    else if ($type == "roz") $html .= "<h2>Новый РОЗНИЧНЫЙ заказ</h2>";
 
     foreach ($cart as $key => $data) {
         $html .= "<div style='border-bottom:1px solid black;'> 
@@ -224,11 +226,11 @@ if (isset($_POST['orderPrisesCasec_f']) && $_POST['orderPrisesCasec_f'] == 1) {
         $count = "";
         $html .= "<p> Колличество: ";
         if ($data['Opt'] != 0) {
-            $html   .=      $data['count_f'] * $data['count_s'] . "</p>";
-            $count  .=      ($data['count_f'] * $data['count_s']) . "|";
+            $html .=  $data['count_f'] * $data['count_s'] . "</p>";
+            $count .=  ($data['count_f'] * $data['count_s']) . "|";
         } else {
-            $html   .=      $data['count_s'] . "</p>";
-            $count  .=      $data['count_s'] . "|";
+            $html .=   $data['count_s'] . "</p>";
+            $count .= $data['count_s'] . "|";
         }
 
 
@@ -274,8 +276,6 @@ if (isset($_POST['orderPrisesCasec_f']) && $_POST['orderPrisesCasec_f'] == 1) {
     $mail->Body = $html;
     unset($_COOKIE['carts']);
     mysqli_query($CONNECT, "UPDATE `cart_users` SET `item` = '[]' WHERE `id_user` ='" . $_SESSION['id']);
-    print_r("UPDATE `cart_users` SET `item` = '[]' WHERE `id_user` =" . $_SESSION['id']);
-    return;
     if ($mail->send()) {
         message('Заказ', 1, "Заказ принят в обработку. Ожидайте звонок для подтверждение заказа", true, "yesorder");
     } else {
