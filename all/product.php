@@ -6,7 +6,7 @@ $article        =   $_GET['article'];
 if (!preg_match('/^[0-9]{6,10}$/', $article)) not_found();
 
 $sql            =   "SELECT * FROM `$dbname`.`product` where `articl` = $article ";
-$product        =   $connect->query("$sql");
+$product        =   mysqli_query($CONNECT, $sql);
 $product        =   mysqli_fetch_assoc($product);
 
 $name_product   =   $product['title'];
@@ -60,7 +60,7 @@ $arrays_img = explode('|', $img_product);
             <div class="heade_product_content">
 
                 <div class="product_content_img_product">
-                    <img src="assec/images/product/<? echo $arrays_img[0] ?> " alt="">
+                    <img src="assec/images/product/<? echo $arrays_img[0] ?> " alt="" data-img="<? echo $arrays_img[0] ?>">
                 </div>
 
                 <div class="product_content_data_product">
@@ -105,13 +105,12 @@ $arrays_img = explode('|', $img_product);
                     <div class="buttons_product_buttons">
                         <?
                         if (isset($faf_product)) { ?>
-                            <input type="button" id="button_product_favorites_p" value="Сохранено" 
-                            onclick="addFavoritesUser(<? echo $article ?>)" class="faforites_a_buttons">
+                            <input type="button" id="button_product_favorites_p" value="Сохранено" onclick="addFavoritesUser(<? echo $article ?>)" class="faforites_a_buttons">
                         <? } else { ?>
-                            <input type="button" id="button_product_favorites_p" value="Сохранить" 
-                            onclick="addFavoritesUser(<? echo $article ?>)" class="">
+                            <input type="button" id="button_product_favorites_p" value="Сохранить" onclick="addFavoritesUser(<? echo $article ?>)" class="">
                         <? } ?>
-                        <input type="button" value="Добавить в корзину" onclick="add_cart()">
+                        <input type="button" value="Добавить в корзину" onclick="add_cart(
+                            <? if ($type == 'opt') echo ("'opt'"); ?>)">
 
                     </div>
                 </div>
@@ -141,16 +140,25 @@ $arrays_img = explode('|', $img_product);
         <div class="product_box">
             <div class="text-g">
                 <h3>Расцветка</h3>
-                <span class="opisanit_product">
-                    Нажмите на картинку, чтобы выбрать ее
-                </span>
+                <? if ($type == 'roz') { ?>
+                    <span class="opisanit_product">
+                        Нажмите на картинку, чтобы выбрать ее
+                    </span>
+                <? } else { ?>
+                    <span class="opisanit_product">
+                        Расцветка товара в упаковке
+                    </span>
+                <? } ?>
             </div>
             <div class="product_img_box">
                 <div class="ul_product_img">
                     <? foreach ($arrays_img as $key => $img) { ?>
-                        <button class="li_product_img" onclick="cheked_img('img_<? echo $key ?>')" id="img_<? echo $key ?>">
-                            <img src="assec/images/product/1x1.jpg" data-src="assec/images/product/<? echo $img ?>" data-img="<? echo $img ?>">
-                        </button>
+                        <div class="li_product_img">
+                            <div onclick="cheked_img('img_<? echo $key ?>')" id="img_<? echo $key ?>"><img src="assec/images/product/1x1.jpg" data-src="assec/images/product/<? echo $img ?>" data-img="<? echo $img ?>"></div>
+                            <button class="mobil_element" onclick="add_cart('<? print($type) ?>','<? echo $img ?>')" id="cart_svg">
+
+                            </button>
+                        </div>
                     <? } ?>
                 </div>
             </div>
@@ -213,7 +221,7 @@ $arrays_img = explode('|', $img_product);
 
                 <?
                 $comments_block_product = mysqli_fetch_all(mysqli_query(
-                    $connect,
+                    $CONNECT,
                     "SELECT `user`.`type`, `user`.`img` ,`id_comments`,`id_product`,`text`,`name_users`,`user`.`id` 
                     FROM `user`,`comments` WHERE  `comments`.`id_product` = $article and  `user`.`id` = `id_users` GROUP by `comments`.`id_comments`"
                 ));

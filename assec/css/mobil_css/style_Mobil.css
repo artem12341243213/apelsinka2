@@ -1,10 +1,9 @@
 /*
 * Prefixed by https://autoprefixer.github.io
-* PostCSS: v8.4.12,
-* Autoprefixer: v10.4.4
+* PostCSS: v8.4.14,
+* Autoprefixer: v10.4.7
 * Browsers: last 4 version
 */
-
 
 :root {
   --bg-color-grey: #333;
@@ -1494,7 +1493,13 @@ div.footer-box__rov label p {
   left: 0px;
   height: 5vw;
   background: -o-linear-gradient(bottom, white, #ffffff6e);
-  background: -webkit-gradient(linear, left bottom, left top, from(white), to(#ffffff6e));
+  background: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+    from(white),
+    to(#ffffff6e)
+  );
   background: linear-gradient(0deg, white, #ffffff6e);
   -webkit-transition: 2.5s;
   -o-transition: 2.5s;
@@ -1639,8 +1644,8 @@ button#but_codD {
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
   margin-bottom: 1vw;
 }
 
@@ -3290,8 +3295,20 @@ span#numbers_textare {
   border-radius: 2vw;
   margin: 0 auto;
 }
+.li_product_img {
+  position: relative;
+  margin-bottom: 0.5rem;
+}
 
-button.li_product_img.cheked_img {
+.li_product_img > button.mobil_element {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 2rem;
+  height: 2rem;
+}
+
+div.li_product_img > div.cheked_img {
   outline: 3px solid var(--bg-green);
   border: 1px solid black;
 }
@@ -4260,8 +4277,8 @@ span.mobil_element {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: baseline;
-      -ms-flex-align: baseline;
-          align-items: baseline;
+  -ms-flex-align: baseline;
+  align-items: baseline;
 }
 .rewrite_input_contents .button_passwod label {
   width: -webkit-fit-content;
@@ -4326,12 +4343,19 @@ input.rewrite_input--button {
 }
 input.rewrite_input--button:active {
   background: #ff7700;
-}.rewrite_contents a {
-    color: blue;
-    text-decoration: underline;
-    margin-left: 11vw;
 }
-
+.rewrite_contents a {
+  color: blue;
+  text-decoration: underline;
+  margin-left: 11vw;
+}
+#cart_svg {
+  background: url(../svg/menu/cart.svg) no-repeat;
+  background-position: center;
+  border: 1px solid rgb(199, 198, 198);
+  background-color: var(--bg-color-orange);
+  border-radius: 25%;
+}
 .autorin_input form {
-    margin-bottom: 2vw;
+  margin-bottom: 2vw;
 }

@@ -72,9 +72,12 @@ function tables_ris() {
         });
         $("#cart_allPritse").html(sll_prise);
 
+    } else {
+        let sc = `<div class="cart_none_imtes">
+            <p>Здесь пока ничего нет <br><a href="store">Вперед за покупками</a></p></div > `;
+        $(".body_cart_box").html(sc);
+        $(".footer_cart").addClass("hidden_items")
     }
-
-
 }
 sll_prise = 0
 // cart_allPritse

@@ -6,7 +6,6 @@
 опт - eajlusafsjxd@cutradition.com 123456789 
 розница - blwyhomh@cutradition.com 123456789
 админ - elshgsc@cutradition.com 123456789
-
 */
 session_start();
 
@@ -34,12 +33,14 @@ if (!$CONNECT) exit('Error mysqli');
 
 /* Авторизация */
 if ((isset($_COOKIE["password_cookie_token"]) && !empty($_COOKIE["password_cookie_token"])) && !isset($_SESSION['id']) && !isset($_SESSION['confirm'])) {
-    $row = mysqli_fetch_array(mysqli_query($CONNECT, "SELECT * FROM `user` WHERE `token_user_auto` LIKE '%" . $_COOKIE["password_cookie_token"] . "%'"));
+    $row = mysqli_fetch_assoc(mysqli_query($CONNECT, "SELECT * FROM `user` WHERE `token_user_auto` LIKE '%" . $_COOKIE["password_cookie_token"] . "%'"));
     foreach ($row as $key => $value) {
         $_SESSION[$key] = $value;
     };
     $rowe = mysqli_fetch_assoc(mysqli_query($CONNECT, "Select * From `cart_users` WHERE `id_user`='" . $_SESSION['id'] . "'"))['item'];
     setcookie('cart', json_encode($rowe));
+    unset($row);
+    unset($rowe);
 }
 
 $j = file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . 'assec/data/auth_forms.json');
@@ -48,17 +49,6 @@ $GLOBALS['kontakts'] = json_decode($j, true);
 $j = file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . 'assec/data/textilian.json');
 $GLOBALS['sorters'] = $j;
 unset($j);
-
-
-require_once 'Mobile-Detect-2.8.39/Mobile_Detect.php';
-$detect = new Mobile_Detect;
-$is_mobile = ($detect->isMobile() && !$detect->isTablet());
-
-if (!$is_mobile) {
-    $_SESSION['phone_s'] = 1;
-} else {
-    $_SESSION['phone_s'] = 0;
-}
 
 
 /* #Регистрация страницы */
@@ -117,19 +107,16 @@ else if (isset($_SESSION['ADMIN_LOGIN_IN'])) {
 } else {
     not_found();
 }
+unset($page);
 
-function lysten($data)
-{
-    exit('{"arr" : "' . $data . '"}');
-}
 function go($url)
 {
     exit('{"go" : "' . $url . '"}');
 }
 
-function not_found($types = '404')
+function not_found($t = '404')
 {
-    if (isset($_GET['errors'])) $types = code($_GET['errors']);
+    if (isset($_GET['errors'])) $t = code($_GET['errors']);
     include_once 'assec/php/notfound.php';
     exit('');
 }
@@ -312,10 +299,6 @@ function hedeer($title, $css = [], $href = "")
         <meta name="yandex-verification" content="eb2808bf41f96492">
         <meta name="google-site-verification" content="onmBUOCCyHPnLfSkDq5w6sVCY0FOGhy1MtaQwv4kVEc" />
         <title><? print($title) ?></title>
-
-        <!-- Yandex.Metrika counter -->
-
-
     </head>
 
     <body>
@@ -421,7 +404,3 @@ function hedeer($title, $css = [], $href = "")
 
     </html>
 <? }
-
-/* media="screen and (max-width: 768px)" href="assec/css/style_Mobil.css">
-    <link rel="stylesheet" media="screen and (min-width: 769px) and (max-width: 1080px)" href="assec/css/style_PC-center.css">
-    <link rel="stylesheet" media="screen and (min-width: 1080px)"*/

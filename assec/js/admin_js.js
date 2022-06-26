@@ -1,104 +1,77 @@
-var sertch = `
-<div class="ad_lestions">
-<div class="edit_a_times">
-    <input type="text" name="seahc" id="ssertch" placeholder="Название или артикль" autofocus>
-    <span id="cleer_ad" onclick=" document.getElementById('ssertch').value = '';" title="Очисть">X</span>
-    <button type="button" onclick="formas('ssertch')">Найти</button>
-    <button type="button" onclick="list_e()">Все товары</button>
-    <button type="button" onclick="buttons('bu_back')">Назад</button>
-    <div>
-</div>`;
-
-var back = `
-<button class="ad_elements_item" onclick="buttons('now_tow')">Добавить товар</button>
-<button class="ad_elements_item" onclick="buttons('edit_tow')">Редактировать товар</button>
-<button class="ad_elements_item" onclick="buttons('add_promo')" disabled>Добавление промокодов</button>
-<button class="ad_elements_item" onclick="buttons('edit_promo')" disabled>Редактирование промокодов</button>
-<button class="ad_elements_item" onclick="buttons('switch')" disabled>Переключение акаунта пользователя</button>
-<button class="ad_elements_item" onclick="buttons('edit_data')">Изменение данных</button>
-<button class="ad_elements_item" onclick="buttons('now_price')">Загрузить прайс лист</button>
-<button class="ad_elements_item" onclick="formis('GLA_a','adminis')">Выход</button>
-`;
-
-var all_item = `<div class="element_alls">
-<div class="divTable StaleAdminTable" id = "table_all">
-    <div class="divTableHeading">
-            <div class="divTableRow">
-            <div class="divTableHead PcStyle ">Картинка</div>
-            <div class="divTableHead PcStyle ">Артикль<br>Название</div>
-            <div class="divTableHead PcStyle ">Размеры</div>
-            <div class="divTableHead PcStyle ">Штук<br>в<br>упаковке</div>
-            <div class="divTableHead PcStyle ">Категория <br>Под Категория <br> Для кого</div>
-            <div class="divTableHead PcStyle ">Ткань/Состав</div>
-            <div class="divTableHead PcStyle ">Вкладка товара</div>
-            <div class="divTableHead PcStyle ">Цена <br>Роз <br>Опт</div>
-            <div class="divTableHead PcStyle ">Взаимодействие</div>
-        </div>
-    </div>
-  
-    <div class="divTableBody">
-
-    </div>
-</div>
-
-<div style="display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-margin-top: 25px;">
-<button type="button" id="load_items_ad">Загрузить еще</button>
-<button type="button" onclick="buttons('edit_tow')">Назад</button>
-</div>
-</div> `;
-
 
 /* formis('count_lk.textelen.sostaw.prise_opt.prise_roz.title.group.catecogr') */
-function buttons(id) {
-    switch (id) {
-        case "edit_tow":
-            $(".ad_elements_list").html(sertch);
+function buttons(c, l = '') {
+    let b = '';
+    switch (c) {
+
+        case 'all_itemsProduct':
+            b = 'all_itemsProduct'
             break;
-        case 'now_tow':
-            obrabotka_product();
+        case "editProduct":
+            b = "editProduct"
             break;
-        case 'add_promo':
-            add_prom();
+        case 'add_nowProduct':
+            b = "add_nowProduct"
             break;
-        case 'edit_promo':
-            edit_prom();
+        case 'addNowPromoCode':
+            b = "addNowPromoCode"
             break;
-        case 'switch':
-            switch_user();
+        case 'editPromoCode':
+            b = "editPromoCode"
             break;
-        case 'edit_data':
-            edit_datas();
+        case 'switchUserAccount':
+            b = "switchUserAccount"
             break;
-        case 'now_price':
-            now_price();
+        case 'editDataSite':
+            b = "editDataSite"
             break;
-        case 'bu_back':
-            $(".ad_elements_list").html(back);
+        case 'addNowPrice':
+            b = "addNowPrice"
             break;
-        case 'edit_tow_all':
-            $(".ad_elements_list").html(all_item);
+        case 'all_items':
+            b = "all_items";
+            break;
+        case 'ssertch':
+            b = "sertch";
+            l = $("#ssertch").val();
+            if (l.length == 0) l = 'all'
             break;
     }
+
+    if (l != '')
+        adminPages(b, l);
+    else
+        adminPages(b);
+}
+
+function adminPages(tapes, mox = "") {
+    let data = '&item=' + tapes;
+    if (mox != '' && tapes != 'sertch')
+        data += '&backPages=' + mox;
+    if (tapes == 'sertch')
+        data += '&serich=' + mox;
+    $.ajax({
+        type: "POST",
+        url: "/GLA_a",
+        data: 'button_actives_f=1' + data,
+        processData: false,
+        caches: false,
+        success: function (res) {
+            locations('adminPanels' + res);
+        }
+    });
+}
+
+function locations(url) {
+    window.location.href = "/" + url;
 }
 
 
-
-
-
-function ad_dddiii() {
-    console.log($("img"));
-}
 var em = 6;
 function list_e() {
     buttons('edit_tow_all');
     indjekt('GLA_a', 'timen', '6');
 }
-
-
 
 function cleer_inputs(id) {
     id = id.split('.');
@@ -156,7 +129,6 @@ function formas(data) {
         success: function (res) {
             let obj = JSON.parse(res);
             ris_lim_i(obj.array, data)
-
         }
     });
 }
@@ -194,7 +166,7 @@ function ris_lim_i(array, i) {
             <span id="cleer_ad" onclick=" document.getElementById('ssertch').value = '';" title="Очисть">X</span>
             <button type="button" onclick="formas('ssertch')">Найти</button>
             <button type="button" onclick="list_e()">Все товары</button>
-            <button type="button" onclick="buttons('bu_back')">Назад</button>
+            <button type="button" onclick="buttons('back')">Назад</button>
         <div>
     </div>`;
 
@@ -755,6 +727,7 @@ const mass_sorter = {
 var imgmas = [];
 var imgmas_lest = [];
 var remove_img = [];
+
 function obrabotka_product(id) {  // таблица добавление и редактирован товара
     imgmas = [];
     imgmas_lest = [];
@@ -1259,7 +1232,7 @@ function obrabotka_product(id) {  // таблица добавление и ре
 
 
     button = document.createElement('button');
-    button.setAttribute("onclick", `buttons('bu_back')`);
+    button.setAttribute("onclick", `buttons('back')`);
 
     button.setAttribute("type", 'button')
     button.innerHTML = "Назад"
@@ -1490,31 +1463,12 @@ function files() {
     });
 }
 
-function add_prom() {
 
-}
-function edit_prom() {
-
-}
-function switch_user() {
-
-}
 function edit_datas() {
     $.ajax({
         type: "POST",
         url: "GLA_a",
         data: "write_json_auth=1",
-        caches: false,
-        success: function (response) {
-            $(".ad_elements_list").html(response)
-        }
-    });
-}
-function now_price() {
-    $.ajax({
-        type: "POST",
-        url: "GLA_a",
-        data: "prise_reload_n=1",
         caches: false,
         success: function (response) {
             $(".ad_elements_list").html(response)
@@ -1544,3 +1498,105 @@ function reader_data_li(id) {
     });
 }
 
+
+$(document).ready(function () {
+    if ($(".switchUser")) {
+        sorters_users_accoutn()
+    }
+});
+
+function sorters_users_accoutn() {
+    let spis = $("#spisok_items_em");
+    let arrayUser = $(".user_box_switch");
+    for (i = 0; i < arrayUser.length; i++) {
+        let m = arrayUser[i];
+        spis.append('<option value = "' + m.dataset.ids + '">' + m.dataset.ems + '</option>');
+    }
+}
+
+function sorter_user_acunt() {
+    let list = $('.switchUser__items_box');
+    let itemsArray = $(".user_box_switch");
+    let input = $("#inputUserCount").val();
+    console.log(input)
+
+    if (input != "")
+        for (i = 0; i < itemsArray.length; i++) {
+            let m = itemsArray[i];
+            if ((m.dataset.ids.indexOf(input) != -1) || (m.dataset.ems.indexOf(input) != -1))
+                $(m).css("display", "flex");
+            else
+                $(m).css("display", "none");
+
+        }
+    else
+        for (i = 0; i < itemsArray.length; i++) {
+            let m = itemsArray[i];
+            $(m).css("display", "flex");
+        }
+
+
+}
+function U_E_A(i, t) {
+    let m = '&id=' + i;
+    m += '&type=' + t;
+    let box = "#identif_user_" + i + "_numbers";
+    let button = $("#f_s_i_" + i);
+    let button_r = $("#f_s_r_" + i);
+    let class_box = $(box + " .itex_box_elements_data p");
+    let name_box = $(box + ".itex_box_elements_data p");
+    let nameS = $(box)[0].dataset.ems;
+    let sus = false;
+    if (t == "removeAccount")
+        if (confirm("Удалить акаунт " + nameS)) {
+            if (confirm(" ТОЧНО Удалить акаунт " + nameS)) {
+                sus = true
+            }
+        }
+
+
+    $.ajax({
+        type: "POST",
+        url: "GLA_a",
+        data: "switchUser=1" + m,
+        caches: false,
+        success: function (r) {
+            if (r == 'yes') {
+                error_mesages('Готово', 1, " ");
+                switch (t) {
+                    case "roz": {
+
+                        class_box.removeClass("opt_user_bg")
+                        class_box.addClass("roz_user_bg")
+                        class_box.html("Розница")
+                        button.attr("onclick", "U_E_A(" + i + ", 'opt')")
+                        button.html("Перевести на опт")
+                        break;
+                    }
+                    case "opt": {
+                        class_box.removeClass("roz_user_bg")
+                        class_box.addClass("opt_user_bg")
+                        class_box.html("Оптовик")
+                        button.attr("onclick", "U_E_A(" + i + ", 'roz')")
+                        button.html("Перевести на розницу")
+
+                        break;
+                    }
+                    case "removeAccount": {
+                        $(box).remove();
+                        break;
+                    }
+                    case "noadmin": {
+                        class_box.removeClass("adm_user_bg")
+                        class_box.addClass("roz_user_bg")
+
+                        break;
+                    }
+                }
+            }
+            else {
+
+            }
+        }
+    });
+}

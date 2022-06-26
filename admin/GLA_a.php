@@ -1,23 +1,54 @@
 <?
 session_start();
-
-
-
 /* 
  для бонусов
 INSERT INTO `bonus` (`id`, `sid`, `dels`) VALUES (NULL, 'HOT22S', '5');
 */
-if (isset($_POST['adminis_f']) && $_POST['adminis_f'] == 1) {
-    if (!isset($_SESSION['ADMIN_LOGIN_IN'])) {
-        $_SESSION['ADMIN_LOGIN_IN'] = 1;
-        message('Админ права', 1, 'Админ права выданы');
-    } else {
-        unset($_SESSION['ADMIN_LOGIN_IN']);
-        $GLOBALS['_SESSION']['IMG_PRODUCT'] = '';
-        message('Админ права', 1, 'Админ права отозваны');
-    }
-};
 
+if (isset($_POST['button_actives_f']) && $_POST['button_actives_f'] == 1) {
+    $tapes_p = code($_POST['item']);
+    if (isset($_POST['backPages']))
+        $tapes_p .= "&backPages=" . code($_POST['backPages']);
+
+    if (isset($_POST['serich']))
+        $tapes_p .= "&serich=" . code($_POST['serich']);
+    print_r('&adminPages=' . $tapes_p);
+    return;
+}
+if (isset($_POST['switchUser']) && $_POST['switchUser'] == 1) {
+    $idUser = code($_POST['id']);
+    $typeD = code($_POST['type']);
+    switch ($typeD) {
+        case "roz": {
+                if (mysqli_query($CONNECT, "UPDATE `user` SET `type` = 0 WHERE `id`= $idUser "))
+                    print("yes");
+                else
+                    print("no");
+                break;
+            }
+        case "opt": {
+                if (mysqli_query($CONNECT, "UPDATE `user` SET `type` = 1 WHERE `id`= $idUser  "))
+                    print("yes");
+                else
+                    print("no");
+                break;
+            }
+        case "removeAccount": {
+                if (mysqli_query($CONNECT, "DELETE FROM `user` WHERE `id`= $idUser "))
+                    print("yes");
+                else
+                    print("no");
+                break;
+            }
+        case "noadmin": {
+                if (mysqli_query($CONNECT, "UPDATE `user` SET `type` = 1 WHERE `id`= $idUser  "))
+                    print("yes");
+                else
+                    print("no");
+                break;
+            }
+    }
+}
 if (isset($_POST['timen_f']) && $_POST['timen_f'] == 1) {
     //print_r($_POST);
     // res.deff
@@ -65,20 +96,6 @@ if (isset($_POST['jefvsk_f']) && $_POST['jefvsk_f'] == 1) {
 
 if (isset($_POST['edit_items_f']) && $_POST['edit_items_f'] == 1) {
     if (!isset($_POST['edit_item'])) {
-        $search = code($_POST['sertch']);
-        if (preg_match('/^[0-9]{3,15}$/', $search)) {
-            $array = mysqli_fetch_all(mysqli_query($CONNECT, "SELECT * FROM `product` WHERE  `articl` LIKE '%$search%'"));
-        } else {
-            $array = mysqli_fetch_all(mysqli_query($CONNECT, "SELECT * FROM `product` WHERE  `title` LIKE '%$search%'"));
-        }
-
-        $miste  = [];
-        foreach ($array as $key => $data) {
-            if ($data[0] != "-1") {
-                array_push($miste, $data);
-            }
-        }
-        print json_encode(["array" => $miste]);
     } else {
         $art = $_POST['edit_item'];
         switch ($_POST['elems_t']) {
@@ -308,19 +325,4 @@ if (isset($_POST['prise_reload']) && $_POST['prise_reload'] == 1) {
             }');
         }
     }
-}
-if (isset($_POST['prise_reload_n']) && $_POST['prise_reload_n'] == 1) {
-?>
-    <div class="lowion">
-
-        <div><input type="file" id="files"><label for='files'>Прайс лист</label></div>
-        <? if (file_exists("assec/data/prise.xls")) {
-        ?><div> <a href="assec/data/prise.xls" id="files_prise">Прайс-Лист</a></div>
-        <? } ?>
-        <? if (file_exists("assec/data/prise.xlsx")) {
-        ?><div> <a href="assec/data/prise.xlsx" id="files_prise">Прайс-Лист</a></div><? } ?>
-        <button onclick="fil('files')">Обновить</button>
-        <button onclick="buttons('bu_back')"> Назад</button>
-    </div>
-<?
 }

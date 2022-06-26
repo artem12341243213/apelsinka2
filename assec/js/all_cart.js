@@ -55,7 +55,7 @@ function show_cart() {
 
             let name = items["title"];
             if (name.split('PL').length > 0)
-                name = items["title"].replace("PL", "+")
+                name = items["title"].replaceAll("PL", "+")
             /*  dels = dels / 100;
           let nums2 = nums1 * dels;
           let ost = nums1 -= nums2; */
@@ -70,7 +70,7 @@ function show_cart() {
                 <div class="items_titles_backet"><a href="product&article=${items["article"]}">${name}
                     <div class="items_artiecle_backet"> Артикул: ${items["article"]}</div></a>
                 </div>
-                <div class="items_size_backet">Размер: ${items["size"]}</div> 
+                <div class="items_size_backet">Размер: ${items["size"]}. В Упаковке: ${items["count_f"]} шт.</div> 
                 <div class="items_counts_backet">
                     <div class="items_counts_button_backet">
                         <div class="buttons_backet">
@@ -189,7 +189,7 @@ function remove_cart(id, numberrs) { //удаление из корзины
     }
 }
 
-function add_cart(type = '') { // сам скрипт добавление в корхину
+function add_cart(types = 'roz', img = '') { // сам скрипт добавление в корхину
 
     if (user_after == false) { // выход если пользователь не авторизован. Авторизация в главном файле
         error_mesages("Для добавление товара в корзину нужно авторизоваться", 2, "Корзина");
@@ -203,7 +203,7 @@ function add_cart(type = '') { // сам скрипт добавление в к
     var article = Number($('#article_product').html()); // артикль
     items['article'] = article;
 
-    var titles = String($('#titles').html()).replace("+", "PL"); // название
+    var titles = String($('#titles').html()).replaceAll("+", "PL"); // название
     items['title'] = titles;
 
 
@@ -223,7 +223,7 @@ function add_cart(type = '') { // сам скрипт добавление в к
     items['price_all'] = price * amount_user * items['count_f'];
 
     var size_array = $('.ul_product_size input'); // массив с размерами
-    var img_array = $('.ul_product_img button'); // массив с картинками
+    var img_array = $('.ul_product_img div'); // массив с картинками
 
     var dels = 0; // скидка
     items['dels'] = dels;
@@ -240,74 +240,86 @@ function add_cart(type = '') { // сам скрипт добавление в к
             }
         });
     else {
-
         size = $(size[0]).val();
     }
     items['size'] = size;
+
     if (typeof size == "object") {
         error_mesages("Размер не выбран", 2, "Корзина");
         return;
     }
 
-    var img = Array.from(img_array)
-    img.forEach(item => {
-        var im = $(item)[0].classList.length;
-        if (im > 1) {
-            img = $(item)[0].children[0].dataset.img; // поправил
-            items['img'] = img;
-            return
-        }
-    });
 
-    if (typeof img == "object") {
-        error_mesages("Расцетка не выбрана", 2, "Корзина");
-        return;
+    if (types == 'roz') {
+        if (img != "") {
+            var images = Array.from(img_array)
+            images.forEach(item => {
+                var im = $(item)[0].classList.length;
+                if (im > 1) {
+                    images = $(item)[0].children[0].dataset.img; // поправил
+                    items['img'] = images;
+                    return
+                }
+            });
+
+            if (typeof images == "object") {
+                error_mesages("Расцетка не выбрана", 2, "Корзина");
+                return;
+            }
+        }
+        else
+            items['img'] = img;
     }
-    if (optovik == 1)
+    else {
+        items['img'] = $('.product_content_img_product img')[0].dataset.img;
+    }
+
+    if (types !== 'roz')
         items['Opt'] = 1;
     else
         items['Opt'] = 0;
 
-    // номер товара в корзине
-    // console.log(img)
-    //  console.log(size);
-    //  console.log(cart_array);
     items['id_cartItems'] = 0
     var numbers = 0;
     var block = true;
     var cart_number = 0; // счечик 2 
     for (let i = 0; i < cart_array.length; i++) {
+
         let array = cart_array[i];
         if (array.article == article) {
-            if (array.img == img && array.size == size) {  // работает
+            if (array.img == img && array.size == size) {
                 cart_array[i]["count_s"] += 1;
                 cart_array[i]['price_all'] = price * cart_array[i]["count_s"] * amount;
                 block = false
             }
-            else if (array.img != img || array.size != size) {// работает ураааааааа
+            else if (array.img != items['img'] || array.size != size) {
                 items['id_cartItems'] += 1
                 numbers = i + 1;
+                console.log(numbers)
             }
         }
         else {
             numbers = i + 1;
         }
     }
-    //console.log("n = " + numbers + " / cn = " + cart_array.length);
+
     if (numbers == cart_array.length && block == true) {
         cart_array.push(items);
     }
     let cart = JSON.stringify(cart_array);
 
-    add_carts_ajax(cart);
+
 
     localStorage.setItem('cart', cart);
+    add_carts_ajax(cart);
     error_mesages("Товар добавлен в корзину", 0, "Корзина");
     show_cart();
+    delete (items['img']);
+    delete (items['Opt']);
 }
 
 function cheked_img(id) {
-    var s = $('.ul_product_img button');
+    var s = $('.ul_product_img div');
     s = Array.from(s)
     s.forEach(item => {
         $(item).removeClass('cheked_img');

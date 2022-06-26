@@ -1,5 +1,7 @@
 .panelsRim {
-  margin: 30px 0;
+  margin: 10px 0;
+  display: block;
+  padding: 1px 0;
 }
 .ad_elements_list {
   display: flex;
@@ -27,7 +29,6 @@ button.ad_elements_item:last-child {
 }
 
 .ad_lestions .edit_a_times input[type="text"] {
-  margin-bottom: 24px;
   padding: 5px;
   border: 1px solid gray;
   border-radius: 5px;
@@ -38,6 +39,7 @@ button.ad_elements_item:last-child {
   height: 50px;
   color: black;
   font-size: 17px;
+  margin-bottom: 15px;
 }
 
 span#cleer_ad {
@@ -58,7 +60,7 @@ span#cleer_ad {
 .panelsRim button {
   font-size: 16px;
   color: var(--text-color);
-  margin-bottom: 22px;
+  margin-bottom: 15px;
   width: 330px;
   border: 1px solid var(--bg-color-grey_Whei);
   padding: 10px;
@@ -444,7 +446,7 @@ div.StaleAdminTable {
 }
 .ad_lestions {
   width: 300px;
-  margin: 21px auto;
+  margin: 0 auto;
 }
 .img_box > div#images_box_reder {
   max-width: 1200px;
@@ -452,12 +454,15 @@ div.StaleAdminTable {
 
   min-height: 5px;
   margin: 15px 0;
-display: flex;flex-direction: row;}
+  display: flex;
+  flex-direction: row;
+}
 #images_box_reder > div {
   height: 150px;
   display: inline-block;
   margin-right: 15px;
-  min-width: fit-content;position: relative;
+  min-width: fit-content;
+  position: relative;
   outline: 1px solid gray;
 }
 
@@ -650,4 +655,105 @@ display: flex;flex-direction: row;}
 .lowion > div > a {
   color: blue;
   text-decoration: underline;
+}
+.buttons_menu {
+  margin-top: 25px;
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  background: white;
+  z-index: 5;
+  bottom: 0;
+  width: 100%;
+  align-items: center;
+  padding: 10px 0;
+}
+.user_box_switch {
+  width: 100%;
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: row;
+  border: 1px solid gray;
+  padding: 10px 15px;
+  border-radius: 5px;
+  justify-content: space-between;
+}
+
+.item_box_elemants {
+  margin-bottom: 20px;
+}
+
+.user_box_info {
+  display: flex;
+  flex-direction: column;
+  margin-right: 65px;
+}
+
+.item_box_elemants > .itex_box_elements_infos {
+  margin-bottom: 10px;
+}
+
+.item_box_elemants > .itex_box_elements_data {
+  font-weight: bold;
+}
+.itex_box_elements_data > p {
+  padding: 7px 10px;
+  width: fit-content;
+}
+
+.itex_box_elements_data > p.opt_user_bg {
+  background: rgb(99 183 255);
+  border-radius: 10px;
+}
+
+.itex_box_elements_data > p.roz_user_bg {
+  background: #ffea4a;
+  border-radius: 10px;
+}
+
+.itex_box_elements_data > p.adm_user_bg {
+  background: #ff5f00;
+  border-radius: 10px;
+}
+.userpoisk {
+  margin-bottom: 15px;
+}
+input[list="spisok_items_em"] {
+  width: 200px;
+  padding: 5px;
+  font-size: 16px;
+  margin: 10px auto;
+  border-radius: 3px;
+  border: 1px solid var(--bg-color-grey_Whei);
+  outline: none;
+}
+.userpoisk > div {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: 10px;
+  margin-bottom: 0;
+}
+.userpoisk {
+  position: sticky;
+  top: 0;
+  background: white;
+}
+.boxion_userpoisk {
+  display: flex;
+  align-items: center;
+}
+
+.box_items_userpoisk:nth-child(2) {
+  margin: 0 15px;
+  cursor: default;
+}
+
+div#next-s,
+div#prev-s {
+  cursor: pointer;
+}
+.ad_elements_list>button.ad_elements_item {
+  position: sticky;
+  bottom: 10px;
 }

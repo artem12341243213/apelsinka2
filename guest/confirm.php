@@ -4,7 +4,6 @@ hedeer("Подтверждение действий");
 
 <div class="autorin">
     <div class="global">
-        <pre><?print_r($_SESSION)?></pre>
         <div class="h1 text-g">
             <h1>Подтверждение действий</h1>
         </div>

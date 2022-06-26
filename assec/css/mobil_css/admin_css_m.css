@@ -596,3 +596,97 @@ div#images_box_reder > div {
 .ad_elements_list div:nth-child(4) {
   margin-bottom: 30px;
 }
+
+.buttons_menu {
+  margin-top: 25px;
+  display: flex;
+  flex-direction: column;
+}
+.user_box_switch {
+  width: 100%;
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: row;
+  border: 1px solid gray;
+  padding: 10px 15px;
+  border-radius: 5px;
+  justify-content: space-between;
+}
+
+.item_box_elemants {
+  margin-bottom: 20px;
+}
+
+.user_box_info {
+  display: flex;
+  flex-direction: column;
+  margin-right: 65px;
+}
+
+.item_box_elemants > .itex_box_elements_infos {
+  margin-bottom: 10px;
+}
+
+.item_box_elemants > .itex_box_elements_data {
+  font-weight: bold;
+}
+
+.itex_box_elements_data > p {
+  padding: 7px 10px;
+  width: fit-content;
+}
+
+.itex_box_elements_data > p.opt_user_bg {
+  background: rgb(99 183 255);
+  border-radius: 10px;
+}
+
+.itex_box_elements_data > p.roz_user_bg {
+  background: #ffea4a;
+  border-radius: 10px;
+}
+
+.itex_box_elements_data > p.adm_user_bg {
+  background: #ff5f00;
+  border-radius: 10px;
+}
+.userpoisk {
+  margin-bottom: 15px;
+}
+input[list="spisok_items_em"] {
+  width: 200px;
+  padding: 5px;
+  font-size: 16px;
+  margin: 10px 0;
+  border-radius: 3px;
+  border: 1px solid var(--bg-color-grey_Whei);
+  outline: none;
+}
+.userpoisk > div {
+  padding: 10px 0;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 0;
+  background: white;
+  z-index: 5;
+}
+
+.userpoisk {
+  position: sticky;
+  top: 0;
+  background: white;
+}
+.boxion_userpoisk {
+  display: flex;
+  align-items: center;
+}
+
+.box_items_userpoisk:nth-child(2) {
+  margin: 0 15px;
+}
+
+.ad_elements_list > button.ad_elements_item {
+  position: sticky;
+  bottom: 10px;
+}

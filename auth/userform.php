@@ -210,7 +210,7 @@ if (isset($_POST['orderPrisesCasec_f']) && $_POST['orderPrisesCasec_f'] == 1) {
 
     foreach ($cart as $key => $data) {
         $html .= "<div style='border-bottom:1px solid black;'> 
-        <p> Название: " . $data['title'] . "</p>";
+        <p> Название: " . str_replace("PL", "+", $data['title']) . "</p>";
 
         $html .= "<p> Артикль: <a href='https://apelsinka.tech/product&article="
             . $data['article'] . "'>" . $data['article'] . "</a></p>";
@@ -227,10 +227,10 @@ if (isset($_POST['orderPrisesCasec_f']) && $_POST['orderPrisesCasec_f'] == 1) {
         $count = "";
         $html .= "<p> Колличество: ";
         if ($data['Opt'] != 0) {
-            $html .=  $data['count_f'] * $data['count_s'] . "</p>";
+            $html .=  $data['count_s'] . " упаковки(ок) , по <b>" . $data['count_f'] . "</b>  штук(е) в упаковке</p>";
             $count .=  ($data['count_f'] * $data['count_s']) . "|";
         } else {
-            $html .=   $data['count_s'] . "</p>";
+            $html .=   $data['count_s'] . " упаковки(ок), по <b>1</b> штуке в упаковке</p>";
             $count .= $data['count_s'] . "|";
         }
 
@@ -291,11 +291,12 @@ if (isset($_POST['orderPrisesCasec_f']) && $_POST['orderPrisesCasec_f'] == 1) {
         $_SESSION['adress_orders_b'] = 1;
     else if ($dilivery == "Самовывоз. Точка 2")
         $_SESSION['adress_orders_b'] = 2;
-
+    else
+        $_SESSION['adress_orders_b'] = 3;
     mysqli_query($CONNECT, "UPDATE `cart_users` SET `item` = '[]' WHERE `id_user` = " . $_SESSION['id']);
 
     if ($mail->send()) {
-        message('Заказ', 1, "Заказ принят в обработку. Ожидайте звонок для подтверждение заказа", true, "yesorder");
+        message('Заказ', 1, "Заказ принят в обработку. Ожидайте звонок либо сообщение для подтверждение заказа", true, "yesorder");
     } else {
         return print($mail->ErrorInfo); //false; //'Ошибка: ' . 
     }
@@ -303,9 +304,9 @@ if (isset($_POST['orderPrisesCasec_f']) && $_POST['orderPrisesCasec_f'] == 1) {
 //php_value error_reporting 500
 
 /*
+
 ovit -- для админа уведомлени
 process -- подтверждение
 yesorders -- одобренно
-
 
 */
