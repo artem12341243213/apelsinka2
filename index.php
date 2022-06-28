@@ -47,7 +47,7 @@ $j = file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . 'assec/data/auth_forms.js
 $GLOBALS['kontakts'] = json_decode($j, true);
 
 $j = file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . 'assec/data/textilian.json');
-$GLOBALS['sorters'] = $j;
+$sorters = $j;
 unset($j);
 
 if (isset($_SESSION['id'])) {

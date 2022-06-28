@@ -11,7 +11,7 @@ $sostav_product;
 $textile_product;
 
 
-$tkan = json_decode($GLOBALS['sorters'], true)[0];
+$tkan = json_decode($sorters, true)[0];
 
 
 $disables_product;

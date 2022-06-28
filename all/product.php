@@ -24,7 +24,7 @@ $price_opt_product          =       $product['price_opt'];
 $price_roz_product          =       $product['price_roz'];
 
 
-$miste = json_decode($GLOBALS['sorters'])[0];
+$miste = json_decode($sorters)[0];
 foreach ($miste as $key => $item) {
     if ($key == $product['textile']) {
         $textile_product  = $item;

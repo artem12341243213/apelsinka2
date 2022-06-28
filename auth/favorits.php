@@ -26,7 +26,7 @@ if (isset($_SESSION['favorits']) && $_SESSION['favorits'] != null) {
     }
 } else
     $f = false;
-$tkan = json_decode($GLOBALS['sorters'], true)[0];
+$tkan = json_decode($sorters, true)[0];
 
 
 ?>

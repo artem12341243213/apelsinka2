@@ -28,7 +28,7 @@ if (isset($_SESSION['favorits'])) {
                     <td class="elements_content_textile">
                         <?php
 
-                        $tkan = json_decode($GLOBALS['sorters'], true)[0];
+                        $tkan = json_decode($sorters, true)[0];
                         for ($i = 0; $i < count($tkan); $i++) {
                             if ($textile_product == $i) {
                                 echo $tkan[$i];

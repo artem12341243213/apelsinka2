@@ -290,6 +290,7 @@ span.img_admin_remove::before {
   background: white;
   font-weight: 600;
   box-shadow: 0 2px 0px 1px grey;
+  width: fit-content;
 }
 
 #table_all p {
@@ -341,8 +342,7 @@ div#table_all {
 
 .img_phone img {
   border: 1px solid black;
-  width: 13vw;
-  height: 13vw;
+  width: 14vw;
   margin: 3px;
 }
 .divTableRow.pobrlawd {
@@ -353,12 +353,10 @@ div#table_all {
 
 .img_phone {
   display: flex;
-
-  width: 100%;
-  height: 100%;
+  width: auto;
+  height: auto;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: center;
 }
 
 .wadwadwad.divTableRow.pobrlawd {
@@ -366,10 +364,12 @@ div#table_all {
 
 .wadwadwad > .wiogsoilwnd.divTableCell.no_line.PhoneStyle {
   width: fit-content;
-
   max-height: 72.4vw;
+  min-height: 15vw;
   height: fit-content;
-  min-height: 62vw; /* margin-left: 1px; */
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 /* Кнопки взаимодействия */
 
@@ -420,6 +420,9 @@ div#table_all {
 /* Конец блока -> Таблица товаров*/
 
 .divTableBody > .divTableRow {
+  margin-bottom: 7vw;
+  border-bottom: 1px solid gray;
+  padding-bottom: 1vw;
 }
 div#images_box_reder {
   max-width: 95vw;
@@ -586,11 +589,11 @@ div#images_box_reder > div {
   border-radius: 5px;
 }
 
-.ad_elements_list div {
+.ad_elements_list > div {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 300px;
+  width: 85vw;
   margin-bottom: 5px;
 }
 .ad_elements_list div:nth-child(4) {
