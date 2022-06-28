@@ -80,7 +80,7 @@
                 $elements_sorters = $item[10];
                 $price_opt = $item[11];
                 $price_roz = $item[12];
- ?>
+            ?>
                 <div class="divTableRow" id="Is_Id_<? echo $article ?>">
                     <div class="divTableCell imagesMas">
                         <div class="divTableRow wadwadwad pobrlawd">
@@ -94,7 +94,8 @@
                                     $array_count_img = count($images);
 
                                     for ($e = 0; $e < $array_count_img; $e++) { ?>
-                                        <img src="assec/images/product/<? echo $images[$e] ?>">
+                                        <img loading="lazy" src="assec/images/product/<? echo $images[$e] ?>">
+                                        
                                     <? } ?>
                                 </div>
                             </div>
