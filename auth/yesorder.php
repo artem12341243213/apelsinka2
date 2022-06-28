@@ -46,18 +46,24 @@ hedeer('Спасибо за заказ')
             <div>
                 <p>Ваш заказ сформирован и передан на склад. После уточнения наличия товара Вам будет выслан предварительный
                     счёт на почту. Для подтверждения заказа или его корректировки с Вами свяжется наш менеджер.</p>
-                <p>Ваш номер заказа <b><? print($_SESSION['code_orders']) ?></b>.
-                    Не забудьте его предьявить, для получения заказа по адрессу
-                    <?
-                    if ($_SESSION['adress_orders_b'] == 1) { ?>
-                        <a href="https://goo.gl/maps/rcMMHrjZQBbyM3Ly5"> Рынок "Восточны" Бокс 99 </a>
-                    <? } else if ($_SESSION['adress_orders_b'] == 2) { ?>
-                        <a href="https://goo.gl/maps/rcMMHrjZQBbyM3Ly5"> Рынок "Восточны" (Оранжевая ярморка) Бокс 402 </a>
-                    <? }
-                    unset($_SESSION['adress_orders_b']);
-                    unset($_SESSION['code_orders']);
-                    ?>
-                </p>
+                <? if ($_SESSION['adress_orders_b'] != 3) { ?>
+                    <p>Ваш номер заказа <b><? print($_SESSION['code_orders']) ?></b>.
+                        Не забудьте его предьявить, для получения заказа по адрессу
+                        <?
+                        if ($_SESSION['adress_orders_b'] == 1) { ?>
+                            <a href="https://goo.gl/maps/rcMMHrjZQBbyM3Ly5"> Рынок "Восточны" Бокс 99 </a>
+                        <? } else if ($_SESSION['adress_orders_b'] == 2) { ?>
+                            <a href="https://goo.gl/maps/rcMMHrjZQBbyM3Ly5"> Рынок "Восточны" (Оранжевая ярморка) Бокс 402 </a>
+                        <? }
+                        unset($_SESSION['adress_orders_b']);
+                        unset($_SESSION['code_orders']);
+
+                        ?>
+                    </p>
+                <? } else { ?>
+                    <p>После доставки товара в пункт отправки выбранной компании, вам на почту придет сообщение с
+                        подтверждением и трек-номером, для отслеживание посылки</p>
+                <? } ?>
             </div>
 
             <div>

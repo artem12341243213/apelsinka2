@@ -50,7 +50,11 @@ $j = file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . 'assec/data/textilian.jso
 $GLOBALS['sorters'] = $j;
 unset($j);
 
-
+if (isset($_SESSION['id'])) {
+    if (!isset($_SESSION['favorits'])) {
+        $_SESSION['favorits'] = [];
+    }
+}
 /* #Регистрация страницы */
 $page_list = [
     'product', 'profil', "table_r", 'delit_user_mail', "help", "yesorder", "mi_s", "polzowSogls", "politconf", "payment", "delivery", "heplorder",
@@ -322,10 +326,17 @@ function hedeer($title, $css = [], $href = "")
             window.user_after = <? if (isset($_SESSION['id'])) echo 'true';
                                 else echo 'false' ?>;
 
-            <? if (isset($_SESSION['type']) && $_SESSION['type'] == 1) { ?>
-                window.optovik = 1;
-                <? } else { ?>window.optovik = 0;
-            <? } ?>
+            <? if (isset($_SESSION['type'])) {
+
+                if ($_SESSION['type'] == 0) { ?>
+                    window.optovik = 0;
+                <? } else if ($_SESSION['type'] == 1) { ?>
+                    window.optovik = 1;
+                <?
+                } else if ($_SESSION['type'] == 2) { ?>
+                    window.optovik = 2;
+            <? }
+            } ?>
 
             <? unset($f) ?>
         </script>

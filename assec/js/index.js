@@ -661,8 +661,18 @@ function list_open(id, type = "") {
 
 }
 $(".li_product_img").on("mouseenter", (e) => {
+  console.log(e.target.id)
+  let m = e.target.id;
+  if (m.indexOf('sce', 4) != -1) {
 
-  e.target.classList.add("scale_items")
+    $(".li_product_img#" + m).addClass("scale_items")
+  }
+  else {
+    m = m.replace("_", '_sce_')
+    $(".li_product_img#" + m).addClass("scale_items")
+  }
+
+
 });
 
 $(".li_product_img").on("mouseleave", (e) => {
@@ -1055,6 +1065,11 @@ function comments_opens(id) {
 /* -------------------------- Начало блока "Уголок авторизованного пользователя #auth"  ---------------------------- */
 function addFavoritesUser(id) {
   if (typeof id == "number" && /[0-9]{4,10}/.test(id) && user_after == true) {
+    let m = `<div class="box_items not_faf">
+    <div class="nons_faforites_box">
+        <p>Сохранненых товаров нет. Для сохранинея товара, нажмите на сердечко в карточке товара.</p>
+    </div>
+</div> `
     $.ajax({
       type: "POST",
       url: "userform",
@@ -1074,6 +1089,9 @@ function addFavoritesUser(id) {
             u.val("Сохранено")
           }
           $("#id_product_i" + id + " span").addClass("add_favor")
+          if ($(".spisok__items_block"))
+            $("#ls_" + id).addClass("add_favor")
+
         }
         else if (obj.items == "no") {
           if (o) {
@@ -1086,13 +1104,23 @@ function addFavoritesUser(id) {
           }
 
           $("#id_product_i" + id + " span").removeClass("add_favor")
+          if ($(".spisok__items_block"))
+            $("#ls_" + id).removeClass("add_favor")
+
           if ($("#box_item_id" + id)) {
             $("#box_item_id" + id).remove()
+            if ($(".elements.not_faf_r")[0].children.length == 0) {
+              $(".elements.not_faf_r").html(m)
+            }
           }
         }
         error_mesages(obj.titel, obj.tip, obj.headers)
       }
     });
+
+
+
+
   }
   else if (user_after == false && typeof id == "number" && /[0-9]{4,10}/.test(id)) {
     error_mesages("Для добавление товара в избранное требуется авторизация", 2, "Избранное");

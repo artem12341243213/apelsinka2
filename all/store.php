@@ -1,9 +1,5 @@
 <?
-
-use function PHPSTORM_META\type;
-
 hedeer("Категории");
-include_once('assec/php/conectio.php');
 
 if ((isset($_GET['lis']) && $_GET['lis'] != null) && (isset($_GET['gategories']) && $_GET['gategories'] != null)) {
     $date = code($_GET['lis']);
@@ -11,7 +7,7 @@ if ((isset($_GET['lis']) && $_GET['lis'] != null) && (isset($_GET['gategories'])
     if (is_numeric($date) && $date <= 2 && $date >= 0 && is_numeric($categors)) {
         $sql = "SELECT * FROM `product` WHERE `podcategories` =  $categors and `elements_sorters` = $date";
         $sqlf = "SELECT * FROM `categories` WHERE `id` = $categors";
-        $result =   mysqli_query($CONNECT,$sqlf);
+        $result =   mysqli_query($CONNECT, $sqlf);
         $categoriy_store = mysqli_fetch_array($result)['name'];
     } else if (is_numeric($date) && $date <= 2 && $date >= 0 && $categors == 'all') {
 
@@ -34,7 +30,7 @@ if ((isset($_GET['lis']) && $_GET['lis'] != null) && (isset($_GET['gategories'])
         }
 
         $sql = " SELECT * FROM `product` WHERE `pol` = '$s'";
-        $result =   mysqli_query($CONNECT,$sql);
+        $result =   mysqli_query($CONNECT, $sql);
     } else not_found();
 } else if (isset($_POST['search']) && $_POST['search'] != null) {
     $date = code($_POST['search']);
@@ -97,7 +93,7 @@ if ((isset($_GET['lis']) && $_GET['lis'] != null) && (isset($_GET['gategories'])
         $sql = "SELECT * FROM `product` where `elements_sorters` = $element_sorters ";
 }
 
-$result =   mysqli_query($CONNECT,$sql);
+$result =   mysqli_query($CONNECT, $sql);
 if (($result !== false && $result->num_rows > 0)) {
 
     $disables   = 0;
@@ -184,7 +180,7 @@ if (($result !== false && $result->num_rows > 0)) {
 
                                 if ($disabled_product != 1) {
 
-                                   
+
                                     $textile_product           = $items[8];
                                     $article_product           = $items[0];
                                     $titles_product            = $items[1];

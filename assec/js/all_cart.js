@@ -189,8 +189,10 @@ function remove_cart(id, numberrs) { //удаление из корзины
     }
 }
 
-function add_cart(types = 'roz', img = '') { // сам скрипт добавление в корхину
+function add_cart(img = '') { // сам скрипт добавление в корхину
 
+    if (optovik == 0) types = 'roz';
+    else if (optovik == 1) types = 'opt';
     if (user_after == false) { // выход если пользователь не авторизован. Авторизация в главном файле
         error_mesages("Для добавление товара в корзину нужно авторизоваться", 2, "Корзина");
         return;
@@ -314,8 +316,6 @@ function add_cart(types = 'roz', img = '') { // сам скрипт добавл
     add_carts_ajax(cart);
     error_mesages("Товар добавлен в корзину", 0, "Корзина");
     show_cart();
-    delete (items['img']);
-    delete (items['Opt']);
 }
 
 function cheked_img(id) {
@@ -391,7 +391,7 @@ $(document).ready(function () {
 });
 
 
-/*  /*  if (cart_array[i + 1] === undefined) soeoe = false
+/*   if (cart_array[i + 1] === undefined) soeoe = false
              if ((array["size"] != size || array["img"] != img) && array.article == article && soeoe == false) {
                  cart_number += 1;
              } 

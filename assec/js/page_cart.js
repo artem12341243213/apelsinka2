@@ -138,10 +138,7 @@ function button_backet_down_li(key, id) {
     button_backet_down(key, id)
 }
 
-/* chek_mail_cart
- */
-/* yes_chek
-non_chek   для спан  */
+
 
 
 function valids_mail_page() {

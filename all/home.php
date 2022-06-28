@@ -1,10 +1,10 @@
 <?
 hedeer("Главная", ['chief-slider']);
 ?>
+<? if ($t = false) { ?>
+    <!--  Cлайдер блок -->
 
-<!--  Cлайдер блок -->
-
-<!-- <div class="slider-block">
+    <!-- <div class="slider-block">
     <div class="global">
         <div class="slider-modul">
             <div class="slider">
@@ -23,8 +23,7 @@ hedeer("Главная", ['chief-slider']);
     </div>
 </div> -->
 
-<!--  Доп меню -->
-
+    <!--  Доп меню --> <? } ?>
 <div class="dopNawmenu">
     <div class="global">
         <div class="contents">

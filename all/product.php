@@ -1,11 +1,9 @@
 <?
-include_once('assec/php/conectio.php');
-
 $article        =   $_GET['article'];
 
 if (!preg_match('/^[0-9]{6,10}$/', $article)) not_found();
 
-$sql            =   "SELECT * FROM `$dbname`.`product` where `articl` = $article ";
+$sql            =   "SELECT * FROM `product` where `articl` = $article ";
 $product        =   mysqli_query($CONNECT, $sql);
 $product        =   mysqli_fetch_assoc($product);
 
@@ -109,8 +107,7 @@ $arrays_img = explode('|', $img_product);
                         <? } else { ?>
                             <input type="button" id="button_product_favorites_p" value="Сохранить" onclick="addFavoritesUser(<? echo $article ?>)" class="">
                         <? } ?>
-                        <input type="button" value="Добавить в корзину" onclick="add_cart(
-                            <? if ($type == 'opt') echo ("'opt'"); ?>)">
+                        <input type="button" value="Добавить в корзину" onclick="add_cart()">
 
                     </div>
                 </div>
@@ -153,9 +150,12 @@ $arrays_img = explode('|', $img_product);
             <div class="product_img_box">
                 <div class="ul_product_img">
                     <? foreach ($arrays_img as $key => $img) { ?>
-                        <div class="li_product_img">
-                            <div onclick="cheked_img('img_<? echo $key ?>')" id="img_<? echo $key ?>"><img src="assec/images/product/1x1.jpg" data-src="assec/images/product/<? echo $img ?>" data-img="<? echo $img ?>"></div>
-                            <button class="mobil_element" onclick="add_cart('<? print($type) ?>','<? echo $img ?>')" id="cart_svg">
+                        <div class="li_product_img" id="img_sce_<? echo $key ?>">
+                            <!-- style="background:url('assec/images/product/<? echo $img ?>')" -->
+                            <div onclick="cheked_img('img_<? echo $key ?>')" id="img_<? echo $key ?>">
+                                <img src="assec/images/product/1x1.jpg" data-src="assec/images/product/<? echo $img ?>" data-img="<? echo $img ?>">
+                            </div>
+                            <button class="mobil_element" onclick="add_cart('<? echo $img ?>')" id="cart_svg">
 
                             </button>
                         </div>

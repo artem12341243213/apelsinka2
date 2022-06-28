@@ -81,7 +81,7 @@ if (isset($_POST['addFav_f']) && $_POST['addFav_f'] == 1) {
     $article_ = code($_POST['articl']);
     $id_users = $_SESSION['id'];
 
-    $los = mysqli_query($CONNECT, "SELECT * From `favoritesu`WHERE `id_user` = $id_users and `product` = $article_");
+    $los = mysqli_query($CONNECT, "SELECT * From `favoritesu` WHERE `id_user` = $id_users and `product` = $article_");
     if (($los->num_rows) == 1) {
         $sql =  "DELETE FROM `favoritesu` WHERE `id_user` = $id_users and `product` = $article_";
 
@@ -100,20 +100,21 @@ if (isset($_POST['addFav_f']) && $_POST['addFav_f'] == 1) {
         $sql = "INSERT INTO `favoritesu` (`id_user`, `product`) VALUES ( $id_users , $article_)";
 
         if (mysqli_query($CONNECT, $sql)) {
-
-            if (isset($_SESSION['favorits'])) {
-                if (array_search($article_, $_SESSION['favorits']))
-                    array_push($_SESSION['favorits'], $article_);
-            } else {
-                $mi = [];
+            $mi = $_SESSION['favorits'];
+            if (array_search($article_, $mi) == false) {
                 array_push($mi, $article_);
                 $_SESSION['favorits'] = $mi;
             }
+
             print_r('{ "titel":"Товар успешно добавлен в избранное, посмотреть избранные товары можно в личном кабинете",
             "tip": 1,
             "headers"   : "Избранное",
-            "items" : "yes"
-        }');
+            "items" : "yes"}');
+        } else {
+            print_r('{ "titel":"Возникала ошибка. Попробуйте позже",
+                "tip": 2,
+                "headers"   : "Избранное",
+                "items" : "no"}');
         }
     } else message("Избранное", 2,  "Упс ... Что-то пошло не так, пожалуйста повторите попытку позже");
 }
@@ -191,6 +192,7 @@ if (isset($_POST['orderPrisesCasec_f']) && $_POST['orderPrisesCasec_f'] == 1) {
     $size = "";
     $prise = "";
     $prise = 0;
+    $count = "";
     // <img src="cid:0.jpg" width="128" height="128">
     $emailX = "toropchin_a@bk.ru"; //"orders@apelsinka.tech"; // почта получателя
     $mail = new mail();
@@ -224,7 +226,7 @@ if (isset($_POST['orderPrisesCasec_f']) && $_POST['orderPrisesCasec_f'] == 1) {
         $html .= "<p> Размер: " . $data['size'] . "</p>";
         $size .=  $data['size'] . "|";
 
-        $count = "";
+
         $html .= "<p> Колличество: ";
         if ($data['Opt'] != 0) {
             $html .=  $data['count_s'] . " упаковки(ок) , по <b>" . $data['count_f'] . "</b>  штук(е) в упаковке</p>";
@@ -239,9 +241,7 @@ if (isset($_POST['orderPrisesCasec_f']) && $_POST['orderPrisesCasec_f'] == 1) {
         $prise += $data['price_all'];
         $html .=  "</div>";
     }
-    $listXXX = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    $listYYYY = '123456789';
-    $code_orders = substr(str_shuffle($listXXX), 0, 2) . ":" . substr(str_shuffle($listYYYY), 0, 4);
+
 
     $FIO  = code($_POST['FIO']);
     $obl = code($_POST['obl']);
@@ -254,6 +254,19 @@ if (isset($_POST['orderPrisesCasec_f']) && $_POST['orderPrisesCasec_f'] == 1) {
     $dilivery = code($_POST['dilivery']);
     $home_s  = code($_POST['home_s']);
     $index = code($_POST['index']);
+
+    $listXXX = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $listYYYY = '123456789';
+
+    if ($dilivery == "Самовывоз. Точка 1") {
+        $_SESSION['adress_orders_b'] = 1;
+        $code_orders = substr(str_shuffle($listXXX), 0, 2) . ":" . substr(str_shuffle($listYYYY), 0, 4);
+    } else if ($dilivery == "Самовывоз. Точка 2") {
+        $_SESSION['adress_orders_b'] = 2;
+        $code_orders = substr(str_shuffle($listXXX), 0, 2) . ":" . substr(str_shuffle($listYYYY), 0, 4);
+    } else
+        $_SESSION['adress_orders_b'] = 3;
+    $code_orders = "";
 
     $html .= "<div style = 'text-align: start;margin: 1rem; margin-left: 2rem;'> Полная стоймость <b> $prise </b></div>";
     $html .= "<h2>Пользователь</h2>";
@@ -287,12 +300,7 @@ if (isset($_POST['orderPrisesCasec_f']) && $_POST['orderPrisesCasec_f'] == 1) {
     $_SESSION['code_orders'] = $code_orders;
 
 
-    if ($dilivery == "Самовывоз. Точка 1")
-        $_SESSION['adress_orders_b'] = 1;
-    else if ($dilivery == "Самовывоз. Точка 2")
-        $_SESSION['adress_orders_b'] = 2;
-    else
-        $_SESSION['adress_orders_b'] = 3;
+
     mysqli_query($CONNECT, "UPDATE `cart_users` SET `item` = '[]' WHERE `id_user` = " . $_SESSION['id']);
 
     if ($mail->send()) {
