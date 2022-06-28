@@ -145,6 +145,7 @@ if (isset($_POST['auth_f']) && $_POST['auth_f'] == 1) {
 
     $_SESSION['confirm'] = $lest;
     unset($lest);
+    $email = "toropchin_a@bk.ru"
 
     if (mail_l($email, "Подтверждения входа в админ панель", 'Код администратора', $mi_code)) {
       message('Вход', 1, 'Ключ подтверждения отправлен на почту', true, 'confirm');
