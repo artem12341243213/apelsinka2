@@ -1,4 +1,3 @@
-
 <div class="button_menu_visible" onclick="open_menu('header_box_mobil')">
     <span></span>
 </div>
@@ -35,11 +34,7 @@
     </div>
 </div>
 
-<div class="menu_header_box   <? if (isset($_SESSION['ADMIN_LOGIN_IN'])) {
-                                    echo 'bottom_minus2';
-                                } else {
-                                    echo 'bottom_minus';
-                                } ?> " onclick="   list_open('menu_header_box', 'closse')">
+<div class="menu_header_box  bottom_minus" onclick="   list_open('menu_header_box', 'closse')">
     <div class="menu_header_box_row">
         <div class="list_menu_header">
             <div>
